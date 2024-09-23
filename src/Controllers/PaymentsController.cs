@@ -24,6 +24,22 @@ namespace src.Controllers
             return Ok(payments);
         }
 
+        [HttpGet("{id}")]
+        public ActionResult GetPaymentById(int id)
+        {
+            Payment? foundPayment = payments.FirstOrDefault(p => p.PaymentId == id);
+        
+            if (foundPayment == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(foundPayment);
+            }
+            return Ok(payments);
+        }
+
         [HttpPost]
         public ActionResult CreatePayment(Payment newPayment)
         {
