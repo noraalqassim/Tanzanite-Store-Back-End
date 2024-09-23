@@ -60,5 +60,20 @@ namespace src.Controllers
 
             return Ok(updatedPayment);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeletePayment(int id)
+        {
+            var foundAddress = payments.FirstOrDefault(p => p.PaymentId == id);
+
+            if (foundAddress == null)
+            {
+                return NotFound();
+            }
+
+            payments.Remove(foundAddress);
+
+            return Ok();
+        }
     }
 }
