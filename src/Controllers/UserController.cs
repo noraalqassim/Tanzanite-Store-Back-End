@@ -140,7 +140,7 @@ namespace src.Controllers
 
             users.Remove(userToDelete);
 
-            return Ok($"User with ID {id} deleted successfully");
+            return Ok($"User deleted successfully");
         }
     }
 }
