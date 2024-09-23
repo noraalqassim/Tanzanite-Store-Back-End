@@ -17,6 +17,13 @@ namespace src.Controllers
         };
 
         // endpoint: http://localhost:5125/api/v1/payments
+
+        [HttpGet]
+        public ActionResult GetPayments()
+        {
+            return Ok(payments);
+        }
+
         [HttpPost]
         public ActionResult CreatePayment(Payment newPayment)
         {
