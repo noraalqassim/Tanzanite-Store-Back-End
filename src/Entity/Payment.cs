@@ -1,4 +1,4 @@
-namespace GemstoneStore
+namespace src.Entity
 {
     public class Payment
     {
