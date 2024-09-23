@@ -33,10 +33,6 @@ namespace src.Controllers
             {
                 return NotFound();
             }
-            else
-            {
-                return Ok(foundPayment);
-            }
             return Ok(payments);
         }
 
