@@ -46,5 +46,23 @@ namespace src.Controllers
             payments.Add(newPayment);
             return CreatedAtAction(nameof(GetPayments), new { id = newPayment.PaymentId }, newPayment); 
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdatePayment(int id, Payment paymentInfo)
+        {
+            var updatedPayment = payments.FirstOrDefault(p => p.PaymentId == id);
+
+            if (updatedPayment == null)
+            {
+                return NotFound();
+            }
+
+            updatedPayment.PaymentId = paymentInfo.PaymentId;
+            updatedPayment.PaymentDate = paymentInfo.PaymentDate;
+            updatedPayment.Amount = paymentInfo.Amount;
+            updatedPayment.PaymentOption = paymentInfo.PaymentOption;
+
+            return Ok(updatedPayment);
+        }
     }
 }
