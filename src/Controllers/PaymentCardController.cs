@@ -67,5 +67,26 @@ namespace src.Controllers
             cards.Add(newPaymentCard);
             return CreatedAtAction(nameof(GetCards), new { id = newPaymentCard.Id }, newPaymentCard);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateCard(int id, PaymentCard paymentCardInfo)
+        {
+            var updatedPaymentCard = cards.FirstOrDefault(c => c.Id == id);
+
+            if (updatedPaymentCard == null)
+            {
+                return NotFound();
+            }
+
+            updatedPaymentCard.Id = paymentCardInfo.Id;
+            updatedPaymentCard.ExpiryDate = paymentCardInfo.ExpiryDate;
+            updatedPaymentCard.Balance = paymentCardInfo.Balance;
+            updatedPaymentCard.CardNumber = paymentCardInfo.CardNumber;
+            updatedPaymentCard.CardHolderName = paymentCardInfo.CardHolderName;
+            updatedPaymentCard.CardType = paymentCardInfo.CardType;
+            updatedPaymentCard.BillingAddress = paymentCardInfo.BillingAddress;
+
+            return Ok(updatedPaymentCard);
+        }
     }
 }
