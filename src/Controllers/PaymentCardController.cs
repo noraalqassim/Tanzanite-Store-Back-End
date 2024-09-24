@@ -53,12 +53,19 @@ namespace src.Controllers
         public ActionResult GetCardById(int id)
         {
             PaymentCard? foundCard = cards.FirstOrDefault(c => c.Id == id);
-        
+
             if (foundCard == null)
             {
                 return NotFound();
             }
             return Ok(foundCard);
+        }
+
+        [HttpPost]
+        public ActionResult CreateCard(PaymentCard newPaymentCard)
+        {
+            cards.Add(newPaymentCard);
+            return CreatedAtAction(nameof(GetCards), new { id = newPaymentCard.Id }, newPaymentCard);
         }
     }
 }
