@@ -43,10 +43,22 @@ namespace src.Controllers
             }
         };
 
-         [HttpGet]
-        public ActionResult GetPayments()
+        [HttpGet]
+        public ActionResult GetCards()
         {
             return Ok(cards);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetCardById(int id)
+        {
+            PaymentCard? foundCard = cards.FirstOrDefault(c => c.Id == id);
+        
+            if (foundCard == null)
+            {
+                return NotFound();
+            }
+            return Ok(foundCard);
         }
     }
 }
