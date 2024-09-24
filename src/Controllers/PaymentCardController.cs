@@ -43,5 +43,10 @@ namespace src.Controllers
             }
         };
 
+         [HttpGet]
+        public ActionResult GetPayments()
+        {
+            return Ok(cards);
+        }
     }
 }
