@@ -88,5 +88,20 @@ namespace src.Controllers
 
             return Ok(updatedPaymentCard);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCard(int id)
+        {
+            var foundCard = cards.FirstOrDefault(c => c.Id == id);
+
+            if (foundCard == null)
+            {
+                return NotFound();
+            }
+
+            cards.Remove(foundCard);
+
+            return Ok();
+        }
     }
 }
