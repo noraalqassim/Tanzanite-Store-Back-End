@@ -84,7 +84,7 @@ namespace src.Controllers
             return Ok(user);
         }
 
-        [HttpPost("SignUp")]
+        [HttpPost("Signup")]
         public ActionResult SignUpUser(Users newUser)
         {
             var existingUser = users.FirstOrDefault(u =>
@@ -112,7 +112,7 @@ namespace src.Controllers
             return CreatedAtAction(nameof(GetUserByName), new { id = newUser.UserId }, newUser);
         }
 
-        [HttpPost("LogIn")]
+        [HttpPost("Login")]
         public ActionResult LogInUser(Users user)
         {
             Users foundUser = users.FirstOrDefault(u => u.Email == user.Email);
@@ -126,12 +126,12 @@ namespace src.Controllers
                 foundUser.Password,
                 foundUser.Salt
             );
-            
+
             if (!isMatch)
             {
                 return Unauthorized();
             }
-            return Ok("Welcome back !"+foundUser);
+            return Ok("Welcome back !" + foundUser);
         }
 
         [HttpPut("{id}")]
