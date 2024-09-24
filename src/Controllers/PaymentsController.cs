@@ -64,14 +64,14 @@ namespace src.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeletePayment(int id)
         {
-            var foundAddress = payments.FirstOrDefault(p => p.PaymentId == id);
+            var foundPayment = payments.FirstOrDefault(p => p.PaymentId == id);
 
-            if (foundAddress == null)
+            if (foundPayment == null)
             {
                 return NotFound();
             }
 
-            payments.Remove(foundAddress);
+            payments.Remove(foundPayment);
 
             return Ok();
         }
