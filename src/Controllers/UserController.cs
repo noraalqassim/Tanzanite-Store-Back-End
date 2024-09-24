@@ -126,7 +126,7 @@ namespace src.Controllers
                 foundUser.Password,
                 foundUser.Salt
             );
-
+            
             if (!isMatch)
             {
                 return Unauthorized();
