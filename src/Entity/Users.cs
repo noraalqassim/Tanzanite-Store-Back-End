@@ -12,7 +12,8 @@ namespace src.Entity
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool IsCustomer { get; set; }
-        public bool IsSeller { get; set; }
+        public List<Address> Address { get; set; }
+        public byte[]? Salt { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
