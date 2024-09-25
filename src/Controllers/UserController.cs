@@ -21,7 +21,6 @@ namespace src.Controllers
         {
             new Users
             {
-                UserId = 1,
                 Name = "Retaj",
                 PhoneNumber = "+966222222222",
                 Email = "Retaj@example.com",
@@ -29,7 +28,6 @@ namespace src.Controllers
             },
             new Users
             {
-                UserId = 2,
                 Name = "Nora",
                 PhoneNumber = "+966111111111",
                 Email = "Nora@example.com",
@@ -37,7 +35,6 @@ namespace src.Controllers
             },
             new Users
             {
-                UserId = 3,
                 Name = "Ethra",
                 PhoneNumber = "+966333333333",
                 Email = "Ethra@example.com",
@@ -45,7 +42,6 @@ namespace src.Controllers
             },
             new Users
             {
-                UserId = 4,
                 Name = "Weed",
                 PhoneNumber = "+9664444444444",
                 Email = "Weed@example.com",
@@ -53,7 +49,6 @@ namespace src.Controllers
             },
             new Users
             {
-                UserId = 5,
                 Name = "Rahaf",
                 PhoneNumber = "+966555555555",
                 Email = "Rahaf@example.com",
@@ -72,10 +67,10 @@ namespace src.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult GetUserByName(int id)
+        [HttpGet("{name}")]
+        public ActionResult GetUserByName(String name)
         {
-            var user = users.FirstOrDefault(i => i.UserId == id);
+            var user = users.FirstOrDefault(i => i.Name == name);
             if (users == null || users.Count == 0)
             {
                 return NotFound("there is no user in this name");
@@ -133,38 +128,39 @@ namespace src.Controllers
             }
             return Ok("Welcome back !" + foundUser);
         }
-
-        [HttpPut("{id}")]
-        public ActionResult UpdateUser(int id, Users updatedUser)
-        {
-            Users existingUser = users.FirstOrDefault(i => i.UserId == id);
-
-            if (existingUser == null)
-            {
-                return NotFound("User not found");
-            }
-
-            existingUser.Name = updatedUser.Name;
-            existingUser.PhoneNumber = updatedUser.PhoneNumber;
-            existingUser.Email = updatedUser.Email;
-            existingUser.Password = updatedUser.Password;
-
-            return Ok($"User information updated: {existingUser}");
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult DeleteUser(int id)
-        {
-            var userToDelete = users.FirstOrDefault(u => u.UserId == id);
-
-            if (userToDelete == null)
-            {
-                return NotFound("User not found");
-            }
-
-            users.Remove(userToDelete);
-
-            return Ok($"User deleted successfully");
-        }
+        /*
+                [HttpPut("{id}")]
+                public ActionResult UpdateUser(int id, Users updatedUser)
+                {
+                    Users existingUser = users.FirstOrDefault(i => i.UserId == id);
+        
+                    if (existingUser == null)
+                    {
+                        return NotFound("User not found");
+                    }
+        
+                    existingUser.Name = updatedUser.Name;
+                    existingUser.PhoneNumber = updatedUser.PhoneNumber;
+                    existingUser.Email = updatedUser.Email;
+                    existingUser.Password = updatedUser.Password;
+        
+                    return Ok($"User information updated: {existingUser}");
+                }
+        
+                [HttpDelete("{id}")]
+                public ActionResult DeleteUser(int id)
+                {
+                    var userToDelete = users.FirstOrDefault(u => u.UserId == id);
+        
+                    if (userToDelete == null)
+                    {
+                        return NotFound("User not found");
+                    }
+        
+                    users.Remove(userToDelete);
+        
+                    return Ok($"User deleted successfully");
+                }
+                */
     }
 }

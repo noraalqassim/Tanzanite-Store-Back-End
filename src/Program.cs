@@ -1,7 +1,19 @@
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using src.Database;
 using src.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(
+    builder.Configuration.GetConnectionString("Local")
+);
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseNpgsql(dataSourceBuilder.Build());
+});
 
 builder.Services.AddControllers();
 

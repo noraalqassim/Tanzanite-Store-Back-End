@@ -31,24 +31,25 @@ namespace src.Controllers
             return Ok(newAddress);
         }
 
-        [HttpPut("{addressId}")]
-        public ActionResult UpdateAddress(int addressId, Address updatedAddress)
-        {
-            var addressToUpdate = _addresses.FirstOrDefault(a => a.AddressId == addressId);
-
-            if (addressToUpdate == null)
-            {
-                return NotFound("Address not found");
-            }
-
-            addressToUpdate.Street = updatedAddress.Street;
-            addressToUpdate.City = updatedAddress.City;
-            addressToUpdate.County = updatedAddress.County;
-            addressToUpdate.ZipCode = updatedAddress.ZipCode;
-
-            return Ok(addressToUpdate);
-        }
-
+        /*
+                [HttpPut("{addressZipCode}")]
+                public ActionResult UpdateAddress(int addressId, Address updatedAddress)
+                {
+                    var addressToUpdate = _addresses.FirstOrDefault(a => a.ZipCode == addressZipCode);
+        
+                    if (addressToUpdate == null)
+                    {
+                        return NotFound("Address not found");
+                    }
+        
+                    addressToUpdate.Street = updatedAddress.Street;
+                    addressToUpdate.City = updatedAddress.City;
+                    addressToUpdate.County = updatedAddress.County;
+                    addressToUpdate.ZipCode = updatedAddress.ZipCode;
+        
+                    return Ok(addressToUpdate);
+                }
+       
         [HttpDelete("{addressId}")]
         public ActionResult DeleteAddress(int addressId)
         {
@@ -63,5 +64,6 @@ namespace src.Controllers
 
             return Ok("Address deleted successfully");
         }
+        */
     }
 }
