@@ -17,7 +17,7 @@ namespace src.Controllers
         /// make lis info.
         /// get, post, put and delete method for user without consider is(seller, customer).
         /// </summary>
-        public static List<Users> users = new List<Users>
+        /* public static List<Users> users = new List<Users>
         {
             new Users
             {
@@ -128,7 +128,7 @@ namespace src.Controllers
             }
             return Ok("Welcome back !" + foundUser);
         }
-        /*
+       
                 [HttpPut("{id}")]
                 public ActionResult UpdateUser(int id, Users updatedUser)
                 {
