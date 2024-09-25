@@ -2,14 +2,14 @@ namespace src.Entity
 {
     public class Gemstones
     {
-        public int Gemstone_id { get; set; }
-        public string Gemstone_type { get; set; }
-        public string Gemstone_color { get; set; }
-        public string Gemstone_image { get; set; }
-        public string Gemstone_clarity { get; set; }
-        public string Gemstone_description { get; set; }
-        public int Carving_id { get; set; }
-        public int Category_id { get; set; }
-        public int User_id { get; set; }
+        public Guid GemstoneId { get; set; }
+        public string GemstoneType { get; set; }
+        public string GemstoneColor { get; set; }
+        public string GemstoneImage { get; set; }
+        public string GemstoneClarity { get; set; }
+        public string GemstoneDescription { get; set; }
+        public int CarvingId { get; set; }
+        public int CategoryId { get; set; }
+        public int UserId { get; set; }
     }
 }

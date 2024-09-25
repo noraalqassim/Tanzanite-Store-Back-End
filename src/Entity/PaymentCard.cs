@@ -2,7 +2,7 @@ namespace src.Entity
 {
     public class PaymentCard
     {
-        public int PaymentCard_id { get; set; }
+        public Guid PaymentCardId { get; set; }
         public DateTime ExpiryDate { get; set; }
         public float Balance { get; set; }
         public string CardHolderName { get; set; }

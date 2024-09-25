@@ -7,14 +7,14 @@ namespace src.Entity
 {
     public class Jewelry
     {
-        public int Jewelry_id { get; set; }
-        public string Jewelry_name { get; set; }
-        public string Jewelry_type { get; set; }
-        public string Jewelry_image { get; set; }
+        public Guid JewelryId { get; set; }
+        public string JewelryName { get; set; }
+        public string JewelryType { get; set; }
+        public string JewelryImage { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public int Gemstone_id { get; set; }
-        public int Carving_id { get; set; }
-        public int User_id { get; set; }
+        public int GemstoneId { get; set; }
+        public int CarvingId { get; set; }
+        public int UserId { get; set; }
     }
 }
