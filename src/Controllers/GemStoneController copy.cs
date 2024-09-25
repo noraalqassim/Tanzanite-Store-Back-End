@@ -15,21 +15,27 @@ namespace src.Controllers
         {
             new Gemstones
             {
-                Gemstone_ID = 1,
-                Gemstone_Type = "Diamond",
-                Gemstone_Color = "Clear",
-                Gemstone_Image = "diamond.jpg",
-                Gemstone_Clarity = "Flawless",
-                Gemstone_Description = "A precious diamond gemstone.",
+                Gemstone_id = 1,
+                Gemstone_type = "Diamond",
+                Gemstone_color = "Clear",
+                Gemstone_image = "diamond.jpg",
+                Gemstone_clarity = "Flawless",
+                Gemstone_description = "A precious diamond gemstone.",
+                Category_id = 1,
+                Carving_id = 1,
+                User_id = 1,
             },
             new Gemstones
             {
-                Gemstone_ID = 2,
-                Gemstone_Type = "Ruby",
-                Gemstone_Color = "Red",
-                Gemstone_Image = "ruby.jpg",
-                Gemstone_Clarity = "Opaque",
-                Gemstone_Description = "A beautiful ruby gemstone.",
+                Gemstone_id = 2,
+                Gemstone_type = "Ruby",
+                Gemstone_color = "Red",
+                Gemstone_image = "ruby.jpg",
+                Gemstone_clarity = "Opaque",
+                Gemstone_description = "A beautiful ruby gemstone.",
+                Carving_id =1,
+                Category_id = 1,
+                User_id = 2,
             },
         };
 
@@ -47,7 +53,7 @@ namespace src.Controllers
         [HttpGet("{type}")]
         public ActionResult GetGemstonesByType(string type)
         {
-            var gemStoneType = gemstones.FirstOrDefault(item => item.Gemstone_Type == type);
+            var gemStoneType = gemstones.FirstOrDefault(item => item.Gemstone_type == type);
 
             if (gemstones == null)
             {
@@ -61,13 +67,13 @@ namespace src.Controllers
         public ActionResult CreateGemstone(Gemstones newGemstone)
         {
             gemstones.Add(newGemstone);
-            return Created($"/api/v1/gemstones/{newGemstone.Gemstone_ID}", newGemstone);
+            return Created($"/api/v1/gemstones/{newGemstone.Gemstone_id}", newGemstone);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteGemstone(int id)
         {
-            var foundGemstone = gemstones.FirstOrDefault(g => g.Gemstone_ID == id);
+            var foundGemstone = gemstones.FirstOrDefault(g => g.Gemstone_id == id);
             if (foundGemstone != null)
             {
                 gemstones.Remove(foundGemstone);
@@ -79,14 +85,14 @@ namespace src.Controllers
         [HttpPut("{id}")]
         public ActionResult UpdateGemstone(int id, Gemstones updatedGemstone)
         {
-            var foundGemstone = gemstones.FirstOrDefault(g => g.Gemstone_ID == id);
+            var foundGemstone = gemstones.FirstOrDefault(g => g.Gemstone_id == id);
             if (foundGemstone != null)
             {
-                foundGemstone.Gemstone_Type = updatedGemstone.Gemstone_Type;
-                foundGemstone.Gemstone_Color = updatedGemstone.Gemstone_Color;
-                foundGemstone.Gemstone_Image = updatedGemstone.Gemstone_Image;
-                foundGemstone.Gemstone_Clarity = updatedGemstone.Gemstone_Clarity;
-                foundGemstone.Gemstone_Description = updatedGemstone.Gemstone_Description;
+                foundGemstone.Gemstone_type = updatedGemstone.Gemstone_type;
+                foundGemstone.Gemstone_color = updatedGemstone.Gemstone_color;
+                foundGemstone.Gemstone_image = updatedGemstone.Gemstone_image;
+                foundGemstone.Gemstone_clarity = updatedGemstone.Gemstone_clarity;
+                foundGemstone.Gemstone_description = updatedGemstone.Gemstone_description;
                 return Ok(foundGemstone);
             }
             return NotFound();

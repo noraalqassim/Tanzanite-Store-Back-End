@@ -7,7 +7,7 @@ namespace src.Entity
 {
     public class Category
     {
-        public int Category_Id { get; set; }
-        public string Category_Name { get; set; }
+        public int Category_id { get; set; }
+        public string Category_name { get; set; }
     }
 }

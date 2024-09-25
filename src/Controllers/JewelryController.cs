@@ -22,9 +22,9 @@ namespace src.Controllers
                 Jewelry_image = "diamond_necklace.jpg",
                 Description = "Stunning diamond necklace",
                 Price = 5000.00m,
-                gemstone_id = 1,
+                Gemstone_id = 1,
                 Carving_id = 1,
-                seller_id = 1,
+                User_id = 1,
             },
             new Jewelry
             {
@@ -34,9 +34,9 @@ namespace src.Controllers
                 Jewelry_image = "sapphire_ring.jpg",
                 Description = "Beautiful sapphire ring",
                 Price = 2500.00m,
-                gemstone_id = 2,
+                Gemstone_id = 2,
                 Carving_id = 2,
-                seller_id = 2,
+                User_id= 2,
             },
         };
 
@@ -92,9 +92,9 @@ namespace src.Controllers
             existingJewelry.Jewelry_image = updatedJewelry.Jewelry_image;
             existingJewelry.Description = updatedJewelry.Description;
             existingJewelry.Price = updatedJewelry.Price;
-            existingJewelry.gemstone_id = updatedJewelry.gemstone_id;
+            existingJewelry.Gemstone_id = updatedJewelry.Gemstone_id;
             existingJewelry.Carving_id = updatedJewelry.Carving_id;
-            existingJewelry.seller_id = updatedJewelry.seller_id;
+            existingJewelry.User_id = updatedJewelry.User_id;
 
             return Ok(existingJewelry); //204
         }

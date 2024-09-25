@@ -34,7 +34,7 @@ namespace src.Controllers
         [HttpPut("{addressId}")]
         public ActionResult UpdateAddress(int addressId, Address updatedAddress)
         {
-            var addressToUpdate = _addresses.FirstOrDefault(a => a.AddressId == addressId);
+            var addressToUpdate = _addresses.FirstOrDefault(a => a.Address_id == addressId);
 
             if (addressToUpdate == null)
             {
@@ -52,7 +52,7 @@ namespace src.Controllers
         [HttpDelete("{addressId}")]
         public ActionResult DeleteAddress(int addressId)
         {
-            var addressToDelete = _addresses.FirstOrDefault(a => a.AddressId == addressId);
+            var addressToDelete = _addresses.FirstOrDefault(a => a.Address_id == addressId);
 
             if (addressToDelete == null)
             {

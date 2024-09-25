@@ -7,7 +7,7 @@ namespace src.Entity
 {
     public class Cart
     {
-        public int Cart_Id { get; set; }
+        public int Cart_id { get; set; }
         public int Cart_Quantity { get; set; }
         public double Cart_Price { get; set; }
 
