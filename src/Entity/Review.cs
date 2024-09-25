@@ -7,10 +7,10 @@ namespace src.Entity
 {
     public class Review
     {
-        public int Reivew_Id { get; set; }
-        public int Review_Rating { get; set; }
-        public DateTime Review_Date { get; set; }
-        public string Review_Comment { get; set; }
+        public Guid ReivewId { get; set; }
+        public int ReviewRating { get; set; }
+        public DateTime ReviewDate { get; set; }
+        public string ReviewComment { get; set; }
 
     }
 }
