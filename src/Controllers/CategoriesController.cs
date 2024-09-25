@@ -16,13 +16,13 @@ namespace src.Controllers
         // field
         // in-memory database
         public static List<Category> categories = new List<Category>
-          {
-             new Category { Category_Id = 1, Category_Name = "Ruby" },
-             new Category { Category_Id = 2, Category_Name = "Emerald" },
-             new Category { Category_Id = 3, Category_Name = "Sapphire" },
-             new Category { Category_Id = 4, Category_Name = "Morganite" },
-             new Category { Category_Id = 5, Category_Name = "Aquamarine" }
-         };
+        {
+                new Category { Category_id = 1, Category_name = "Ruby" },
+                new Category { Category_id = 2, Category_name = "Emerald" },
+                new Category { Category_id = 3, Category_name = "Sapphire" },
+                new Category { Category_id = 4, Category_name = "Morganite" },
+                new Category { Category_id = 5, Category_name = "Aquamarine" }
+        };
 
         // ----- GET ----- 
 
@@ -38,7 +38,7 @@ namespace src.Controllers
         [HttpGet("id/{id}")]
         public ActionResult GetCategoryById(int id)
         {
-            Category? foundCategory = categories.FirstOrDefault(p => p.Category_Id == id);
+            Category? foundCategory = categories.FirstOrDefault(p => p.Category_id == id);
             if (foundCategory == null)
             {
                 return NotFound(); // 404
@@ -50,7 +50,7 @@ namespace src.Controllers
         [HttpGet("name/{name}")]
         public ActionResult GetCategoryByName(string name)
         {
-            Category? foundCategory = categories.FirstOrDefault(p => p.Category_Name.ToLower() == name.ToLower()); // so when i write Laptop, laptop, LAPTOP, all works the same
+            Category? foundCategory = categories.FirstOrDefault(p => p.Category_name.ToLower() == name.ToLower()); // so when i write Laptop, laptop, LAPTOP, all works the same
             if (foundCategory == null)
             {
                 return NotFound(); // 404
@@ -65,7 +65,7 @@ namespace src.Controllers
         public ActionResult CreateCategory(Category newCategory)
         {
             categories.Add(newCategory);
-            return CreatedAtAction(nameof(GetCategoryById), new { id = newCategory.Category_Id }, newCategory); // 201
+            return CreatedAtAction(nameof(GetCategoryById), new { id = newCategory.Category_id }, newCategory); // 201
         }
 
         // ----- DELETE ----- 
@@ -74,7 +74,7 @@ namespace src.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteCategory(int id)
         {
-            Category? foundCategory = categories.FirstOrDefault(p => p.Category_Id == id);
+            Category? foundCategory = categories.FirstOrDefault(p => p.Category_id == id);
             if (foundCategory == null)
             {
                 return NotFound(); // 404
@@ -87,7 +87,7 @@ namespace src.Controllers
         [HttpDelete("name/{name}")]
         public ActionResult DeleteCategoryByName(string name)
         {
-            Category? foundCategory = categories.FirstOrDefault(p => p.Category_Name.ToLower() == name.ToLower()); // so when i write Laptop, laptop, LAPTOP, all works the same
+            Category? foundCategory = categories.FirstOrDefault(p => p.Category_name.ToLower() == name.ToLower()); // so when i write Laptop, laptop, LAPTOP, all works the same
             if (foundCategory == null)
             {
                 return NotFound(); // 404
@@ -102,12 +102,12 @@ namespace src.Controllers
         [HttpPut("{id}")]
         public ActionResult UpdateCategory(int id, Category newCategoryInfo)
         {
-            Category? foundCategory = categories.FirstOrDefault(p => p.Category_Id == id);
+            Category? foundCategory = categories.FirstOrDefault(p => p.Category_id == id);
             if (foundCategory == null)
             {
                 return NotFound(); // 404
             }
-            foundCategory.Category_Name = newCategoryInfo.Category_Name;
+            foundCategory.Category_name = newCategoryInfo.Category_name;
             return Ok(foundCategory); // 200
         }
 
@@ -115,12 +115,12 @@ namespace src.Controllers
         [HttpPut("name/{name}")]
         public ActionResult UpdateCategoryByName(string name, Category newCategoryInfo)
         {
-            Category? foundCategory = categories.FirstOrDefault(p => p.Category_Name.ToLower() == name.ToLower()); // so when i write Laptop, laptop, LAPTOP, all works the same
+            Category? foundCategory = categories.FirstOrDefault(p => p.Category_name.ToLower() == name.ToLower()); // so when i write Laptop, laptop, LAPTOP, all works the same
             if (foundCategory == null)
             {
                 return NotFound(); // 404
             }
-            foundCategory.Category_Name = newCategoryInfo.Category_Name;
+            foundCategory.Category_name = newCategoryInfo.Category_name;
             return Ok(foundCategory); // 200
         }
 

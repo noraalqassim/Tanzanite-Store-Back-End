@@ -15,43 +15,43 @@ private static List<Gemstones_Carvings> carvings = new List<Gemstones_Carvings>
     {
         new Gemstones_Carvings
         {
-            Carving_ID = 1,
-            Carving_Name = "Oval",
+            Carving_id = 1,
+            Carving_name = "Oval",
             Weight = 2.5m,
             Price = 500.00m,
             Carving_Info = "Elongating the more traditional round brilliant, oval cut gemstones marry classic with modern. With its longer dimensions, oval gems are incredibly elegant on women with smaller hands as they add depth.",
             Image = "Oval_carving.jpg",
-            Seller_ID = 1,
+            User_id = 1,
         },
         new Gemstones_Carvings
         {
-            Carving_ID = 2,
-            Carving_Name = "Pear",
+            Carving_id = 2,
+            Carving_name = "Pear",
             Weight = 1.8m,
             Price = 300.00m,
             Carving_Info = "Topping jewelry trends right now is the classic but modern pear shape. With a rounded lower half and a sharp top point, a pear cut adds an illusion of length and delicacy to the finger.",
             Image = "Pear_carving.jpg",
-            Seller_ID = 2,
+            User_id = 2,
         },
         new Gemstones_Carvings
         {
-            Carving_ID = 3,
-            Carving_Name = "Emerald",
+            Carving_id = 3,
+            Carving_name = "Emerald",
             Weight = 2.5m,
             Price = 500.00m,
             Carving_Info = "Close in shape to the baguette, the emerald shapes only departure is its cropped corners. Naturally, this gemstone shape most beautifully flatters an emerald gemstone. That said, many choose colored gems for this cut, thanks to its 50 facets that make the color dazzle strikingly.",
             Image = "Emerald_carving.jpg",
-            Seller_ID = 1,
+            User_id = 1,
         },
         new Gemstones_Carvings
         {
-            Carving_ID = 4,
-            Carving_Name = "Heart",
+            Carving_id = 4,
+            Carving_name = "Heart",
             Weight = 2.5m,
             Price = 500.00m,
             Carving_Info = "Like the name insinuates, heart-shaped gems are cut into a heart by placing a cleft cut at the top of a pear gemstone. The overall aesthetic is romantic and feminine, but it’s not suitable for all gemstones.",
             Image = "Heart_carving.jpg",
-            Seller_ID = 3,
+            User_id = 3,
         }
     };
 
@@ -69,7 +69,7 @@ private static List<Gemstones_Carvings> carvings = new List<Gemstones_Carvings>
     [HttpGet("{name}")]
     public ActionResult GetCarvingByName(string name)
     {
-        var carving = carvings.FirstOrDefault(c => c.Carving_Name == name);
+        var carving = carvings.FirstOrDefault(c => c.Carving_name == name);
         if (carving == null)
         {
             return NotFound("Carving not found");
@@ -82,7 +82,7 @@ private static List<Gemstones_Carvings> carvings = new List<Gemstones_Carvings>
     public ActionResult CreateCarving(Gemstones_Carvings newCarving)
     {
         carvings.Add(newCarving);
-        return Created($"/api/v1/Gemstones_Carvings/{newCarving.Carving_ID}", newCarving);
+        return Created($"/api/v1/Gemstones_Carvings/{newCarving.Carving_id}", newCarving);
     }
 
     //delete carveing by id
@@ -90,7 +90,7 @@ private static List<Gemstones_Carvings> carvings = new List<Gemstones_Carvings>
     [HttpDelete("{id}")]
     public ActionResult DeleteCarving(int id)
     {
-        var foundCarving = carvings.FirstOrDefault(c => c.Carving_ID == id);
+        var foundCarving = carvings.FirstOrDefault(c => c.Carving_id == id);
         if (foundCarving != null)
         {
             carvings.Remove(foundCarving);
@@ -103,10 +103,10 @@ private static List<Gemstones_Carvings> carvings = new List<Gemstones_Carvings>
     [HttpPut("{id}")]
     public ActionResult UpdateCarving(int id, Gemstones_Carvings updatedCarving)
     {
-        var foundCarving = carvings.FirstOrDefault(c => c.Carving_ID == id);
+        var foundCarving = carvings.FirstOrDefault(c => c.Carving_id== id);
         if (foundCarving != null)
         {
-            foundCarving.Carving_Name = updatedCarving.Carving_Name;
+            foundCarving.Carving_name = updatedCarving.Carving_name;
             foundCarving.Weight = updatedCarving.Weight;
             foundCarving.Price = updatedCarving.Price;
             foundCarving.Carving_Info = updatedCarving.Carving_Info;

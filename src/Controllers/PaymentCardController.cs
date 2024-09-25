@@ -13,7 +13,7 @@ namespace src.Controllers
         {
             new PaymentCard
             {
-                Id = 1,
+                PaymentCard_id = 1,
                 ExpiryDate = new DateTime(2025, 12, 31),
                 Balance = 150.00f,
                 CardHolderName = "John Doe",
@@ -23,7 +23,7 @@ namespace src.Controllers
             },
             new PaymentCard
             {
-                Id = 2,
+                PaymentCard_id = 2,
                 ExpiryDate = new DateTime(2024, 11, 30),
                 Balance = 250.25f,
                 CardHolderName = "Jane Smith",
@@ -33,7 +33,7 @@ namespace src.Controllers
             },
             new PaymentCard
             {
-                Id = 3,
+                PaymentCard_id = 3,
                 ExpiryDate = new DateTime(2026, 10, 29),
                 Balance = 375.50f,
                 CardHolderName = "Alice Johnson",
@@ -52,7 +52,7 @@ namespace src.Controllers
         [HttpGet("{id}")]
         public ActionResult GetCardById(int id)
         {
-            PaymentCard? foundCard = cards.FirstOrDefault(c => c.Id == id);
+            PaymentCard? foundCard = cards.FirstOrDefault(c => c.PaymentCard_id == id);
 
             if (foundCard == null)
             {
@@ -65,20 +65,20 @@ namespace src.Controllers
         public ActionResult CreateCard(PaymentCard newPaymentCard)
         {
             cards.Add(newPaymentCard);
-            return CreatedAtAction(nameof(GetCards), new { id = newPaymentCard.Id }, newPaymentCard);
+            return CreatedAtAction(nameof(GetCards), new { id = newPaymentCard.PaymentCard_id }, newPaymentCard);
         }
 
         [HttpPut("{id}")]
         public ActionResult UpdateCard(int id, PaymentCard paymentCardInfo)
         {
-            var updatedPaymentCard = cards.FirstOrDefault(c => c.Id == id);
+            var updatedPaymentCard = cards.FirstOrDefault(c => c.PaymentCard_id == id);
 
             if (updatedPaymentCard == null)
             {
                 return NotFound();
             }
 
-            updatedPaymentCard.Id = paymentCardInfo.Id;
+            updatedPaymentCard.PaymentCard_id = paymentCardInfo.PaymentCard_id;
             updatedPaymentCard.ExpiryDate = paymentCardInfo.ExpiryDate;
             updatedPaymentCard.Balance = paymentCardInfo.Balance;
             updatedPaymentCard.CardNumber = paymentCardInfo.CardNumber;
@@ -92,7 +92,7 @@ namespace src.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteCard(int id)
         {
-            var foundCard = cards.FirstOrDefault(c => c.Id == id);
+            var foundCard = cards.FirstOrDefault(c => c.PaymentCard_id == id);
 
             if (foundCard == null)
             {
