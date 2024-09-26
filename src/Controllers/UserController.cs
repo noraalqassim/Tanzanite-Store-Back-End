@@ -17,7 +17,7 @@ namespace src.Controllers
         /// make lis info.
         /// get, post, put and delete method for user without consider is(seller, customer).
         /// </summary>
-        /* public static List<Users> users = new List<Users>
+        public static List<Users> users = new List<Users>
         {
             new Users
             {
@@ -128,39 +128,38 @@ namespace src.Controllers
             }
             return Ok("Welcome back !" + foundUser);
         }
-       
-                [HttpPut("{id}")]
-                public ActionResult UpdateUser(int id, Users updatedUser)
-                {
-                    Users existingUser = users.FirstOrDefault(i => i.UserId == id);
-        
-                    if (existingUser == null)
-                    {
-                        return NotFound("User not found");
-                    }
-        
-                    existingUser.Name = updatedUser.Name;
-                    existingUser.PhoneNumber = updatedUser.PhoneNumber;
-                    existingUser.Email = updatedUser.Email;
-                    existingUser.Password = updatedUser.Password;
-        
-                    return Ok($"User information updated: {existingUser}");
-                }
-        
-                [HttpDelete("{id}")]
-                public ActionResult DeleteUser(int id)
-                {
-                    var userToDelete = users.FirstOrDefault(u => u.UserId == id);
-        
-                    if (userToDelete == null)
-                    {
-                        return NotFound("User not found");
-                    }
-        
-                    users.Remove(userToDelete);
-        
-                    return Ok($"User deleted successfully");
-                }
-                */
+
+        [HttpPut("{name}")]
+        public ActionResult UpdateUser(string name, Users updatedUser)
+        {
+            Users existingUser = users.FirstOrDefault(i => i.Name == name);
+
+            if (existingUser == null)
+            {
+                return NotFound("User not found");
+            }
+
+            existingUser.Name = updatedUser.Name;
+            existingUser.PhoneNumber = updatedUser.PhoneNumber;
+            existingUser.Email = updatedUser.Email;
+            existingUser.Password = updatedUser.Password;
+
+            return Ok($"User information updated: {existingUser}");
+        }
+
+        [HttpDelete("{name}")]
+        public ActionResult DeleteUser(string name)
+        {
+            var userToDelete = users.FirstOrDefault(u => u.Name == name);
+
+            if (userToDelete == null)
+            {
+                return NotFound("User not found");
+            }
+
+            users.Remove(userToDelete);
+
+            return Ok($"User deleted successfully");
+        }
     }
 }
