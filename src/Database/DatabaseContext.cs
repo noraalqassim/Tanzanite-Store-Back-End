@@ -13,10 +13,15 @@ namespace src.Database
         public DbSet<Users> User { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
+        //proudct
+        public DbSet<Gemstones_Carvings> Gemstones_Carvings { get; set; }
+        public DbSet<Gemstones> Gemstones { get; set; }
+        public DbSet<Jewelry> Jewelry { get; set; }
+
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
 
 
-        
+
     }
 }
