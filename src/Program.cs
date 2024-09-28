@@ -1,9 +1,14 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using src.Database;
 using src.Entity;
+using src.Database;
+using src.Utils;
+using src.Services.category;
+using src.Services.review;
+using src.Services.cart;
 using src.Repository;
+using src.Services.User;
 using src.Services.Address;
 using src.Services.User;
 using src.Services.Payment;
@@ -32,6 +37,21 @@ builder
 builder
     .Services.AddScoped<IAddressService, AddressService>()
     .AddScoped<AddressRepository, AddressRepository>();
+
+// add DI services for category
+builder.Services
+     .AddScoped<ICategoryService, CategoryService>()
+     .AddScoped<CategoryRepository, CategoryRepository>();
+
+// add DI services for review
+builder.Services
+     .AddScoped<IReviewService, ReviewService>()
+     .AddScoped<ReviewRepository, ReviewRepository>();
+
+// add DI services for cart
+builder.Services
+     .AddScoped<ICartService, CartService>()
+     .AddScoped<CartRepository, CartRepository>();
 
 ///Payment
 builder
@@ -81,3 +101,4 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+

@@ -6,20 +6,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using src.Entity;
 
+// Database Folder:
+// Role: This folder often holds classes or configurations related to database setup
+
 namespace src.Database
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext // DatabaseContext inherits from DbContext
     {
         public DbSet<Users> User { get; set; }
         public DbSet<Address> Addresses { get; set; }
-
-        //proudct
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<Cart> Cart { get; set; }
         public DbSet<Gemstones_Carvings> Gemstones_Carvings { get; set; }
         public DbSet<Gemstones> Gemstones { get; set; }
         public DbSet<Jewelry> Jewelry { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<PaymentCard> PaymentCard { get; set; }
 
+        // Constructor
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
 
@@ -32,5 +37,6 @@ namespace src.Database
             //     .WithOne(a => a.User)
             //     .HasForeignKey(a => a.UserId);
         }
-    }
-}
+
+    } // end class
+} // end namespace

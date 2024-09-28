@@ -26,7 +26,7 @@ namespace sda_3_online_Backend_Teamwork.src.Repository
             return newCarving;
         }
 
-        public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId )
+        public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId)
         {
             return await _carvings.FindAsync(CarvingId);
         }
@@ -44,6 +44,6 @@ namespace sda_3_online_Backend_Teamwork.src.Repository
             await _databaseContext.SaveChangesAsync();
             return true;
         }
-        
+
     }
 }

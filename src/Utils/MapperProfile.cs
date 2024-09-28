@@ -6,9 +6,15 @@ using AutoMapper;
 using src.DTO;
 using src.Entity;
 using static src.DTO.AddressDTO;
+using static src.DTO.CartDTO;
+using static src.DTO.CategoryDTO;
+using static src.DTO.ReviewDTO;
 using static src.DTO.PaymentCardDTO;
 using static src.DTO.PaymentDTO;
 using static src.DTO.UserDTO;
+
+// Utils
+// Role: store common logic for the whole application
 
 namespace src.Utils
 {
@@ -16,10 +22,34 @@ namespace src.Utils
     /// MapperProfile class is typically used to:
     /// mappings between entity classes and DTOs (Data Transfer Objects)
     /// </summary>
-    public class MapperProfile : Profile
+    /// 
+    public class MapperProfile : Profile // MapperProfile inherits from Profile
     {
+
+        // constructor
         public MapperProfile()
         {
+            // category
+
+            CreateMap<Category, CategoryReadDto>();
+            CreateMap<CategoryCreateDto, Category>();
+            CreateMap<CategoryUpdateDto, Category>().
+            ForAllMembers(opts => opts.Condition((src, dest, srcProperty) => srcProperty != null));
+
+            // review
+
+            CreateMap<Review, ReviewReadDTO>();
+            CreateMap<ReviewCreateDTO, Review>();
+            CreateMap<ReviewUpdateDTO, Review>().
+            ForAllMembers(opts => opts.Condition((src, dest, srcProperty) => srcProperty != null));
+
+            // cart
+
+            CreateMap<Cart, CartReadDTO>();
+            CreateMap<CartCreateDTO, Cart>();
+            CreateMap<CartUpdateDTO, Cart>().
+            ForAllMembers(opts => opts.Condition((src, dest, srcProperty) => srcProperty != null));
+
             // Mapping configurations between entity classes and DTOs
             CreateMap<Users, UserReadDto>();
             CreateMap<UserCreateDto, Users>();
@@ -50,6 +80,8 @@ namespace src.Utils
             CreateMap<PaymentCardUpdateDto, PaymentCard>().ForAllMembers(options => options.Condition((src, dest, srcProperty) => srcProperty != null));
 
 
+
         }
-    }
-}
+
+    } // end class
+} // end namespace
