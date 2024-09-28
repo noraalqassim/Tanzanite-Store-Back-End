@@ -28,5 +28,12 @@ namespace src.Controllers
             var paymentList = await _paymentService.GetAllAsync();
             return Ok(paymentList);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PaymentReadDto>> GetByIdAsync(Guid id)
+        {
+            var foundPayment = await _paymentService.GetByIdAsync(id);
+            return Ok(foundPayment);
+        }
     }
 }
