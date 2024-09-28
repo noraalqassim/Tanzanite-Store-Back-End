@@ -15,8 +15,5 @@ namespace src.Database
 
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
-
-
-        
     }
 }

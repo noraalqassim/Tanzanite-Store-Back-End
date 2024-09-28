@@ -13,6 +13,7 @@ namespace src.Repository
         protected DbSet<Address> _addresses;
         protected DatabaseContext _databaseContext;
 
+
         public AddressRepository(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
@@ -26,9 +27,21 @@ namespace src.Repository
             return newAddress;
         }
 
+        public async Task<List<Address>> GetAllAsync()
+        {
+            return await _addresses.ToListAsync();
+        }
+
         public async Task<Address?> GetByIdAsync(Guid id)
         {
             return await _addresses.FindAsync();
+        }
+
+        public async Task<bool> DeleteOnAsync(Address address)
+        {
+            _addresses.Remove(address);
+            await _databaseContext.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> UpdateOnAsync(Address address)
