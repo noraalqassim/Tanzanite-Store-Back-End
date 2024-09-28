@@ -22,5 +22,12 @@ namespace src.Controllers
             return Ok(paymentCardCreated);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<PaymentCardReadDto>> GetAllAsync()
+        {
+            var paymentCardList = await _paymentCardService.GetAllAsync();
+            return Ok(paymentCardList);
+        }
+
     }
 }
