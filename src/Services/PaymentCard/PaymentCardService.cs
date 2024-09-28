@@ -47,5 +47,16 @@ namespace src.Services.PaymentCard
             return false;
         }
 
+         public async Task<bool> UpdateOneAsync(Guid id, PaymentCardUpdateDto updateDto)
+        {
+            var foundPaymentCard = await _paymentCardRepo.GetByIdAsync(id);
+            bool isUpdated = await _paymentCardRepo.UpdateOneAsync(foundPaymentCard);
+            if (isUpdated)
+            {
+                return false;
+            }
+            _mapper.Map(updateDto, foundPaymentCard);
+            return await _paymentCardRepo.UpdateOneAsync(foundPaymentCard);
+        }
     }
 }
