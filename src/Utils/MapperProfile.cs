@@ -6,6 +6,7 @@ using AutoMapper;
 using src.DTO;
 using src.Entity;
 using static src.DTO.AddressDTO;
+using static src.DTO.PaymentCardDTO;
 using static src.DTO.PaymentDTO;
 using static src.DTO.UserDTO;
 
@@ -40,8 +41,13 @@ namespace src.Utils
 
             CreateMap<Payment, PaymentReadDto>();
             CreateMap<PaymentCreateDto, Payment>();
-            // Mapping from PaymentUpdateDto to Payment with a condition to map properties only if they are not null
+            // Mapping from PaymentCard to Payment with a condition to map properties only if they are not null
             CreateMap<PaymentUpdateDto, Payment>().ForAllMembers(options => options.Condition((src, dest, srcProperty) => srcProperty != null));
+
+            CreateMap<PaymentCard, PaymentCardReadDto>();
+            CreateMap<PaymentCardCreateDto, PaymentCard>();
+            // Mapping from PaymentCardUpdateDto to PaymentCard with a condition to map properties only if they are not null
+            CreateMap<PaymentCardUpdateDto, PaymentCard>().ForAllMembers(options => options.Condition((src, dest, srcProperty) => srcProperty != null));
 
 
         }
