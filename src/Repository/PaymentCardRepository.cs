@@ -14,5 +14,12 @@ namespace src.Repository
             _databaseContext = databaseContext;
             _paymentCard = databaseContext.Set<PaymentCard>();
         }
+
+        public async Task<PaymentCard> CreateOnAsync(PaymentCard newPaymentCard)
+        {
+            await _paymentCard.AddAsync(newPaymentCard);
+            await _databaseContext.SaveChangesAsync();
+            return newPaymentCard;
+        }
     }
 }
