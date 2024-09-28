@@ -26,9 +26,16 @@ namespace src.Repository
             return await _payment.FindAsync(id);
         }
 
-        public async Task DeleteOneAsync(Payment payment){
+        public async Task<bool> DeleteOneAsync(Payment payment){
             _payment.Remove(payment);
             await _databaseContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateOneAsync(Payment updatePayment){
+            _payment.Update(updatePayment);
+            await _databaseContext.SaveChangesAsync();
+            return true;
         }
     }
 }
