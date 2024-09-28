@@ -25,5 +25,10 @@ namespace src.Repository
         public async Task<Payment?> GetByIdAsync(Guid id){
             return await _payment.FindAsync(id);
         }
+
+        public async Task DeleteOneAsync(Payment payment){
+            _payment.Remove(payment);
+            await _databaseContext.SaveChangesAsync();
+        }
     }
 }
