@@ -21,7 +21,14 @@ namespace src.Database
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
 
-
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Define relationships between entities here
+            // modelBuilder
+            //     .Entity<Users>()
+            //     .HasMany(u => u.Address)
+            //     .WithOne(a => a.User)
+            //     .HasForeignKey(a => a.UserId);
+        }
     }
 }

@@ -4,4 +4,5 @@ bin
 obj
 appsettings.json
 *.http
-
+appsettings.json
+Migrations
