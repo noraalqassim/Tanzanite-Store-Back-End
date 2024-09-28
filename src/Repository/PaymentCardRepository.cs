@@ -22,6 +22,11 @@ namespace src.Repository
             return newPaymentCard;
         }
 
+        public async Task<List<PaymentCard>> GetAllAsync()
+        {
+            return await _paymentCard.ToListAsync();
+        }
+
         public async Task<PaymentCard?> GetByIdAsync(Guid id)
         {
             return await _paymentCard.FindAsync(id);
