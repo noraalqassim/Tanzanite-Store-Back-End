@@ -17,9 +17,16 @@ namespace src.Services.PaymentCard
 
         public async Task<PaymentCardReadDto> CreateOneAsync(PaymentCardCreateDto createDto)
         {
-            var paymentCard = _mapper.Map<PaymentCardCreateDto, Entity.Payment>(createDto);
+            var paymentCard = _mapper.Map<PaymentCardCreateDto, Entity.PaymentCard>(createDto);
             var paymentCardCreated = await _paymentCardRepo.CreateOneAsync(paymentCard);
-            return _mapper.Map<Entity.Payment, PaymentCardReadDto>(paymentCardCreated);
+            return _mapper.Map<Entity.PaymentCard, PaymentCardReadDto>(paymentCardCreated);
+        }
+
+
+        public async Task<List<PaymentCardReadDto>> GetAllAsync()
+        {
+            var paymentCardList = await _paymentCardRepo.GetAllAsync();
+            return _mapper.Map<List<Entity.PaymentCard>, List<PaymentCardReadDto>>(paymentCardList);
         }
 
     }
