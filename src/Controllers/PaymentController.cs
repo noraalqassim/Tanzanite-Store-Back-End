@@ -12,5 +12,12 @@ namespace src.Controllers
         {
             _paymentService = service;
         }
+        
+        [HttpPost]
+        public async Task<ActionResult<PaymentCreateDto>> CreateOne(PaymentCreateDto createDto)
+        {
+            var paymentCreated = await _paymentService.CreateOneAsync(createDto);
+            return Ok(paymentCreated);
+        }
     }
 }
