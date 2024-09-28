@@ -9,7 +9,7 @@ namespace src.Services.PaymentCard
         protected readonly PaymentCardRepository _paymentCardRepo;
         protected readonly IMapper _mapper;
 
-        public PaymentService(PaymentCardRepository paymentCardRepo, IMapper mapper)
+        public PaymentCardService(PaymentCardRepository paymentCardRepo, IMapper mapper)
         {
             _paymentCardRepo = paymentCardRepo;
             _mapper = mapper;
