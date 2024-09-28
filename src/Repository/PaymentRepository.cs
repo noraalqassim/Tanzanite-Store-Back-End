@@ -14,5 +14,12 @@ namespace src.Repository
             _databaseContext = databaseContext;
             _payment = databaseContext.Set<Payment>();
         }
+
+        public async Task<Payment> CreateOnAsync(Payment newPayment)
+        {
+            await _payment.AddAsync(newPayment);
+            await _databaseContext.SaveChangesAsync();
+            return newPayment;
+        }
     }
 }
