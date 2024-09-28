@@ -28,9 +28,17 @@ namespace src.Repository
         }
 
         
-        public async Task DeleteOneAsync(PaymentCard paymentCard){
+        public async Task<bool> DeleteOneAsync(PaymentCard paymentCard){
             _paymentCard.Remove(paymentCard);
             await _databaseContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateOnAsync(PaymentCard updatePaymentCard)
+        {
+            _paymentCard.Update(updatePaymentCard);
+            await _databaseContext.SaveChangesAsync();
+            return true;
         }
     }
 }
