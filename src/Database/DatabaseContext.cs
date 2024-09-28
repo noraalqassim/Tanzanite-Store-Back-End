@@ -17,6 +17,8 @@ namespace src.Database
         public DbSet<Gemstones_Carvings> Gemstones_Carvings { get; set; }
         public DbSet<Gemstones> Gemstones { get; set; }
         public DbSet<Jewelry> Jewelry { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<PaymentCard> PaymentCard { get; set; }
 
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
