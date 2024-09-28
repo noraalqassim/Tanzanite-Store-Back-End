@@ -54,7 +54,8 @@ namespace src.Services.User
         public async Task<bool> UpdateOneAsync(Guid userId, UserUpdateDto updateDto)
         {
             var foundUser = await _userRepo.GetByIdAsync(userId);
-            if (foundUser == null){
+            if (foundUser == null)
+            {
                 return false;
             }
             _mapper.Map(foundUser, updateDto);

@@ -26,7 +26,7 @@ namespace src.Repository
             return newGemstone;
         }
 
-        public async Task<Gemstones?> GetByIdAsync(Guid GemstoneId )
+        public async Task<Gemstones?> GetByIdAsync(Guid GemstoneId)
         {
             return await _gemstones.FindAsync(GemstoneId);
         }
@@ -47,6 +47,6 @@ namespace src.Repository
 
 
 
-        
+
     }
 }
