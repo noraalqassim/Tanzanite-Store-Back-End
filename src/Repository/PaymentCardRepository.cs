@@ -21,5 +21,10 @@ namespace src.Repository
             await _databaseContext.SaveChangesAsync();
             return newPaymentCard;
         }
+
+        public async Task<PaymentCard?> GetByIdAsync(Guid id)
+        {
+            return await _paymentCard.FindAsync(id);
+        }
     }
 }
