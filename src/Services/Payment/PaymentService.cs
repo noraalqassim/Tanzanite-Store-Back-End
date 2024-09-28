@@ -26,5 +26,11 @@ namespace src.Services.Payment
             var paymentList = await _paymentRepo.GetAllAsync();
             return _mapper.Map<List<Entity.Payment>, List<PaymentReadDto>>(paymentList);
         }
+
+        public async Task<PaymentReadDto> GetByIdAsync(Guid id){
+            var foundPayment = await _paymentRepo.GetByIdAsync(id);
+            // TODO: Add error handling
+            return _mapper.Map<Entity.Payment, PaymentReadDto>(foundPayment);
+        }
     }
 }
