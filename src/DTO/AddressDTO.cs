@@ -19,11 +19,11 @@ namespace src.DTO
         /// </summary>
         public class AddressCreateDto
         {
-            public int UserId { get; set; }
             public string Street { get; set; }
             public string City { get; set; }
             public string County { get; set; }
             public string ZipCode { get; set; }
+            public Guid UserId { get; set; }
         }
 
         public class AddressReadDto
@@ -38,12 +38,10 @@ namespace src.DTO
 
         public class AddressUpdateDto
         {
-            public int UserId { get; set; }
             public string Street { get; set; }
             public string City { get; set; }
             public string County { get; set; }
             public string ZipCode { get; set; }
-            public bool IsAdmin { get; set; }
         }
     }
 }

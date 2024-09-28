@@ -26,8 +26,6 @@ namespace src.DTO
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public List<Address> Address { get; set; }
-            public byte[]? Salt { get; set; }
             public bool IsAdmin { get; set; }
         }
 
@@ -38,7 +36,6 @@ namespace src.DTO
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public List<Address> Address { get; set; }
             public byte[]? Salt { get; set; }
             public bool IsAdmin { get; set; }
         }
@@ -49,8 +46,6 @@ namespace src.DTO
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public List<Address> Address { get; set; }
-            public byte[]? Salt { get; set; }
             public bool IsAdmin { get; set; }
         }
 
