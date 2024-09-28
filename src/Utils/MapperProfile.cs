@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using src.DTO;
 using src.Entity;
 using static src.DTO.AddressDTO;
+using static src.DTO.PaymentDTO;
 using static src.DTO.UserDTO;
 
 namespace src.Utils
@@ -35,6 +37,13 @@ namespace src.Utils
             // Mapping from AddressUpdateDto to Address with a condition to map properties only if they are not null
             CreateMap<AddressUpdateDto, Address>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<Payment, PaymentReadDto>();
+            CreateMap<PaymentCreateDto, Payment>();
+            // Mapping from PaymentUpdateDto to Payment with a condition to map properties only if they are not null
+            CreateMap<PaymentUpdateDto, Payment>().ForAllMembers(options => options.Condition((src, dest, srcProperty) => srcProperty != null));
+
+
         }
     }
 }

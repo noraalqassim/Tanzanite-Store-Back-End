@@ -15,7 +15,7 @@ namespace src.Repository
             _payment = databaseContext.Set<Payment>();
         }
 
-        public async Task<Payment> CreateOnAsync(Payment newPayment)
+        public async Task<Payment> CreateOneAsync(Payment newPayment)
         {
             await _payment.AddAsync(newPayment);
             await _databaseContext.SaveChangesAsync();
