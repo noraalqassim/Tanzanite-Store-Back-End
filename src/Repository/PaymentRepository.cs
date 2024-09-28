@@ -21,5 +21,9 @@ namespace src.Repository
             await _databaseContext.SaveChangesAsync();
             return newPayment;
         }
+
+        public async Task<Payment?> GetByIdAsync(Guid id){
+            return await _payment.FindAsync(id);
+        }
     }
 }
