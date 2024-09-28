@@ -32,5 +32,15 @@ namespace src.Services.Payment
             // TODO: Add error handling
             return _mapper.Map<Entity.Payment, PaymentReadDto>(foundPayment);
         }
+
+        public async Task<bool> DeleteOneAsync(Guid id){
+            var foundPayment = await _paymentRepo.GetByIdAsync(id);
+            bool isDeleted = await _paymentRepo.DeleteOneAsync(foundPayment);
+            if (isDeleted)
+            {
+                return true;
+            } 
+            return false;
+        }
     }
 }
