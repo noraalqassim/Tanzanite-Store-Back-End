@@ -6,6 +6,7 @@ using src.Entity;
 using src.Repository;
 using src.Services.Address;
 using src.Services.User;
+using src.Services.Payment;
 using src.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,11 @@ builder
 builder
     .Services.AddScoped<IAddressService, AddressService>()
     .AddScoped<AddressRepository, AddressRepository>();
+
+///Payment
+builder
+    .Services.AddScoped<IPaymentService, PaymentService>()
+    .AddScoped<PaymentRepository, PaymentRepository>();
 
 builder.Services.AddControllers();
 

@@ -21,5 +21,12 @@ namespace src.Controllers
             var paymentCreated = await _paymentService.CreateOneAsync(createDto);
             return Ok(paymentCreated);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<PaymentReadDto>> GetAllAsync()
+        {
+            var paymentList = await _paymentService.GetAllAsync();
+            return Ok(paymentList);
+        }
     }
 }
