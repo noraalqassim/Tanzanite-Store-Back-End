@@ -15,7 +15,7 @@ namespace src.Repository
             _paymentCard = databaseContext.Set<PaymentCard>();
         }
 
-        public async Task<PaymentCard> CreateOnAsync(PaymentCard newPaymentCard)
+        public async Task<PaymentCard> CreateOneAsync(PaymentCard newPaymentCard)
         {
             await _paymentCard.AddAsync(newPaymentCard);
             await _databaseContext.SaveChangesAsync();
@@ -39,7 +39,7 @@ namespace src.Repository
             return true;
         }
 
-        public async Task<bool> UpdateOnAsync(PaymentCard updatePaymentCard)
+        public async Task<bool> UpdateOneAsync(PaymentCard updatePaymentCard)
         {
             _paymentCard.Update(updatePaymentCard);
             await _databaseContext.SaveChangesAsync();
