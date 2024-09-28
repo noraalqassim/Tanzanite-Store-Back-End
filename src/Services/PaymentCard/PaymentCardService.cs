@@ -36,5 +36,16 @@ namespace src.Services.PaymentCard
             return _mapper.Map<Entity.PaymentCard, PaymentCardReadDto>(foundPaymentCard);
         }
 
+        public async Task<bool> DeleteOneAsync(Guid id)
+        {
+            var foundPaymentCard = await _paymentCardRepo.GetByIdAsync(id);
+            bool isDeleted = await _paymentCardRepo.DeleteOneAsync(foundPaymentCard);
+            if (isDeleted)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }
