@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using static src.DTO.PaymentDTO;
+using static src.DTO.PaymentCardDTO;
 using src.Services.PaymentCard;
 
 namespace src.Controllers
@@ -15,5 +15,12 @@ namespace src.Controllers
             _paymentCardService = service;
         }
         
+        [HttpPost]
+        public async Task<ActionResult<PaymentCardCreateDto>> CreateOne(PaymentCardCreateDto createDto)
+        {
+            var paymentCardCreated = await _paymentCardService.CreateOneAsync(createDto);
+            return Ok(paymentCardCreated);
+        }
+
     }
 }
