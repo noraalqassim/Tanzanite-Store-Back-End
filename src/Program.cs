@@ -10,10 +10,12 @@ using src.Services.cart;
 using src.Repository;
 using src.Services.User;
 using src.Services.Address;
-using src.Services.User;
 using src.Services.Payment;
 using src.Services.PaymentCard;
-using src.Utils;
+using src.Services.Gemstone;
+using src.Services.Jewelry;
+using src.Services.GemstoneCravings;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,18 +42,18 @@ builder
 
 // add DI services for category
 builder.Services
-     .AddScoped<ICategoryService, CategoryService>()
-     .AddScoped<CategoryRepository, CategoryRepository>();
+    .AddScoped<ICategoryService, CategoryService>()
+    .AddScoped<CategoryRepository, CategoryRepository>();
 
 // add DI services for review
 builder.Services
-     .AddScoped<IReviewService, ReviewService>()
-     .AddScoped<ReviewRepository, ReviewRepository>();
+    .AddScoped<IReviewService, ReviewService>()
+    .AddScoped<ReviewRepository, ReviewRepository>();
 
 // add DI services for cart
 builder.Services
-     .AddScoped<ICartService, CartService>()
-     .AddScoped<CartRepository, CartRepository>();
+    .AddScoped<ICartService, CartService>()
+    .AddScoped<CartRepository, CartRepository>();
 
 ///Payment
 builder
@@ -62,6 +64,22 @@ builder
 builder
     .Services.AddScoped<IPaymentCardService, PaymentCardService>()
     .AddScoped<PaymentCardRepository, PaymentCardRepository>();
+    
+//GemstoneCarving
+builder.Services
+.AddScoped<IGemstoneCarvingService, GemstoneCarvingService>()
+.AddScoped<GemstonesCarvingsRepository, GemstonesCarvingsRepository>();
+
+//Gemstones
+builder.Services
+    .AddScoped<IGemstoneService, GemstoneService>()
+    .AddScoped<GemstonesRepository, GemstonesRepository>();
+
+//Jewelry
+builder.Services
+    .AddScoped<IJewelryService, JewelryService>()
+    .AddScoped<JewelryRepository, JewelryRepository>();
+
 
 builder.Services.AddControllers();
 

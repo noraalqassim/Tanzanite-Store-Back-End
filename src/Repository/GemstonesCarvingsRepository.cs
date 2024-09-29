@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
+using Microsoft.EntityFrameworkCore;
 
-namespace sda_3_online_Backend_Teamwork.src.Repository
+namespace src.Repository
 {
     public class GemstonesCarvingsRepository
     {
@@ -24,6 +24,10 @@ namespace sda_3_online_Backend_Teamwork.src.Repository
             await _carvings.AddAsync(newCarving);
             await _databaseContext.SaveChangesAsync();
             return newCarving;
+        }
+        public async Task<List<Gemstones_Carvings>> GetAllAsync()
+        {
+            return await _carvings.ToListAsync();
         }
 
         public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId)

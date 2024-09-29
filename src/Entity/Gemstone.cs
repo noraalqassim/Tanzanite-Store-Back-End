@@ -15,8 +15,15 @@ namespace src.Entity
         public string GemstoneImage { get; set; }
         public string GemstoneClarity { get; set; }
         public string GemstoneDescription { get; set; }
-        public int CarvingId { get; set; }
-        public int CategoryId { get; set; }
-        public int UserId { get; set; } //if IsAdmin == true
+
+        // Foreign key relationships
+        public Guid CarvingId { get; set; } // FK for Gemstones_Carvings
+        public Gemstones_Carvings Carving { get; set; }
+
+        public Guid CategoryId { get; set; } // FK for Category
+        public Category Category { get; set; }
+
+        public Guid UserId { get; set; } // FK for Users if IsAdmin == true
+        public Users User { get; set; }
     }
 }
