@@ -11,5 +11,5 @@ namespace src.Entity
         public int CartQuantity { get; set; }
         public double CartPrice { get; set; }
 
-    }
-}
+    } // end class
+} // end namespace

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
@@ -26,9 +26,14 @@ namespace src.Repository
             return newUser;
         }
 
-        public async Task<Users?> GetByIdAsync(Guid id)
+        public async Task<List<Users>> GetAllAsync()
         {
-            return await _user.FindAsync(id);
+            return await _user.ToListAsync();
+        }
+
+        public async Task<Users?> GetByIdAsync(Guid userId)
+        {
+            return await _user.FindAsync(userId);
         }
 
         public async Task<bool> DeleteOnAsync(Users user)
