@@ -7,7 +7,7 @@ using src.Entity;
 using src.Repository;
 using static src.DTO.JewelryDTO;
 
-namespace src.Services.JewelryItem
+namespace src.Services.Jewelry
 {
     public class JewelryService : IJewelryService
     {

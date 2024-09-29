@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
-using src.Services.GemstoneItem;
+using src.Services.Gemstone;
 using static src.DTO.GemstonesDTO;
 
 namespace src.Controllers
@@ -26,8 +26,8 @@ namespace src.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GemstoneReadDto>>> GetAll()
         {
-            var gemstones = await _gemstoneService.GetAllAsync();
-            return Ok(gemstones);
+            var gemstonesList = await _gemstoneService.GetAllAsync();
+            return Ok(gemstonesList);
         }
 
         // GET: api/v1/Gemstone/{GemstoneId}
@@ -57,12 +57,12 @@ namespace src.Controllers
         [HttpPut("{GemstoneId}")]
         public async Task<ActionResult> UpdateOne(Guid GemstoneId, GemstoneUpdateDto updateDto)
         {
-            var foundGemstone = await _gemstoneService.UpdateOneAsync(GemstoneId, updateDto);
-            if (foundGemstone == null)
+            var gemstoneUpdated = await _gemstoneService.UpdateOneAsync(GemstoneId, updateDto);
+            if (gemstoneUpdated == null)
             {
                 return NotFound(); // 404 Not Found
             }
-            return Ok(foundGemstone); // 200 OK 
+            return Ok(gemstoneUpdated); // 200 OK 
         }
 
         // DELETE: api/v1/Gemstone/{GemstoneId}
@@ -70,8 +70,8 @@ namespace src.Controllers
         [HttpDelete("{GemstoneId}")]
         public async Task<ActionResult> DeleteOne(Guid GemstoneId)
         {
-            var foundGemstone = await _gemstoneService.DeleteOneAsync(GemstoneId);
-            if (foundGemstone == false)
+            var gemstoneDeleted = await _gemstoneService.DeleteOneAsync(GemstoneId);
+            if (gemstoneDeleted == false)
             {
                 return NotFound();
             }

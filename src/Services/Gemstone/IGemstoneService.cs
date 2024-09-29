@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static src.DTO.GemstonesDTO;
 
-namespace src.Services.GemstoneItem
+namespace src.Services.Gemstone
 {
     public interface IGemstoneService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static src.DTO.JewelryDTO;
 
-namespace src.Services.JewelryItem
+namespace src.Services.Jewelry
 {
     public interface IJewelryService
     {

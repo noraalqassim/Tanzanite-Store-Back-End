@@ -1,12 +1,19 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using src.Database;
 using src.Entity;
-using src.Repository;
-using src.Services.Address;
-using src.Services.User;
+using src.Database;
 using src.Utils;
+using src.Services.category;
+using src.Services.review;
+using src.Services.cart;
+using src.Repository;
+using src.Services.User;
+using src.Services.Address;
+using src.Services.Gemstone;
+using src.Services.Jewelry;
+using src.Services.GemstoneCravings;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +37,37 @@ builder
 builder
     .Services.AddScoped<IAddressService, AddressService>()
     .AddScoped<AddressRepository, AddressRepository>();
+
+// add DI services for category
+builder.Services
+     .AddScoped<ICategoryService, CategoryService>()
+     .AddScoped<CategoryRepository, CategoryRepository>();
+
+// add DI services for review
+builder.Services
+     .AddScoped<IReviewService, ReviewService>()
+     .AddScoped<ReviewRepository, ReviewRepository>();
+
+// add DI services for cart
+builder.Services
+     .AddScoped<ICartService, CartService>()
+     .AddScoped<CartRepository, CartRepository>();
+
+//GamestoneCraves
+builder.Services
+.AddScoped<IGemstoneCarvingService, GemstoneCarvingService>()
+    .AddScoped<GemstonesCarvingsRepository, GemstonesCarvingsRepository>();
+
+//Gemstones
+builder.Services
+     .AddScoped<IGemstoneService, GemstoneService>()
+     .AddScoped<GemstonesRepository, GemstonesRepository>();    
+
+//Jewelry
+builder.Services
+     .AddScoped<IJewelryService, JewelryService>()
+     .AddScoped<JewelryRepository, JewelryRepository>();    
+
 
 builder.Services.AddControllers();
 
@@ -69,3 +107,4 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+

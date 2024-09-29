@@ -12,7 +12,7 @@ namespace src.Services.GemstoneCravings
         Task<List<GemstoneCarvingReadDto>> GetAllAsync(); //get all
         Task<GemstoneCarvingReadDto> GetByIdAsync(Guid CarvingId);//get by id
         Task<bool> DeleteOneAsync(Guid CarvingId);
-        Task<bool> UpdateOneAsync(Guid CarvingId,GemstoneCarvingUpdateDto updateDto);
+        Task<bool> UpdateOneAsync(Guid CarvingId, GemstoneCarvingUpdateDto updateDto);
 
     }
 }

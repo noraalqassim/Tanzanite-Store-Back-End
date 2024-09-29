@@ -8,7 +8,7 @@ using src.Repository;
 using static src.DTO.GemstonesDTO;
 
 
-namespace src.Services.GemstoneItem
+namespace src.Services.Gemstone
 {
     public class GemstoneService : IGemstoneService
     {

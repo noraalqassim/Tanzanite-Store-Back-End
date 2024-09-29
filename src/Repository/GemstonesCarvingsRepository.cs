@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
@@ -25,7 +25,6 @@ namespace src.Repository
             await _databaseContext.SaveChangesAsync();
             return newCarving;
         }
-
         public async Task<List<Gemstones_Carvings>> GetAllAsync()
         {
             return await _carvings.ToListAsync();

@@ -8,7 +8,7 @@ using src.Repository;
 using src.Services.GemstoneCravings;
 using static src.DTO.GemstoneCarvingsDTO;
 
-namespace src.Services.GemstineCravings
+namespace src.Services.GemstoneCravings
 {
     /// <summary>
     /// Services Contain the business logic of your application and interact with entities, repositories, and other services.

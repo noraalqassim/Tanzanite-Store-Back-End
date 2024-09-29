@@ -40,27 +40,27 @@ namespace src.Controllers
         [HttpPost]
         public async Task<ActionResult<GemstoneCarvingReadDto>> CreateOne(GemstoneCarvingCreateDto createDto)
         {
-            var carving = await _gemstoneCarvingService.CreateOneAsync(createDto);
-            return Ok(carving);
+            var newCarving = await _gemstoneCarvingService.CreateOneAsync(createDto);
+            return Ok(newCarving);
         }
 
 
         [HttpPut("{carvingId}")]
         public async Task<ActionResult> UpdateOne(Guid carvingId, GemstoneCarvingUpdateDto updateDto)
         {
-            var foundCarving = await _gemstoneCarvingService.UpdateOneAsync(carvingId, updateDto);
-            if (foundCarving == null)
+            var carvingUpdate = await _gemstoneCarvingService.UpdateOneAsync(carvingId, updateDto);
+            if (carvingUpdate == null)
             {
                 return NotFound(); // 404 Not Found
             }
-            return Ok(foundCarving); // 200 OK 
+            return Ok(carvingUpdate); // 200 OK 
         }
 
         [HttpDelete("{carvingId}")]
         public async Task<ActionResult> DeleteOn(Guid carvingId)
         {
-            var foundCarving = await _gemstoneCarvingService.DeleteOneAsync(carvingId);
-            if (foundCarving == false)
+            var carvingDeleted = await _gemstoneCarvingService.DeleteOneAsync(carvingId);
+            if (carvingDeleted == false)
             {
                 return NotFound();
             }
