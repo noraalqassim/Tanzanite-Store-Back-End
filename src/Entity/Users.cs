@@ -17,6 +17,7 @@ namespace src.Entity
         public string Email { get; set; }
         public string Password { get; set; }
         public ICollection<Address> Addresses { get; set; }
+        public Cart? Cart { get; set; }
         public byte[]? Salt { get; set; }
         public bool IsAdmin { get; set; }
     }

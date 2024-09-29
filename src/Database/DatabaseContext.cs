@@ -37,6 +37,13 @@ namespace src.Database
             //     .HasMany(u => u.Address)
             //     .WithOne(a => a.User)
             //     .HasForeignKey(a => a.UserId);
+
+            // Define relationship between Gemstone and Gemstones_Carvings entities
+            modelBuilder.Entity<Gemstones>()
+                .HasMany(g => g.Carving)
+                .WithOne(gc => gc.Gemstone)
+                .HasForeignKey(gc => gc.GemstoneId);
+
         }
 
     } // end class
