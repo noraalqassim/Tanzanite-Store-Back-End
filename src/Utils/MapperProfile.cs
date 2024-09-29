@@ -71,6 +71,40 @@ namespace src.Utils
             CreateMap<AddressUpdateDto, Address>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
+
+            CreateMap<Payment, PaymentReadDto>();
+            CreateMap<PaymentCreateDto, Payment>();
+            // Mapping from PaymentCard to Payment with a condition to map properties only if they are not null
+            CreateMap<PaymentUpdateDto, Payment>().ForAllMembers(options => options.Condition((src, dest, srcProperty) => srcProperty != null));
+
+            CreateMap<PaymentCard, PaymentCardReadDto>();
+            CreateMap<PaymentCardCreateDto, PaymentCard>();
+            // Mapping from PaymentCardUpdateDto to PaymentCard with a condition to map properties only if they are not null
+            CreateMap<PaymentCardUpdateDto, PaymentCard>().ForAllMembers(options => options.Condition((src, dest, srcProperty) => srcProperty != null));
+
+            //GemstonesCravings mappings
+            //table name is "Gemstones_Carvings" 
+            CreateMap<Gemstones_Carvings, GemstoneCarvingReadDto>();
+            CreateMap<GemstoneCarvingCreateDto, Gemstones_Carvings>();
+            // Creates a mapping from GemstoneCarvingUpdateDto to Gemstones_Carvings and applies a condition to map only non-null members
+            CreateMap<GemstoneCarvingUpdateDto, Gemstones_Carvings>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            //Gemstones mappings
+            CreateMap<Gemstones, GemstoneReadDto>();
+            CreateMap<GemstoneCreateDto, Gemstones>();
+            // Creates a mapping from GemstoneUpdateDto to Gemstones and applies a condition to map only non-null members
+            CreateMap<GemstoneUpdateDto, Gemstones>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            //Jewelry mappings 
+            CreateMap<Jewelry, JewelryReadDto>();
+            CreateMap<JewelryCreateDto, Jewelry>();
+            // Creates a mapping from JewelryUpdateDto to Jewelry and applies a condition to map only non-null members
+            CreateMap<JewelryUpdateDto, Jewelry>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+
         }
 
     } // end class
