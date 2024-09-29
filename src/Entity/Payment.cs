@@ -11,5 +11,8 @@ namespace src.Entity
         public DateTime PaymentDate { get; set; }
         public float Amount { get; set; }
         public string PaymentOption { get; set; }
+        public Order? Order { get; set; } //One to one 
+        public ICollection<PaymentCard> PaymentCard { get; } = new List<PaymentCard>(); //one to many
+
     }
 }

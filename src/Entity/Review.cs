@@ -14,8 +14,16 @@ namespace src.Entity
         public DateTime ReviewDate { get; set; }
         public int ReviewRating { get; set; }
         public string ReviewComment { get; set; }
-        public int UserId { get; set; } // Foreign Key
+
+        // Foreign key for the User entity (One to many) Relationship
+        public Guid UserId { get; set; }
+        public Users User { get; set; } = null!;
         public int JewelryId { get; set; } // Foreign Key
+
+        //One to one relationship
+        public Guid OrderId { get; set; } // Required foreign key property
+        public Order Order { get; set; } = null!;
+
 
     } // end class
 } // end namespace

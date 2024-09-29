@@ -18,7 +18,7 @@ namespace src.Entity
         /// Very Slightly Included (VS1/VS2), Slightly Included (SI1/SI2), and Included (I1/I2/I3).
         /// For exsample the GemstoneName = Rudy , GemstoneType = Pink Ruby , GemstoneColler = Pinkish Red , GemstoneClarity= VVS (Very, Very Slightly Included)
         /// </summary>
-        
+
         [Key]
         public Guid GemstoneId { get; set; }
         public string GemstoneType { get; set; }
@@ -26,15 +26,10 @@ namespace src.Entity
         public string GemstoneImage { get; set; }
         public string GemstoneClarity { get; set; }
         public string GemstoneDescription { get; set; }
+        public ICollection<Gemstones_Carvings> Carving { get; set; } // Navigation property referencing Gemstones_Carvings
+        public List<Jewelry> Jewelries { get; } = [];//many-to-many relationship
+        public Guid CategoryId { get; set; }//One-to-many relationship
+        public Category Category { get; set; } = null!; //One-to-many relationship
 
-        // Foreign key relationships
-        public Guid CarvingId { get; set; } // FK for Gemstones_Carvings
-        public Gemstones_Carvings Carving { get; set; }
-
-        public Guid CategoryId { get; set; } // FK for Category
-        public Category Category { get; set; }
-
-        public Guid UserId { get; set; } // FK for Users if IsAdmin == true
-        public Users User { get; set; }
     }
 }

@@ -14,22 +14,22 @@ namespace src.DTO
         // create category
         public class CategoryCreateDto
         {
-            public string Name { get; set; }
+            public string CategoryName { get; set; }
 
         }
 
         // read data = get data
         public class CategoryReadDto
         {
-            public Guid Id { get; set; }
-            public string Name { get; set; }
+            public Guid CategoryId { get; set; }
+            public string CategoryName { get; set; }
 
         }
 
         // update
         public class CategoryUpdateDto
         {
-            public string Name { get; set; }
+            public string CategoryName { get; set; }
 
         }
 
