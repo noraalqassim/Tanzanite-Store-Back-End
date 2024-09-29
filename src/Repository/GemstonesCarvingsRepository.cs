@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
 
-namespace sda_3_online_Backend_Teamwork.src.Repository
+namespace src.Repository
 {
     public class GemstonesCarvingsRepository
     {
@@ -26,7 +26,12 @@ namespace sda_3_online_Backend_Teamwork.src.Repository
             return newCarving;
         }
 
-        public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId )
+        public async Task<List<Gemstones_Carvings>> GetAllAsync()
+        {
+            return await _carvings.ToListAsync();
+        }
+
+        public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId)
         {
             return await _carvings.FindAsync(CarvingId);
         }
@@ -44,6 +49,6 @@ namespace sda_3_online_Backend_Teamwork.src.Repository
             await _databaseContext.SaveChangesAsync();
             return true;
         }
-        
+
     }
 }

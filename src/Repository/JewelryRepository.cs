@@ -27,6 +27,11 @@ namespace src.Repository
             return newJewelryItem;
         }
 
+        public async Task<List<Jewelry>> GetAllAsync()
+        {
+            return await _jewelry.ToListAsync();
+        }
+
         public async Task<Jewelry?> GetByIdAsync(Guid JewelryId)
         {
             return await _jewelry.FindAsync(JewelryId);
