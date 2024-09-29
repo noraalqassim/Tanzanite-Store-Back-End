@@ -10,6 +10,10 @@ using src.Services.cart;
 using src.Repository;
 using src.Services.User;
 using src.Services.Address;
+using src.Services.User;
+using src.Services.Payment;
+using src.Services.PaymentCard;
+using src.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +52,16 @@ builder.Services
 builder.Services
      .AddScoped<ICartService, CartService>()
      .AddScoped<CartRepository, CartRepository>();
+
+///Payment
+builder
+    .Services.AddScoped<IPaymentService, PaymentService>()
+    .AddScoped<PaymentRepository, PaymentRepository>();
+
+///PaymentCard
+builder
+    .Services.AddScoped<IPaymentCardService, PaymentCardService>()
+    .AddScoped<PaymentCardRepository, PaymentCardRepository>();
 
 builder.Services.AddControllers();
 
