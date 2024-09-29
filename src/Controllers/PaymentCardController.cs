@@ -5,7 +5,7 @@ using src.Services.PaymentCard;
 namespace src.Controllers
 {
     [Route("api/v1/[controller]")]
-    [ApiController] 
+    [ApiController]
     public class PaymentCardController : ControllerBase
     {
         protected readonly IPaymentCardService _paymentCardService;
@@ -14,7 +14,7 @@ namespace src.Controllers
         {
             _paymentCardService = service;
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<PaymentCardCreateDto>> CreateOne(PaymentCardCreateDto createDto)
         {
@@ -29,12 +29,36 @@ namespace src.Controllers
             return Ok(paymentCardList);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PaymentCardReadDto>> GetByIdAsync(Guid id)
+        [HttpGet("{PaymentCardId}")]
+        public async Task<ActionResult<PaymentCardReadDto>> GetByIdAsync(Guid PaymentCardId)
         {
-            var foundPaymentCard = await _paymentCardService.GetByIdAsync(id);
+            var foundPaymentCard = await _paymentCardService.GetByIdAsync(PaymentCardId);
             return Ok(foundPaymentCard);
         }
+
+        [HttpPut("{PaymentCardId}")]
+        public async Task<ActionResult<PaymentCardReadDto>> UpdateOne(Guid PaymentCardId, PaymentCardUpdateDto updateDto)
+        {
+            var paymentCardUpdate = await _paymentCardService.UpdateOneAsync(PaymentCardId, updateDto);
+            if (paymentCardUpdate == null)
+            {
+                return NotFound("Payment Card not found"); //400  Not Found
+            }
+            return Ok(paymentCardUpdate); //200 OK
+        }
+
+        [HttpDelete("{PaymentCardId}")]
+        public async Task<ActionResult> DeleteOne(Guid PaymentCardId)
+        {
+            var paymentCardDeleted = await _paymentCardService.DeleteOneAsync(PaymentCardId);
+            if (paymentCardDeleted == false)
+            {
+                return NotFound(); // 404 Not Found
+            }
+            return NoContent(); // 200 OK 
+        }
+
+
 
     }
 }
