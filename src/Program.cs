@@ -10,6 +10,8 @@ using src.Services.cart;
 using src.Repository;
 using src.Services.User;
 using src.Services.Address;
+using src.Services.Payment;
+using src.Services.PaymentCard;
 using src.Services.Gemstone;
 using src.Services.Jewelry;
 using src.Services.GemstoneCravings;
@@ -53,8 +55,17 @@ builder.Services
      .AddScoped<ICartService, CartService>()
      .AddScoped<CartRepository, CartRepository>();
 
-//GamestoneCraves
-builder.Services
+///Payment
+builder
+    .Services.AddScoped<IPaymentService, PaymentService>()
+    .AddScoped<PaymentRepository, PaymentRepository>();
+
+///PaymentCard
+builder
+    .Services.AddScoped<IPaymentCardService, PaymentCardService>()
+    .AddScoped<PaymentCardRepository, PaymentCardRepository>();
+//GemstoneCarving
+    builder.Services
 .AddScoped<IGemstoneCarvingService, GemstoneCarvingService>()
     .AddScoped<GemstonesCarvingsRepository, GemstonesCarvingsRepository>();
 

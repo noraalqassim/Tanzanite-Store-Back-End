@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using src.DTO;
 using src.Entity;
 using static src.DTO.AddressDTO;
 using static src.DTO.CartDTO;
 using static src.DTO.CategoryDTO;
 using static src.DTO.ReviewDTO;
+using static src.DTO.PaymentCardDTO;
+using static src.DTO.PaymentDTO;
 using static src.DTO.UserDTO;
 using static src.DTO.GemstoneCarvingsDTO;
 using static src.DTO.GemstonesDTO;
@@ -66,30 +69,6 @@ namespace src.Utils
 
             // Mapping from AddressUpdateDto to Address with a condition to map properties only if they are not null
             CreateMap<AddressUpdateDto, Address>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
-
-
-            //GemstonesCravings mappings
-            //table name is "Gemstones_Carvings" 
-            CreateMap<Gemstones_Carvings, GemstoneCarvingReadDto>();
-            CreateMap<GemstoneCarvingCreateDto, Gemstones_Carvings>();
-            // Creates a mapping from GemstoneCarvingUpdateDto to Gemstones_Carvings and applies a condition to map only non-null members
-            CreateMap<GemstoneCarvingUpdateDto, Gemstones_Carvings>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
-            //Gemstones mappings
-            CreateMap<Gemstones, GemstoneReadDto>();
-            CreateMap<GemstoneCreateDto, Gemstones>();
-            // Creates a mapping from GemstoneUpdateDto to Gemstones and applies a condition to map only non-null members
-            CreateMap<GemstoneUpdateDto, Gemstones>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
-            //Jewelry mappings 
-            CreateMap<Jewelry, JewelryReadDto>();
-            CreateMap<JewelryCreateDto, Jewelry>();
-            // Creates a mapping from JewelryUpdateDto to Jewelry and applies a condition to map only non-null members
-            CreateMap<JewelryUpdateDto, Jewelry>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         }
