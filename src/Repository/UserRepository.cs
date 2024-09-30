@@ -31,6 +31,11 @@ namespace src.Repository
             return await _user.ToListAsync();
         }
 
+        public async Task<Users> FindByEmailAsync(string email)
+        {
+            return await _user.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<Users?> GetByIdAsync(Guid userId)
         {
             return await _user.FindAsync(userId);

@@ -1,28 +1,35 @@
+using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Npgsql;
-using src.Entity;
 using src.Database;
-using src.Utils;
-using src.Services.category;
-using src.Services.review;
-using src.Services.cart;
+using src.Entity;
 using src.Repository;
-using src.Services.User;
 using src.Services.Address;
+using src.Services.cart;
+using src.Services.category;
 using src.Services.Payment;
 using src.Services.PaymentCard;
-using src.Services.Gemstone;
-using src.Services.Jewelry;
+using src.Services.review;
+using src.Services.User;
 using src.Services.GemstoneCravings;
+using src.Services.Jewelry;
+using src.Services.Gemstone;
 
+
+
+using src.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var dataSourceBuilder = new NpgsqlDataSourceBuilder(
     builder.Configuration.GetConnectionString("Local")
 );
-
+dataSourceBuilder.MapEnum<Role>();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseNpgsql(dataSourceBuilder.Build());
@@ -41,18 +48,18 @@ builder
     .AddScoped<AddressRepository, AddressRepository>();
 
 // add DI services for category
-builder.Services
-    .AddScoped<ICategoryService, CategoryService>()
+builder
+    .Services.AddScoped<ICategoryService, CategoryService>()
     .AddScoped<CategoryRepository, CategoryRepository>();
 
 // add DI services for review
-builder.Services
-    .AddScoped<IReviewService, ReviewService>()
+builder
+    .Services.AddScoped<IReviewService, ReviewService>()
     .AddScoped<ReviewRepository, ReviewRepository>();
 
 // add DI services for cart
-builder.Services
-    .AddScoped<ICartService, CartService>()
+builder
+    .Services.AddScoped<ICartService, CartService>()
     .AddScoped<CartRepository, CartRepository>();
 
 ///Payment
@@ -80,6 +87,28 @@ builder.Services
     .AddScoped<IJewelryService, JewelryService>()
     .AddScoped<JewelryRepository, JewelryRepository>();
 
+
+builder
+    .Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+            ),
+        };
+    });
 
 builder.Services.AddControllers();
 
@@ -119,4 +148,3 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
-

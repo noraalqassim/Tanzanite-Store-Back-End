@@ -6,6 +6,7 @@ using AutoMapper;
 using src.DTO;
 using src.Entity;
 using src.Repository;
+using src.Utils;
 using static src.DTO.UserDTO;
 
 namespace src.Services.User
@@ -19,17 +20,47 @@ namespace src.Services.User
         protected readonly UserRepository _userRepo;
         protected readonly IMapper _mapper;
 
-        public UserService(UserRepository userRepo, IMapper mapper)
+        protected readonly IConfiguration _config;
+
+        public UserService(UserRepository userRepo, IMapper mapper, IConfiguration config)
         {
             _userRepo = userRepo;
             _mapper = mapper;
+            _config = config;
         }
 
+        //SignUp
         public async Task<UserReadDto> CreateOneAsync(UserCreateDto createDto)
         {
+            PasswordUtils.HashPassword(
+                createDto.Password,
+                out string hashedPassword,
+                out byte[] salt
+            );
+
             var users = _mapper.Map<UserCreateDto, Users>(createDto);
+            users.Password = hashedPassword;
+            users.Salt = salt;
+            users.Role = Role.Customer;
+
             var userCreated = await _userRepo.CreateOnAsync(users);
             return _mapper.Map<Users, UserReadDto>(userCreated);
+        }
+
+        public async Task<string> LogInAsync(UserLoginDto createDto)
+        {
+            var foundUser = await _userRepo.FindByEmailAsync(createDto.Email);
+            var passwordMatched = PasswordUtils.VerifyPassword(
+                createDto.Password,
+                foundUser.Password,
+                foundUser.Salt
+            );
+            if (passwordMatched)
+            {
+                var tokenUtil = new TokenUtils(_config);
+                return tokenUtil.GenerateToken(foundUser);
+            }
+            return "Unauthorized";
         }
 
         public async Task<bool> DeleteOneAsync(Guid userId)
@@ -60,11 +91,6 @@ namespace src.Services.User
             }
             _mapper.Map(foundUser, updateDto);
             return true;
-        }
-
-        public Task<bool> UpdateOneAsync(UserLoginDto updateDto)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<bool> UpdateOneAsync(PasswordUpdateDto updateDto)

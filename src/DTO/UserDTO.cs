@@ -26,7 +26,6 @@ namespace src.DTO
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public bool IsAdmin { get; set; }
         }
 
         public class UserReadDto
@@ -36,8 +35,7 @@ namespace src.DTO
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public byte[]? Salt { get; set; }
-            public bool IsAdmin { get; set; }
+            public Role Role { get; set; }
         }
 
         public class UserUpdateDto
