@@ -16,7 +16,6 @@ namespace src.Entity
         public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); // One to many 
 
         // One to one relationship with Payment
-        [ForeignKey("Payment")]
         public Guid PaymentId { get; set; } // Foreign key property
         public Payment Payment { get; set; } = null!;
 
