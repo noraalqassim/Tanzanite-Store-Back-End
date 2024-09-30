@@ -71,7 +71,7 @@ builder
 builder
     .Services.AddScoped<IPaymentCardService, PaymentCardService>()
     .AddScoped<PaymentCardRepository, PaymentCardRepository>();
-    
+
 //GemstoneCarving
 builder.Services
 .AddScoped<IGemstoneCarvingService, GemstoneCarvingService>()
