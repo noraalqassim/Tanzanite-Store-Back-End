@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
+    /// <summary>
+    /// Repository Acts as the data access layer, responsible for database operations like fetching, saving, updating, and deleting records.
+    /// </summary>
     public class ReviewRepository
     {
 

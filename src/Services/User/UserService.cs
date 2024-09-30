@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using src.DTO;
 using src.Entity;
 using src.Repository;
@@ -30,21 +31,30 @@ namespace src.Services.User
         }
 
         //SignUp
-        public async Task<UserReadDto> CreateOneAsync(UserCreateDto createDto)
+        public async Task<UserReadDto?> CreateOneAsync(UserCreateDto createDto)
         {
-            PasswordUtils.HashPassword(
-                createDto.Password,
-                out string hashedPassword,
-                out byte[] salt
-            );
+            var foundUser = await _userRepo.FindByEmailAsync(createDto.Email);
+            if (foundUser != null)
+            {
+                return null;
+            }
+            else
+            {
+                PasswordUtils.HashPassword(
+                    createDto.Password,
+                    out string hashedPassword,
+                    out byte[] salt
+                );
 
-            var users = _mapper.Map<UserCreateDto, Users>(createDto);
-            users.Password = hashedPassword;
-            users.Salt = salt;
-            users.Role = Role.Customer;
+                var users = _mapper.Map<UserCreateDto, Users>(createDto);
 
-            var userCreated = await _userRepo.CreateOnAsync(users);
-            return _mapper.Map<Users, UserReadDto>(userCreated);
+                users.Password = hashedPassword;
+                users.Salt = salt;
+                users.Role = Role.Customer;
+
+                var userCreated = await _userRepo.CreateOnAsync(users);
+                return _mapper.Map<Users, UserReadDto>(userCreated);
+            }
         }
 
         public async Task<string> LogInAsync(UserLoginDto createDto)
@@ -82,20 +92,67 @@ namespace src.Services.User
             return _mapper.Map<Users, UserReadDto>(foundUser);
         }
 
-        public async Task<bool> UpdateOneAsync(Guid userId, UserUpdateDto updateDto)
+        public async Task<UserProfileDto> GetProfileIdAsync(Guid userId)
         {
             var foundUser = await _userRepo.GetByIdAsync(userId);
-            if (foundUser == null)
-            {
-                return false;
-            }
-            _mapper.Map(foundUser, updateDto);
-            return true;
+            return _mapper.Map<Users, UserProfileDto>(foundUser);
         }
 
-        public Task<bool> UpdateOneAsync(PasswordUpdateDto updateDto)
+        public async Task<UserProfileDto> UpdateOneAsync(Guid userId, UserProfileDto updateDto)
         {
-            throw new NotImplementedException();
+            var foundUser = await _userRepo.GetByIdAsync(userId);
+
+            if (foundUser == null)
+            {
+                return null;
+            }
+
+            // Update the user's information with the new data
+            foundUser.Name = updateDto.Name;
+            foundUser.Email = updateDto.Email;
+
+            // Check if the password needs to be updated
+            if (!string.IsNullOrEmpty(updateDto.Password))
+            {
+                // Hash the new password
+                PasswordUtils.HashPassword(
+                    updateDto.Password,
+                    out string hashedPassword,
+                    out byte[] salt
+                );
+                foundUser.Password = hashedPassword;
+                foundUser.Salt = salt;
+            }
+
+            await _userRepo.UpdateOnAsync(foundUser);
+
+            return _mapper.Map<Users, UserProfileDto>(foundUser);
+        }
+
+        public async Task<bool> UpdatePasswordAsync(Guid userId, PasswordUpdateDto updateDto)
+        {
+            var foundUser = await _userRepo.GetByIdAsync(userId);
+
+            if (foundUser == null)
+            {
+                return false; // User not found
+            }
+
+            if (!string.IsNullOrEmpty(updateDto.Password))
+            {
+                // Hash the new password
+                PasswordUtils.HashPassword(
+                    updateDto.Password,
+                    out string hashedPassword,
+                    out byte[] salt
+                );
+                foundUser.Password = hashedPassword;
+                foundUser.Salt = salt;
+            }
+
+            await _userRepo.UpdateOnAsync(foundUser);
+
+            return true;
         }
     }
 }
