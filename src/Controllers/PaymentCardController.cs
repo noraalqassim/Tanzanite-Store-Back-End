@@ -4,6 +4,37 @@ using src.Services.PaymentCard;
 
 namespace src.Controllers
 {
+    /// <API>
+    /// POST: /api/v1/PaymentCard
+    /// {
+    ///     "cardHolderName": "string",
+    ///     "cardType": "string",
+    ///     "cardNumber": "string",
+    ///     "expiryDate": "DateTime",
+    ///     "billingAddress": "string"
+    /// }
+    /// Returns the created payment card information.
+    ///
+    /// GET: /api/v1/PaymentCard
+    /// Returns the list of all payment cards.
+    ///
+    /// GET: /api/v1/PaymentCard/{PaymentCardId}
+    /// Returns the details of the payment card associated with the given PaymentCardId.
+    ///
+    /// PUT: /api/v1/PaymentCard/{PaymentCardId}
+    /// {
+    ///     "cardHolderName": "string",
+    ///     "cardType": "string",
+    ///     "cardNumber": "string",
+    ///     "expiryDate": "DateTime",
+    ///     "billingAddress": "string"
+    /// }
+    /// Updates the payment card information for the given PaymentCardId.
+    ///
+    /// DELETE: /api/v1/PaymentCard/{PaymentCardId}
+    /// Deletes the payment card associated with the given PaymentCardId.
+    /// </API>
+
     [Route("api/v1/[controller]")]
     [ApiController]
     public class PaymentCardController : ControllerBase
