@@ -16,8 +16,8 @@ namespace src.DTO
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
-            public int CarvingId { get; set; }
-            public int CategoryId { get; set; }
+            public Guid CarvingId { get; set; }
+            public Guid CategoryId { get; set; }
             public Guid UserId { get; set; }
 
         }

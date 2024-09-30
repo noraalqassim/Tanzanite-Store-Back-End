@@ -15,6 +15,15 @@ namespace src.Controllers
     [Route("api/v1/[controller]")]//api/v1/Jewelry
     public class JewelryController : ControllerBase
     {
+
+        /// <summary>
+        /// The point of the JewelryController file is to handle HTTP requests related to jewelry items in the application.
+        /// It defines endpoints for creating, reading, updating, and deleting jewelry items.
+        /// 1- Creating a new jewelry item.
+        /// 2- Retrieving a list of all jewelry items.
+        /// 3- Updating jewelry item information such as name, type, price, image, and description.
+        /// 4- Deleting a jewelry item.
+        /// </summary>
         protected readonly IJewelryService _jewelryService;
 
         public JewelryController(IJewelryService jewelryService)

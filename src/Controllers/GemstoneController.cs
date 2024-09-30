@@ -15,6 +15,15 @@ namespace src.Controllers
     [Route("api/v1/[controller]")] //api/v1/Gemstone
     public class GemstoneController : ControllerBase
     {
+        /// <summary>
+        /// The GemstoneController file serves as the entry point for handling HTTP requests related to gemstones in the application.
+        /// It provides endpoints for creating, reading, updating, and deleting gemstone records.
+        /// 1- Getting a list of all gemstones.
+        /// 2- Retrieving a specific gemstone by its ID.
+        /// 3- Creating a new gemstone entry.
+        /// 4- Updating gemstone information.
+        /// 5- Deleting a gemstone record.
+        /// </summary>
         protected readonly IGemstoneService _gemstoneService;
 
         public GemstoneController(IGemstoneService gemstoneService)

@@ -14,6 +14,15 @@ namespace src.Controllers
     [Route("api/v1/[controller]")] //api/v1/GemstoneCarving
     public class GemstoneCarvingsController : ControllerBase
     {
+        /// <summary>
+        /// The GemstoneCarvingsController file manages HTTP requests related to gemstone carvings within the application.
+        /// It provides endpoints for creating, reading, updating, and deleting gemstone carving records.
+        /// 1- Obtaining a list of all gemstone carvings.
+        /// 2- Fetching a specific gemstone carving by its ID.
+        /// 3- Creating a new gemstone carving entry.
+        /// 4- Updating gemstone carving information.
+        /// 5- Deleting a gemstone carving record.
+        /// </summary>
         protected readonly IGemstoneCarvingService _gemstoneCarvingService;
         public GemstoneCarvingsController(IGemstoneCarvingService gemstoneCarvingService)
         {
