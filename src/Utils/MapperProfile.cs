@@ -83,7 +83,7 @@ namespace src.Utils
             CreateMap<AddressUpdateDto, Address>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-            CreateMap<Payment, PaymentReadDto>();
+            CreateMap<Payment, OrderDTO.PaymentReadDto>();
             CreateMap<PaymentCreateDto, Payment>();
             // Mapping from PaymentCard to Payment with a condition to map properties only if they are not null
             CreateMap<PaymentUpdateDto, Payment>()
@@ -115,7 +115,7 @@ namespace src.Utils
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             //Jewelry mappings
-            CreateMap<Jewelry, JewelryReadDto>();
+            CreateMap<Jewelry, JewelryDTO.JewelryReadDto>();
             CreateMap<JewelryCreateDto, Jewelry>();
             // Creates a mapping from JewelryUpdateDto to Jewelry and applies a condition to map only non-null members
             CreateMap<JewelryUpdateDto, Jewelry>()
