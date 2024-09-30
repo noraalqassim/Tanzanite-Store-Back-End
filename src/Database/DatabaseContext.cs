@@ -6,13 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using src.Entity;
 
-// Database Folder:
-// Role: This folder often holds classes or configurations related to database setup
-
 namespace src.Database
 {
     public class DatabaseContext : DbContext // DatabaseContext inherits from DbContext
     {
+
+        /// <summary>
+        /// The point of the database is to hold classes or configurations related to database setup
+        /// </summary>
+
         public DbSet<Users> User { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Order { get; set; }

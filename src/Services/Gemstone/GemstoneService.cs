@@ -48,13 +48,7 @@ namespace src.Services.Gemstone
         {
             var foundGemstone = await _gemstonesRepo.GetByIdAsync(GemstoneId);
             bool isDeleted = await _gemstonesRepo.DeleteOnAsync(foundGemstone);
-
-            if (isDeleted)
-            {
-                return true;
-            }
-
-            return false;
+            return isDeleted;
         }
 
         // Update a gemstone 

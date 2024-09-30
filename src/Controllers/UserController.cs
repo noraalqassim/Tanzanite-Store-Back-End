@@ -79,8 +79,9 @@ namespace src.Controllers
         /// the token is the ine give to you when you login
         /// </summary>
 
-        [HttpGet] //http://localhost:5125/api/v1/User
-        [Authorize] //just for admin
+        [HttpGet]
+        [Authorize] // --> For users
+        //[Authorize(Roles ="Admin")] //--> For admins
         public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();

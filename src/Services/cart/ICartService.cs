@@ -11,7 +11,7 @@ namespace src.Services.cart
         Task<CartReadDTO> CreateOneAsync(CartCreateDTO createDto);
         Task<List<CartReadDTO>> GetAllAsync();
         Task<CartReadDTO> GetByIdAsync(Guid id);
-        Task<bool> DeleteOneAsync(Guid id);
+        // Task<bool> DeleteOneAsync(Guid id);
         Task<bool> UpdateOneAsync(Guid id, CartUpdateDTO updateDto);
 
     }

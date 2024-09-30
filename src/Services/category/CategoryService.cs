@@ -7,11 +7,12 @@ using src.Entity;
 using src.Repository;
 using static src.DTO.CategoryDTO;
 
-// Service:
-// Role: Contains the business logic of the application. It bridges the controller and the repository.
-
 namespace src.Services.category
 {
+    /// <summary>
+    /// Services Contain the business logic of your application and interact with entities, repositories, and other services.
+    //  Services use DTOs to transfer data between different layers of the application, such as between the controller and the repository.
+    /// </summary>
     public class CategoryService : ICategoryService // CategoryService implements from ICategoryService
     {
 

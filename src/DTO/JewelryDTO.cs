@@ -12,9 +12,9 @@ namespace src.DTO
         {
             public string JewelryName { get; set; }
             public string JewelryType { get; set; }
+            public decimal JewelryPrice { get; set; }
             public string JewelryImage { get; set; }
             public string Description { get; set; }
-            public decimal Price { get; set; }
             public Guid GemstoneId { get; set; }
             public Guid CarvingId { get; set; }
             public Guid UserId { get; set; }
@@ -24,12 +24,13 @@ namespace src.DTO
         // read data = get data
         public class JewelryReadDto
         {
-        public Guid JewelryId { get; set; }
-        public string JewelryName { get; set; }
-        public string JewelryType { get; set; }
-        public string JewelryImage { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
+            public Guid JewelryId { get; set; }
+            public string JewelryName { get; set; }
+            public string JewelryType { get; set; }
+            public decimal JewelryPrice { get; set; }
+            public string JewelryImage { get; set; }
+            public string Description { get; set; }
+
 
         }
 
@@ -37,11 +38,11 @@ namespace src.DTO
         public class JewelryUpdateDto
         {
 
-        public string JewelryName { get; set; }
-        public string JewelryType { get; set; }
-        public string JewelryImage { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
+            public string JewelryName { get; set; }
+            public string JewelryType { get; set; }
+            public decimal JewelryPrice { get; set; }
+            public string JewelryImage { get; set; }
+            public string Description { get; set; }
         }
         
     }

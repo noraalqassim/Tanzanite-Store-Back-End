@@ -22,34 +22,38 @@ namespace src.Utils
     /// MapperProfile class is typically used to:
     /// mappings between entity classes and DTOs (Data Transfer Objects)
     /// </summary>
-    ///
+
     public class MapperProfile : Profile // MapperProfile inherits from Profile
     {
         // constructor
         public MapperProfile()
         {
-            // category
 
+            // category
+            // Mapping configurations between entity classes and DTOs
             CreateMap<Category, CategoryReadDto>();
             CreateMap<CategoryCreateDto, Category>();
+            // Mapping from CategoryUpdateDto to Category with a condition to map properties only if they are not null
             CreateMap<CategoryUpdateDto, Category>()
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcProperty) => srcProperty != null)
                 );
 
             // review
-
+            // Mapping configurations between entity classes and DTOs
             CreateMap<Review, ReviewReadDTO>();
             CreateMap<ReviewCreateDTO, Review>();
+            // Mapping from ReviewUpdateDTO to Review with a condition to map properties only if they are not null
             CreateMap<ReviewUpdateDTO, Review>()
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcProperty) => srcProperty != null)
                 );
 
             // cart
-
+            // Mapping configurations between entity classes and DTOs
             CreateMap<Cart, CartReadDTO>();
             CreateMap<CartCreateDTO, Cart>();
+            // Mapping from CartUpdateDTO to Cart with a condition to map properties only if they are not null
             CreateMap<CartUpdateDTO, Cart>()
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcProperty) => srcProperty != null)
