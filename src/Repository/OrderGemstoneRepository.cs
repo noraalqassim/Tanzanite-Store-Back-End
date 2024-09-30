@@ -2,47 +2,43 @@
 // using System.Collections.Generic;
 // using System.Linq;
 // using System.Threading.Tasks;
+// using Microsoft.EntityFrameworkCore;
+// using src.Database;
 // using src.Entity;
 
 // namespace src.Repository
 // {
-//     public interface IOrderGemstoneRepository
+//     public class OrderGemstoneRepository
 //     {
-//         Task<List<OrderGemstone>> GetAllOrderGemstones();
-//         Task<OrderGemstone> GetOrderGemstoneById(int id);
-//         Task CreateOrderGemstone(OrderGemstone orderGemstone);
-//         Task UpdateOrderGemstone(OrderGemstone orderGemstone);
-//         Task DeleteOrderGemstone(int id);
-//     }
+//         protected DbSet<OrderGemstone> _orderGemstone;
+//         private readonly DatabaseContext _context;
 
-//     public class OrderGemstoneRepository : IOrderGemstoneRepository
-//     {
-//         private readonly DbContext _context;
-
-//         public OrderGemstoneRepository(DbContext context)
+//         public OrderGemstoneRepository(DatabaseContext context)
 //         {
 //             _context = context;
+//             _orderGemstone = context.Set<OrderGemstone>();
+//             ;
 //         }
 
 //         public async Task<List<OrderGemstone>> GetAllOrderGemstones()
 //         {
-//             return await _context.OrderGemstones.ToListAsync();
+//             return await _orderGemstone.ToListAsync();
 //         }
 
 //         public async Task<OrderGemstone> GetOrderGemstoneById(int id)
 //         {
-//             return await _context.OrderGemstones.FindAsync(id);
+//             return await _orderGemstone.FindAsync(id);
 //         }
 
 //         public async Task CreateOrderGemstone(OrderGemstone orderGemstone)
 //         {
-//             _context.OrderGemstones.Add(orderGemstone);
+//             _orderGemstone.Add(orderGemstone);
 //             await _context.SaveChangesAsync();
 //         }
 
 //         public async Task UpdateOrderGemstone(OrderGemstone orderGemstone)
 //         {
-//             _context.OrderGemstones.Update(orderGemstone);
+//             _orderGemstone.Update(orderGemstone);
 //             await _context.SaveChangesAsync();
 //         }
 
@@ -51,7 +47,7 @@
 //             var orderGemstone = await GetOrderGemstoneById(id);
 //             if (orderGemstone != null)
 //             {
-//                 _context.OrderGemstones.Remove(orderGemstone);
+//                 _orderGemstone.Remove(orderGemstone);
 //                 await _context.SaveChangesAsync();
 //             }
 //         }

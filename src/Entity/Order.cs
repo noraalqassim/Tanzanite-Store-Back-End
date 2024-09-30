@@ -12,7 +12,7 @@ namespace src.Entity
         public DateTime CreatedAt { get; set; }
         public Guid AddressId { get; set; } // FK
 
-        public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
+        // public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
 
         //One to one relationship
         public Guid PaymentId { get; set; } // Required foreign key property

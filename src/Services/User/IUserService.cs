@@ -12,10 +12,9 @@ namespace src.Services.User
         Task<List<UserReadDto>> GetAllAsync();
         Task<UserReadDto> GetByIdAsync(Guid userId);
         Task<bool> DeleteOneAsync(Guid userId);
-        Task<bool> UpdateOneAsync(Guid userId, UserUpdateDto updateDto);
-
         Task<string> LogInAsync(UserLoginDto createDto);
-
-        Task<bool> UpdateOneAsync(PasswordUpdateDto updateDto);
+        Task<UserProfileDto> GetProfileIdAsync(Guid userId);
+        Task<UserProfileDto> UpdateOneAsync(Guid userId, UserProfileDto updateDto);
+        Task<bool> UpdatePasswordAsync(Guid userId, PasswordUpdateDto updateDto);
     }
 }

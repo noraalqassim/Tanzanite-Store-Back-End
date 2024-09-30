@@ -14,7 +14,7 @@ namespace src.Entity
         // Foreign key for the User entity (One to One) Relationship
         public Guid UserId { get; set; }
         public Users User { get; set; } = null!;
-        public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
+        // public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
         
 
     } // end class

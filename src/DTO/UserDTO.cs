@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using src.Entity;
@@ -24,11 +25,32 @@ namespace src.DTO
         {
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [MinLength(8)]
+            [RegularExpression(
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
+                ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit."
+            )]
             public string Password { get; set; }
         }
 
-        public class UserReadDto
+        public class UserReadDto //for Admin
+        {
+            public Guid UserId { get; set; }
+            public string Name { get; set; }
+            public string PhoneNumber { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public Role Role { get; set; }
+            public byte[]? Salt { get; set; }
+        }
+
+        public class AdminUpdateDto //for Admin
         {
             public Guid UserId { get; set; }
             public string Name { get; set; }
@@ -38,17 +60,16 @@ namespace src.DTO
             public Role Role { get; set; }
         }
 
-        public class UserUpdateDto
+        public class UserLoginDto
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+
+        public class UserProfileDto
         {
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
-            public string Email { get; set; }
-            public string Password { get; set; }
-            public bool IsAdmin { get; set; }
-        }
-
-        public class UserLoginDto
-        {
             public string Email { get; set; }
             public string Password { get; set; }
         }
