@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using static src.DTO.PaymentCardDTO;
 using src.Services.PaymentCard;
+using Microsoft.AspNetCore.Authorization;
 
 namespace src.Controllers
 {
@@ -47,6 +48,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
+        [Authorize] // --> For users
         public async Task<ActionResult<PaymentCardCreateDto>> CreateOne(PaymentCardCreateDto createDto)
         {
             var paymentCardCreated = await _paymentCardService.CreateOneAsync(createDto);
@@ -54,6 +56,7 @@ namespace src.Controllers
         }
 
         [HttpGet]
+        [Authorize] // --> For users
         public async Task<ActionResult<PaymentCardReadDto>> GetAllAsync()
         {
             var paymentCardList = await _paymentCardService.GetAllAsync();
@@ -61,6 +64,7 @@ namespace src.Controllers
         }
 
         [HttpGet("{PaymentCardId}")]
+        [Authorize] // --> For users
         public async Task<ActionResult<PaymentCardReadDto>> GetByIdAsync(Guid PaymentCardId)
         {
             var foundPaymentCard = await _paymentCardService.GetByIdAsync(PaymentCardId);
@@ -68,6 +72,7 @@ namespace src.Controllers
         }
 
         [HttpPut("{PaymentCardId}")]
+        [Authorize] // --> For users
         public async Task<ActionResult<PaymentCardReadDto>> UpdateOne(Guid PaymentCardId, PaymentCardUpdateDto updateDto)
         {
             var paymentCardUpdate = await _paymentCardService.UpdateOneAsync(PaymentCardId, updateDto);
@@ -79,6 +84,7 @@ namespace src.Controllers
         }
 
         [HttpDelete("{PaymentCardId}")]
+        [Authorize] // --> For users
         public async Task<ActionResult> DeleteOne(Guid PaymentCardId)
         {
             var paymentCardDeleted = await _paymentCardService.DeleteOneAsync(PaymentCardId);
