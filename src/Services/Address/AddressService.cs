@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using src.Entity; // Import the src.Entity namespace
 using src.Repository;
 using static src.DTO.AddressDTO;
 
@@ -25,33 +26,33 @@ namespace src.Services.Address
 
         public async Task<AddressReadDto> CreateOnAsync(AddressCreateDto createDto)
         {
-            var address = _mapper.Map<AddressCreateDto, src.Entity.Address>(createDto);
+            var address = _mapper.Map<AddressCreateDto, Entity.Address>(createDto);
             var addressCreated = await _addressRepo.CreateOnAsync(address);
-            return _mapper.Map<src.Entity.Address, AddressReadDto>(addressCreated);
+            return _mapper.Map<Entity.Address, AddressReadDto>(addressCreated);
         }
 
         public async Task<List<AddressReadDto>> GetAllAsync()
         {
             var addressList = await _addressRepo.GetAllAsync();
-            return _mapper.Map<List<src.Entity.Address>, List<AddressReadDto>>(addressList);
+            return _mapper.Map<List<Entity.Address>, List<AddressReadDto>>(addressList);
         }
 
-        public async Task<AddressReadDto> GetByIdAsync(Guid AddressId)
+        public async Task<AddressReadDto> GetByIdAsync(Guid addressId)
         {
-            var foundAddress = await _addressRepo.GetByIdAsync(AddressId);
-            return _mapper.Map<src.Entity.Address, AddressReadDto>(foundAddress);
+            var foundAddress = await _addressRepo.GetByIdAsync(addressId);
+            return _mapper.Map<Entity.Address, AddressReadDto>(foundAddress);
         }
 
-        public async Task<bool> DeleteOnAsync(Guid AddressId)
+        public async Task<bool> DeleteOnAsync(Guid addressId)
         {
-            var foundAddress = await _addressRepo.GetByIdAsync(AddressId);
+            var foundAddress = await _addressRepo.GetByIdAsync(addressId);
             bool isDeleted = await _addressRepo.DeleteOnAsync(foundAddress);
             return isDeleted;
         }
 
-        public async Task<bool> UpdateOnAsync(Guid AddressId, AddressUpdateDto updateDto)
+        public async Task<bool> UpdateOnAsync(Guid addressId, AddressUpdateDto updateDto)
         {
-            var foundAddress = await _addressRepo.GetByIdAsync(AddressId);
+            var foundAddress = await _addressRepo.GetByIdAsync(addressId);
 
             if (foundAddress == null)
             {

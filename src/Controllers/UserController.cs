@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.User;
@@ -28,15 +29,45 @@ namespace src.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<UserCreateDto>> CreateOne(UserCreateDto createDto)
+        /// <API>
+        /// {
+        //     "name": "",
+        //     "phoneNumber": "",
+        //     "email": "",
+        //     "password": ""
+        //  }
+        /// </API>
+        /// return user info
+
+        [HttpPost("SignUp")] //SignUp
+        public async Task<ActionResult<UserCreateDto>> CreateOne([FromBody] UserCreateDto createDto)
         {
             var userCretaed = await _userService.CreateOneAsync(createDto);
             return Ok(userCretaed);
         }
 
+        /// <API>
+        ///{
+        //     "email": "",
+        //     "password": ""
+        // }
+        /// </API>
+        /// return Token
+
+        [HttpPost("LogIn")] //Login
+        public async Task<ActionResult<string>> LogInOne([FromBody] UserLoginDto createDto)
+        {
+            var token = await _userService.LogInAsync(createDto);
+            return Ok(token);
+        }
+
+        /// <summary>
+        /// get all user info
+        /// </summary>
+
         [HttpGet]
-        public async Task<ActionResult<UserReadDto>> GetAllAsync()
+        [Authorize]
+        public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();
 
@@ -60,4 +91,3 @@ namespace src.Controllers
         }
     }
 }
-

@@ -30,13 +30,7 @@ namespace src.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define relationships between entities here
-            // modelBuilder
-            //     .Entity<Users>()
-            //     .HasMany(u => u.Address)
-            //     .WithOne(a => a.User)
-            //     .HasForeignKey(a => a.UserId);
+            modelBuilder.HasPostgresEnum<Role>();
         }
-
     } // end class
 } // end namespace
