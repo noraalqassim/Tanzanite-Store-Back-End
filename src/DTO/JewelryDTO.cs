@@ -44,5 +44,6 @@ namespace src.DTO
             public string JewelryImage { get; set; }
             public string Description { get; set; }
         }
+        
     }
 }

@@ -27,6 +27,8 @@ namespace src.Database
         public DbSet<Payment> Payment { get; set; }
         public DbSet<PaymentCard> PaymentCard { get; set; }
 
+        // public DbSet<OrderGemstone> OrderGemstone { get; set; }
+
         // Constructor
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
