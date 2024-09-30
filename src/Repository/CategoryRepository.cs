@@ -6,11 +6,11 @@ using src.Database;
 using src.Entity;
 using Microsoft.EntityFrameworkCore;
 
-// Repository:
-// Role: Acts as the data access layer, responsible for database operations like fetching, saving, updating, and deleting records.
-
 namespace src.Repository
 {
+    /// <summary>
+    /// Repository Acts as the data access layer, responsible for database operations like fetching, saving, updating, and deleting records.
+    /// </summary>
     public class CategoryRepository
     {
 

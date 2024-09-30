@@ -6,11 +6,11 @@ using src.Database;
 using src.Entity;
 using Microsoft.EntityFrameworkCore;
 
-// Repository:
-// Role: Acts as the data access layer, responsible for database operations like fetching, saving, updating, and deleting records.
-
 namespace src.Repository
 {
+    /// <summary>
+    /// Repository Acts as the data access layer, responsible for database operations like fetching, saving, updating, and deleting records.
+    /// </summary>
     public class CartRepository
     {
 
@@ -46,12 +46,12 @@ namespace src.Repository
         }
 
         // Delete cart Asynchronously
-        public async Task<bool> DeleteOneAsync(Cart cart)
-        {
-            _cart.Remove(cart); // Remove the cart
-            await _databaseContext.SaveChangesAsync(); // Save changes
-            return true;
-        }
+        // public async Task<bool> DeleteOneAsync(Cart cart)
+        // {
+        //     _cart.Remove(cart); // Remove the cart
+        //     await _databaseContext.SaveChangesAsync(); // Save changes
+        //     return true;
+        // }
 
         // Update cart Asynchronously
         public async Task<bool> UpdateOneAsync(Cart updateCart)

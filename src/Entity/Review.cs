@@ -18,7 +18,6 @@ namespace src.Entity
         // Foreign key for the User entity (One to many) Relationship
         public Guid UserId { get; set; }
         public Users User { get; set; } = null!;
-        public int JewelryId { get; set; } // Foreign Key
 
         //One to one relationship
         public Guid OrderId { get; set; } // Required foreign key property

@@ -15,7 +15,7 @@ namespace src.Entity
         public Guid UserId { get; set; }
         public Users User { get; set; } = null!;
         public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
-        
+
 
     } // end class
 } // end namespace

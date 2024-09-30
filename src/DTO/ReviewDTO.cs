@@ -11,14 +11,24 @@ namespace src.DTO
 {
     public class ReviewDTO
     {
+        /// <summary>
+        /// Data Transfer Object (DTO)
+        /// This DTO is designed to encapsulate all necessary information.
+        /// transfer data between different parts of an application,
+        /// such as between services, and repositories.
+        /// Mapper used the class down there.
+        /// Contains Review details such as Date, Rating and Comment.
+        /// This DTO is designed to encapsulate all necessary information for review creation.
+        /// </summary>
+
         // create review
         public class ReviewCreateDTO
         {
             public DateTime ReviewDate { get; set; }
             public int Rating { get; set; }
             public string ReviewComment { get; set; }
-            public int userId { get; set; } // FK
-            public int JewelryId { get; set; } // FK
+            public Guid UserId { get; set; } // FK
+            public Guid OrderId { get; set; } // FK
         }
 
         // read data = get data
@@ -28,8 +38,8 @@ namespace src.DTO
             public DateTime ReviewDate { get; set; }
             public int ReviewRating { get; set; }
             public string ReviewComment { get; set; }
-            public int userId { get; set; } // FK
-            public int JewelryId { get; set; } // FK
+            public Guid UserId { get; set; } // FK
+            public Guid OrderId { get; set; } // FK
 
         }
 
@@ -39,8 +49,8 @@ namespace src.DTO
             public DateTime ReviewDate { get; set; }
             public int ReviewRating { get; set; }
             public string ReviewComment { get; set; }
-            public int userId { get; set; } // FK
-            public int JewelryId { get; set; } // FK
+            public Guid UserId { get; set; } // FK
+            public Guid OrderId { get; set; } // FK
         }
 
     } // end class
