@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace src.Entity
 {
@@ -12,13 +12,12 @@ namespace src.Entity
         public DateTime CreatedAt { get; set; }
         public Guid AddressId { get; set; } // FK
 
-        public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
+        public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); // One to many 
 
-        //One to one relationship
-        public Guid PaymentId { get; set; } // Required foreign key property
+        // One to one relationship with Payment
+        public Guid PaymentId { get; set; } // Foreign key property
         public Payment Payment { get; set; } = null!;
 
-        public Review? Review { get; set; } //One to one 
-
+        public Review? Review { get; set; } // One to one 
     }
 }
