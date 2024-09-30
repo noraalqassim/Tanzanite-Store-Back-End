@@ -4,8 +4,25 @@ using src.Services.Payment;
 
 namespace src.Controllers
 {
+    /// <API>
+    /// POST: /api/v1/Payment
+    /// {
+    ///     "paymentDate": "DateTime",
+    ///     "amount": 0,
+    ///     "paymentOption": "string",
+    ///     "orderId": "Guid"
+    /// }
+    /// Returns the created payment information.
+    ///
+    /// GET: /api/v1/Payment
+    /// Returns the list of all payments.
+    ///
+    /// GET: /api/v1/Payment/{id}
+    /// Returns the payment details associated with the given id.
+    /// </API>
+
     [Route("api/v1/[controller]")]
-    [ApiController] 
+    [ApiController]
     public class PaymentController : ControllerBase
     {
         protected readonly IPaymentService _paymentService;
@@ -14,7 +31,7 @@ namespace src.Controllers
         {
             _paymentService = service;
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<PaymentCreateDto>> CreateOne(PaymentCreateDto createDto)
         {
