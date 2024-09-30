@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace src.Entity
 {
     public class OrderGemstone
     {
+        [Key]
         public Guid OrderProductId { get; set; } // PK
         public List<Jewelry> Jewelries { get; } = []; //one to many relationship
 
