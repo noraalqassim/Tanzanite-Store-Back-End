@@ -75,12 +75,8 @@ namespace src.Controllers
         [Authorize] // --> For users
         public async Task<ActionResult<PaymentCardReadDto>> UpdateOne(Guid PaymentCardId, PaymentCardUpdateDto updateDto)
         {
-            var paymentCardUpdate = await _paymentCardService.UpdateOneAsync(PaymentCardId, updateDto);
-            if (paymentCardUpdate == null)
-            {
-                return NotFound("Payment Card not found"); //400  Not Found
-            }
-            return Ok(paymentCardUpdate); //200 OK
+            var isUpdated = await _paymentCardService.UpdateOneAsync(PaymentCardId, updateDto);
+            return Ok(isUpdated); //200 OK
         }
 
         [HttpDelete("{PaymentCardId}")]
@@ -88,7 +84,7 @@ namespace src.Controllers
         public async Task<ActionResult> DeleteOne(Guid PaymentCardId)
         {
             var paymentCardDeleted = await _paymentCardService.DeleteOneAsync(PaymentCardId);
-            if (paymentCardDeleted == false)
+            if (!paymentCardDeleted)
             {
                 return NotFound(); // 404 Not Found
             }
