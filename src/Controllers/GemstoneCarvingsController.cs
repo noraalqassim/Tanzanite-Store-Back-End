@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.GemstoneCravings;
@@ -38,6 +39,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GemstoneCarvingReadDto>> CreateOne(GemstoneCarvingCreateDto createDto)
         {
             var newCarving = await _gemstoneCarvingService.CreateOneAsync(createDto);
@@ -46,6 +48,7 @@ namespace src.Controllers
 
 
         [HttpPut("{carvingId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateOne(Guid carvingId, GemstoneCarvingUpdateDto updateDto)
         {
             var carvingUpdate = await _gemstoneCarvingService.UpdateOneAsync(carvingId, updateDto);
@@ -57,6 +60,7 @@ namespace src.Controllers
         }
 
         [HttpDelete("{carvingId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteOn(Guid carvingId)
         {
             var carvingDeleted = await _gemstoneCarvingService.DeleteOneAsync(carvingId);

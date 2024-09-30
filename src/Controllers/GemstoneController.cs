@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.Gemstone;
@@ -46,6 +47,7 @@ namespace src.Controllers
         // POST: api/v1/Gemstone
         // Create a new gemstone
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GemstoneReadDto>> CreateOne(GemstoneCreateDto createDto)
         {
             var newGemstone = await _gemstoneService.CreateOneAsync(createDto);
@@ -55,6 +57,7 @@ namespace src.Controllers
         // PUT: api/v1/Gemstone/{GemstoneId}
         // Update a gemstone
         [HttpPut("{GemstoneId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateOne(Guid GemstoneId, GemstoneUpdateDto updateDto)
         {
             var gemstoneUpdated = await _gemstoneService.UpdateOneAsync(GemstoneId, updateDto);
@@ -68,6 +71,7 @@ namespace src.Controllers
         // DELETE: api/v1/Gemstone/{GemstoneId}
         // Delete a gemstone by its ID
         [HttpDelete("{GemstoneId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteOne(Guid GemstoneId)
         {
             var gemstoneDeleted = await _gemstoneService.DeleteOneAsync(GemstoneId);
