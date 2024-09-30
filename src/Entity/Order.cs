@@ -7,7 +7,6 @@ namespace src.Entity
 {
     public class Order
     {
-        [Key]
         public Guid OrderId { get; set; } // PK
         public Guid UserId { get; set; } // FK
         public DateTime CreatedAt { get; set; }

@@ -66,7 +66,8 @@ namespace src.Controllers
         /// </summary>
 
         [HttpGet]
-        [Authorize]
+        [Authorize] // --> For users
+        //[Authorize(Roles ="Admin")] //--> For admins
         public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();
