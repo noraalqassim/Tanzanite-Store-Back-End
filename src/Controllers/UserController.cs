@@ -22,7 +22,7 @@ namespace src.Controllers
         /// </summary>
 
 
-        private readonly IUserService _userService;
+        protected readonly IUserService _userService;
 
         public UserController(IUserService userService)
         {

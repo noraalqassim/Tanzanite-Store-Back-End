@@ -4,5 +4,5 @@ bin
 obj
 appsettings.json
 *.http
-appsettings.json
+.fake
 Migrations

@@ -16,6 +16,12 @@ using src.Services.Payment;
 using src.Services.PaymentCard;
 using src.Services.review;
 using src.Services.User;
+using src.Services.GemstoneCravings;
+using src.Services.Jewelry;
+using src.Services.Gemstone;
+
+
+
 using src.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +71,22 @@ builder
 builder
     .Services.AddScoped<IPaymentCardService, PaymentCardService>()
     .AddScoped<PaymentCardRepository, PaymentCardRepository>();
+    
+//GemstoneCarving
+builder.Services
+.AddScoped<IGemstoneCarvingService, GemstoneCarvingService>()
+.AddScoped<GemstonesCarvingsRepository, GemstonesCarvingsRepository>();
+
+//Gemstones
+builder.Services
+    .AddScoped<IGemstoneService, GemstoneService>()
+    .AddScoped<GemstonesRepository, GemstonesRepository>();
+
+//Jewelry
+builder.Services
+    .AddScoped<IJewelryService, JewelryService>()
+    .AddScoped<JewelryRepository, JewelryRepository>();
+
 
 builder
     .Services.AddAuthentication(options =>

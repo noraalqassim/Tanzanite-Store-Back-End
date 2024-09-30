@@ -57,10 +57,10 @@ namespace src.Controllers
 
 
         // Update a category
-        [HttpPut("{id}")]
-        public async Task<ActionResult<CategoryReadDto>> UpdateOne(Guid id, CategoryUpdateDto updateDto)
+        [HttpPut("{CategoryId}")]
+        public async Task<ActionResult<CategoryReadDto>> UpdateOne(Guid CategoryId, CategoryUpdateDto updateDto)
         {
-            var categoryUpdated = await _categoryService.UpdateOneAsync(id, updateDto);
+            var categoryUpdated = await _categoryService.UpdateOneAsync(CategoryId, updateDto);
             if (categoryUpdated == null)
             {
                 return NotFound(); // 404 Not Found
@@ -70,9 +70,9 @@ namespace src.Controllers
 
         // Delete a category
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteOne(Guid id)
+        public async Task<ActionResult> DeleteOne(Guid CategoryId)
         {
-            var categoryDeleted = await _categoryService.DeleteOneAsync(id);
+            var categoryDeleted = await _categoryService.DeleteOneAsync(CategoryId);
             if (categoryDeleted == false)
             {
                 return NotFound(); // 404 Not Found

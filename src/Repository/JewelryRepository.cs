@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
@@ -25,6 +25,11 @@ namespace src.Repository
             await _jewelry.AddAsync(newJewelryItem);
             await _databaseContext.SaveChangesAsync();
             return newJewelryItem;
+        }
+
+        public async Task<List<Jewelry>> GetAllAsync()
+        {
+            return await _jewelry.ToListAsync();
         }
 
         public async Task<Jewelry?> GetByIdAsync(Guid JewelryId)

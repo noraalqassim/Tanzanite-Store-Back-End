@@ -15,6 +15,9 @@ namespace src.Entity
         public decimal Price { get; set; }
         public string CarvingInfo { get; set; }
         public string Image { get; set; }
-        public int UserId { get; set; } //if IsAdmin == true
+
+        //one to many relaitonship
+        public Guid GemstoneId { get; set; } // Foreign key property for the Gemstone entity
+        public Gemstones Gemstone { get; set; } // Navigation property referencing the Gemstone entity 
     }
 }

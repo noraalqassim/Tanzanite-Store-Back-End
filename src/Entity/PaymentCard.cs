@@ -14,5 +14,9 @@ namespace src.Entity
         public string CardType { get; set; }
         public string CardNumber { get; set; }
         public string BillingAddress { get; set; }
+
+        //one to many relationship
+        public Guid PaymentId { get; set; }
+        public Payment Payment { get; set; } = null!;
     }
 }
