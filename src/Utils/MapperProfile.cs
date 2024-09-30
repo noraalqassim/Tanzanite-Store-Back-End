@@ -11,6 +11,8 @@ using static src.DTO.CategoryDTO;
 using static src.DTO.GemstoneCarvingsDTO;
 using static src.DTO.GemstonesDTO;
 using static src.DTO.JewelryDTO;
+using static src.DTO.OrderDTO;
+using static src.DTO.OrderGemstoneDTO;
 using static src.DTO.PaymentCardDTO;
 using static src.DTO.PaymentDTO;
 using static src.DTO.ReviewDTO;
@@ -118,6 +120,19 @@ namespace src.Utils
             // Creates a mapping from JewelryUpdateDto to Jewelry and applies a condition to map only non-null members
             CreateMap<JewelryUpdateDto, Jewelry>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+                // Order mappings
+CreateMap<Order, OrderReadDto>();
+CreateMap<OrderCreateDto, Order>();
+// Mapping from OrderUpdateDto to Order with a condition to map properties only if they are not null
+CreateMap<OrderUpdateDto, Order>()
+    .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+// OrderGemstone mappings
+CreateMap<OrderGemstone, OrderDTO.OrderGemstoneReadDto>();
+CreateMap<OrderGemstoneCreateDto, OrderGemstone>();
+// Mapping from OrderGemstoneUpdateDto to OrderGemstone with a condition to map properties only if they are not null
+CreateMap<OrderGemstoneUpdateDto, OrderGemstone>()
+    .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     } // end class
 } // end namespace
