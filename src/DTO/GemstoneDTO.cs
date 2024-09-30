@@ -14,6 +14,7 @@ namespace src.DTO
             public string GemstoneColor { get; set; }
             public string GemstoneImage { get; set; }
             public string GemstoneClarity { get; set; }
+            public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
             public int CarvingId { get; set; }
             public int CategoryId { get; set; }
@@ -29,6 +30,7 @@ namespace src.DTO
             public string GemstoneColor { get; set; }
             public string GemstoneImage { get; set; }
             public string GemstoneClarity { get; set; }
+            public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
 
         }
@@ -40,6 +42,7 @@ namespace src.DTO
             public string GemstoneColor { get; set; }
             public string GemstoneImage { get; set; }
             public string GemstoneClarity { get; set; }
+            public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
 
         }
