@@ -21,19 +21,11 @@ namespace src.Services.Order
             _mapper = mapper;
         }
 
-        public async Task<OrderReadDto> CreateOnAsync(Guid userId, OrderCreateDto createDto)
+        public async Task<OrderReadDto> CreateOnAsync(OrderCreateDto createDto)
         {
             var order = _mapper.Map<OrderCreateDto, Entity.Order>(createDto);
-            order.UserId = userId;
-            await _orderRepo.CreateOnAsync(order);
-            return _mapper.Map<Entity.Order, OrderReadDto>(order);
-        }
-
-        public async Task<bool> DeleteOnAsync(Guid orderId)
-        {
-            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
-            bool isDeleted = await _orderRepo.DeleteOnAsync(foundOrder);
-            return isDeleted;
+            var orderCreated = await _orderRepo.CreateOnAsync(order);
+            return _mapper.Map<Entity.Order, OrderReadDto>(orderCreated);
         }
 
         public async Task<List<OrderReadDto>> GetAllAsync()
@@ -59,6 +51,13 @@ namespace src.Services.Order
             _mapper.Map(updateDto, foundOrder);
             return await _orderRepo.UpdateOnAsync(foundOrder);
         }
+
+        public async Task<bool> DeleteOneAsync(Guid orderId)
+        {
+            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
+
+            bool isDeleted = await _orderRepo.DeleteOnAsync(foundOrder);
+            return isDeleted;
+        }
     }
 }
-

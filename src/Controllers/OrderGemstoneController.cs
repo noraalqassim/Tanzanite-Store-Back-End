@@ -21,12 +21,12 @@ namespace src.Controllers
             _orderGemstoneService = service;
         }
 
-        // [HttpGet]
-        // public async Task<ActionResult<List<OrderGemstone>>> GetAllOrderGemstones()
-        // {
-        //     var orderGemstonesList = await _orderGemstoneService.GetAllAsync();
-        //     return Ok(orderGemstonesList); //200 OK
-        // }
+        [HttpGet]
+        public async Task<ActionResult<List<OrderGemstone>>> GetAllOrderGemstones()
+        {
+            var orderGemstonesList = await _orderGemstoneService.GetAllAsync();
+            return Ok(orderGemstonesList); //200 OK
+        }
 
         // [HttpGet("{OrderProductId}")]
         // public async Task<ActionResult<OrderGemstoneReadDto>> GetById(Guid OrderProductId)
@@ -47,28 +47,28 @@ namespace src.Controllers
         //     return Ok(nweOrderProduct);//200 Ok
         // }
 
-        // //Update
-        // [HttpPut("{OrderProductId}")]
-        // public async Task<ActionResult<OrderGemstoneReadDto>> UpdateOne(Guid OrderProductId, OrderGemstoneUpdateDto updateDto)
-        // {
-        //     var OrderProductUpdate = await _orderGemstoneService.UpdateOnAsync(OrderProductId, updateDto);
-        //     if (OrderProductUpdate == null)
-        //     {
-        //         return NotFound("Order Product item not found"); //400  Not Found
-        //     }
-        //     return Ok(OrderProductUpdate); //200 OK
-        // }
-        // //Delete
+        //Update
+        [HttpPut("{OrderProductId}")]
+        public async Task<ActionResult<OrderGemstoneReadDto>> UpdateOne(Guid OrderProductId, OrderGemstoneUpdateDto updateDto)
+        {
+            var OrderProductUpdate = await _orderGemstoneService.UpdateOnAsync(OrderProductId, updateDto);
+            if (OrderProductUpdate == null)
+            {
+                return NotFound("Order Product item not found"); //400  Not Found
+            }
+            return Ok(OrderProductUpdate); //200 OK
+        }
+        //Delete
 
-        // [HttpDelete("{OrderProductId}")]
-        // public async Task<ActionResult> DeleteOne(Guid OrderProductId)
-        // {
-        //     var OrderProductDeleted = await _orderGemstoneService.DeleteOnAsync(OrderProductId);
-        //     if (OrderProductDeleted == false)
-        //     {
-        //         return NotFound(); // 404 Not Found
-        //     }
-        //     return NoContent(); // 200 OK 
-        // }
+        [HttpDelete("{OrderProductId}")]
+        public async Task<ActionResult> DeleteOne(Guid OrderProductId)
+        {
+            var OrderProductDeleted = await _orderGemstoneService.DeleteOnAsync(OrderProductId);
+            if (OrderProductDeleted == false)
+            {
+                return NotFound(); // 404 Not Found
+            }
+            return NoContent(); // 200 OK 
+        }
     }
 }
