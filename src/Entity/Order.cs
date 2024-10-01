@@ -20,5 +20,9 @@ namespace src.Entity
 
         public Review? Review { get; set; } // One to one 
         public object Serial { get; internal set; }
+
+        internal class Services
+        {
+        }
     }
 }

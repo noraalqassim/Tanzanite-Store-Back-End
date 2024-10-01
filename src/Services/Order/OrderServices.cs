@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using src.Entity; // Import the src.Entity namespace
-using src.Repository;
+using Microsoft.AspNetCore.Mvc;
+using src.Repositories;
 using static src.DTO.OrderDTO;
-
 namespace src.Services.Order
 {
     /// <summary>
@@ -24,42 +19,62 @@ namespace src.Services.Order
             _mapper = mapper;
         }
 
-        public async Task<OrderReadDto> CreateOnAsync(OrderCreateDto createDto)
+        public async Task<OrderReadDto> CreateOnAsync(Guid userId, OrderCreateDto createDto)
         {
             var order = _mapper.Map<OrderCreateDto, Entity.Order>(createDto);
-            var orderCreated = await _orderRepo.CreateOnAsync(order);
-            return _mapper.Map<Entity.Order, OrderReadDto>(orderCreated);
+            order.UserId = userId;
+            await _orderRepo.CreateOneAsync(order);
+            return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
 
-        public async Task<List<OrderReadDto>> GetAllAsync()
+        public Task<OrderReadDto> CreateOneAsync(Guid userId, OrderCreateDto createDto)
         {
-            var orderList = await _orderRepo.GetAllAsync();
-            return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(orderList);
+            throw new NotImplementedException();
         }
 
-        public async Task<OrderReadDto> GetByIdAsync(Guid orderId)
+        public Task<ActionResult<Entity.Order>> CreateOrder(Entity.Order order)
         {
-            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
-            return _mapper.Map<Entity.Order, OrderReadDto>(foundOrder);
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> DeleteOnAsync(Guid orderId)
+        public Task<bool> DeleteOnAsync(Guid orderId)
         {
-            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
-            bool isDeleted = await _orderRepo.DeleteOnAsync(foundOrder);
-            return isDeleted;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateOnAsync(Guid orderId, OrderUpdateDto updateDto)
+        public Task<IActionResult> DeleteOrder(int id)
         {
-            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
+            throw new NotImplementedException();
+        }
 
-            if (foundOrder == null)
-            {
-                return false;
-            }
-            _mapper.Map(updateDto, foundOrder);
-            return await _orderRepo.UpdateOnAsync(foundOrder);
+        public Task<List<OrderReadDto>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ActionResult<IEnumerable<Entity.Order>>> GetAllOrders()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OrderReadDto> GetByIdAsync(Guid orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ActionResult<Entity.Order>> GetOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateOnAsync(Guid orderId, OrderUpdateDto updateDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IActionResult> UpdateOrder(int id, Entity.Order order)
+        {
+            throw new NotImplementedException();
         }
     }
 }

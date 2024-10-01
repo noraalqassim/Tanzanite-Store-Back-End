@@ -64,5 +64,15 @@ namespace src.Repositories
                  await _context.SaveChangesAsync();
              }
          }
-     }
+
+        internal async Task CreateOneAsync(Order.Services order)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task CreateOneAsync(Order order)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
