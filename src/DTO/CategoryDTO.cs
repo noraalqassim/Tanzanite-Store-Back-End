@@ -23,6 +23,7 @@ namespace src.DTO
         /// </summary>
 
         // create category
+        // in create i don't need to send the Gemstones 
         public class CategoryCreateDto
         {
             public string CategoryName { get; set; }
@@ -30,7 +31,7 @@ namespace src.DTO
 
         }
 
-        // read data = get data
+        // read data = get data 
         public class CategoryReadDto
         {
             public Guid CategoryId { get; set; }
@@ -46,6 +47,8 @@ namespace src.DTO
             public List<Gemstones> Gemstone { get; set; } // FK
 
         }
+
+        
 
     } // end class
 } // end namespace

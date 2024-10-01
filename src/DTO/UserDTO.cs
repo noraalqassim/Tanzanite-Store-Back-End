@@ -23,7 +23,11 @@ namespace src.DTO
 
         public class UserCreateDto //can use for signUp
         {
+            [Required]
             public string Name { get; set; }
+
+            [Required]
+            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number format")]
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -62,20 +66,51 @@ namespace src.DTO
 
         public class UserLoginDto
         {
+            [Required]
+            [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [MinLength(8)]
+            [RegularExpression(
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
+                ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit."
+            )]
             public string Password { get; set; }
         }
 
         public class UserProfileDto
         {
+            [Required]
             public string Name { get; set; }
+
+            [Required]
+            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number format")]
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [MinLength(8)]
+            [RegularExpression(
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
+                ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit."
+            )]
             public string Password { get; set; }
+
+            public ICollection<Address> Addresses { get; } = new List<Address>(); 
         }
 
         public class PasswordUpdateDto
         {
+            [Required]
+            [MinLength(8)]
+            [RegularExpression(
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
+                ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit."
+            )]
             public string Password { get; set; }
         }
     }
