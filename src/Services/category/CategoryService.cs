@@ -28,6 +28,10 @@ namespace src.Services.category
         }
 
         // Create new Category Asynchronously
+        /// <summary>
+        ///  when create new category the name should not be created already  
+        /// </summary>
+  
         public async Task<CategoryReadDto> CreateOneAsync(CategoryCreateDto createDto)
         {
             var category = _mapper.Map<CategoryCreateDto, Category>(createDto);
@@ -58,7 +62,6 @@ namespace src.Services.category
             // }
 
             return _mapper.Map<Category, CategoryReadDto>(foundCategory);
-
         }
 
         // Delete cart by Id Asynchronously
