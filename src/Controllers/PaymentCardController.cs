@@ -36,8 +36,9 @@ namespace src.Controllers
     /// Deletes the payment card associated with the given PaymentCardId.
     /// </API>
 
-    [Route("api/v1/[controller]")]
+    
     [ApiController]
+    [Route("api/v1/[controller]")]
     public class PaymentCardController : ControllerBase
     {
         protected readonly IPaymentCardService _paymentCardService;

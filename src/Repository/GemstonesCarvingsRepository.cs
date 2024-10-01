@@ -1,53 +1,53 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using src.Database;
-using src.Entity;
-using Microsoft.EntityFrameworkCore;
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
+// using src.Database;
+// using src.Entity;
+// using Microsoft.EntityFrameworkCore;
 
-namespace src.Repository
-{
-    public class GemstonesCarvingsRepository
-    {
-        protected DbSet<Gemstones_Carvings> _carvings;
-        protected DatabaseContext _databaseContext; //database 
+// namespace src.Repository
+// {
+//     public class GemstonesCarvingsRepository
+//     {
+//         protected DbSet<Gemstones_Carvings> _carvings;
+//         protected DatabaseContext _databaseContext; //database 
 
-        public GemstonesCarvingsRepository(DatabaseContext databaseContext)
-        {
-            _databaseContext = databaseContext;
-            _carvings = databaseContext.Set<Gemstones_Carvings>();
-        }
+//         public GemstonesCarvingsRepository(DatabaseContext databaseContext)
+//         {
+//             _databaseContext = databaseContext;
+//             _carvings = databaseContext.Set<Gemstones_Carvings>();
+//         }
 
-        public async Task<Gemstones_Carvings> CreateOnAsync(Gemstones_Carvings newCarving)
-        {
-            await _carvings.AddAsync(newCarving);
-            await _databaseContext.SaveChangesAsync();
-            return newCarving;
-        }
-        public async Task<List<Gemstones_Carvings>> GetAllAsync()
-        {
-            return await _carvings.ToListAsync();
-        }
+//         public async Task<Gemstones_Carvings> CreateOnAsync(Gemstones_Carvings newCarving)
+//         {
+//             await _carvings.AddAsync(newCarving);
+//             await _databaseContext.SaveChangesAsync();
+//             return newCarving;
+//         }
+//         public async Task<List<Gemstones_Carvings>> GetAllAsync()
+//         {
+//             return await _carvings.ToListAsync();
+//         }
 
-        public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId)
-        {
-            return await _carvings.FindAsync(CarvingId);
-        }
+//         public async Task<Gemstones_Carvings?> GetByIdAsync(Guid CarvingId)
+//         {
+//             return await _carvings.FindAsync(CarvingId);
+//         }
 
-        public async Task<bool> DeleteOnAsync(Gemstones_Carvings carving)
-        {
-            _carvings.Remove(carving);
-            await _databaseContext.SaveChangesAsync();
-            return true;
-        }
+//         public async Task<bool> DeleteOnAsync(Gemstones_Carvings carving)
+//         {
+//             _carvings.Remove(carving);
+//             await _databaseContext.SaveChangesAsync();
+//             return true;
+//         }
 
-        public async Task<bool> UpdateOnAsync(Gemstones_Carvings updateCarving)
-        {
-            _carvings.Update(updateCarving);
-            await _databaseContext.SaveChangesAsync();
-            return true;
-        }
+//         public async Task<bool> UpdateOnAsync(Gemstones_Carvings updateCarving)
+//         {
+//             _carvings.Update(updateCarving);
+//             await _databaseContext.SaveChangesAsync();
+//             return true;
+//         }
 
-    }
-}
+//     }
+// }

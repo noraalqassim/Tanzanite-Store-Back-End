@@ -25,11 +25,11 @@ namespace src.Entity
         public decimal JewelryPrice { get; set; }
         public string JewelryImage { get; set; }
         public string Description { get; set; }
-        public ICollection<Gemstones> Gemstone { get; set; } // Navigation property for the many-to-many relationship with Gemstone
+        public ICollection<Gemstones> Gemstone { get; }= []; // many-to-many relationship with Gemstone
 
         //one to many relationship
-        public Guid OrderProductId { get; set; }
-        public OrderGemstone OrderProducts { get; set; }
+        public Guid? OrderProductId { get; set; }
+        public OrderGemstone? OrderProducts { get; set; }
 
     }
 }
