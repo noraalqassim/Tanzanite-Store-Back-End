@@ -1,59 +1,76 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Mvc;
-// using src.Entity;
-// using src.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using src.Entity;
+using src.Repository;
+using src.Services.OrderGemstone;
+using static src.DTO.OrderGemstoneDTO;
 
-// namespace src.Controllers
-// {
-//     [ApiController]
-//     [Route("api/[controller]")]
-//     public class OrderGemstoneController : ControllerBase
-//     {
-//         private readonly IOrderGemstoneRepository _repository;
+namespace src.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrderGemstoneController : ControllerBase
+    {
+        private readonly IOrderGemstoneService _orderGemstoneService;
 
-//         public OrderGemstoneController(IOrderGemstoneRepository repository)
-//         {
-//             _repository = repository;
-//         }
+        public OrderGemstoneController(IOrderGemstoneService service)
+        {
+            _orderGemstoneService = service;
+        }
 
-//         [HttpGet]
-//         public async Task<ActionResult<List<OrderGemstone>>> GetAllOrderGemstones()
-//         {
-//             return await _repository.GetAllOrderGemstones();
-//         }
+        [HttpGet]
+        public async Task<ActionResult<List<OrderGemstone>>> GetAllOrderGemstones()
+        {
+            var orderGemstonesList = await _orderGemstoneService.GetAllAsync();
+            return Ok(orderGemstonesList); //200 OK
+        }
 
-//         [HttpGet("{id}")]
-//         public async Task<ActionResult<OrderGemstone>> GetOrderGemstoneById(int id)
-//         {
-//             return await _repository.GetOrderGemstoneById(id);
-//         }
+        [HttpGet("{OrderProductId}")]
+        public async Task<ActionResult<OrderGemstoneReadDto>> GetById(Guid OrderProductId)
+        {
+            var foundOrderProduct = await _orderGemstoneService.GetByIdAsync(OrderProductId);
+            if (foundOrderProduct == null)
+            {
+                return NotFound("Order Product not found"); //400 Not Found
+            }
+            return Ok(foundOrderProduct); //200 Ok
+        }
 
-//         [HttpPost]
-//         public async Task<ActionResult<OrderGemstone>> CreateOrderGemstone(OrderGemstone orderGemstone)
-//         {
-//             await _repository.CreateOrderGemstone(orderGemstone);
-//             return CreatedAtAction(nameof(GetOrderGemstoneById), new { id = orderGemstone.OrderProductId }, orderGemstone);
-//         }
+        //Create 
+        [HttpPost]
+        [Authorize(Roles = "Admin")] //--> Just the Admin Can Create New Jewelry
+        public async Task<ActionResult<JewelryReadDto>> CreateOne(OrderGemstoneCreateDto createDto)
+        {
+            var nweOrderProduct = await _orderGemstoneService.CreateOnAsync(createDto);
+            return Ok(nweOrderProduct);//200 Ok
+        }
 
-//         [HttpPut("{id}")]
-//         public async Task<ActionResult> UpdateOrderGemstone(int id, OrderGemstone orderGemstone)
-//         {
-//             if (id != orderGemstone.OrderProductId)
-//             {
-//                 return BadRequest();
-//             }
-//             await _repository.UpdateOrderGemstone(orderGemstone);
-//             return NoContent();
-//         }
+        //Update
+        [HttpPut("{OrderProductId}")]
+        public async Task<ActionResult<OrderGemstoneReadDto>> UpdateOne(Guid OrderProductId, OrderGemstoneUpdateDto updateDto)
+        {
+            var OrderProductUpdate = await _orderGemstoneService.UpdateOnAsync(OrderProductId, updateDto);
+            if (OrderProductUpdate == null)
+            {
+                return NotFound("Order Product item not found"); //400  Not Found
+            }
+            return Ok(OrderProductUpdate); //200 OK
+        }
+        //Delete
 
-//         [HttpDelete("{id}")]
-//         public async Task<ActionResult> DeleteOrderGemstone(int id)
-//         {
-//             await _repository.DeleteOrderGemstone(id);
-//             return NoContent();
-//         }
-//     }
-// }
+        [HttpDelete("{OrderProductId}")]
+        public async Task<ActionResult> DeleteOne(Guid OrderProductId)
+        {
+            var OrderProductDeleted = await _orderGemstoneService.DeleteOnAsync(OrderProductId);
+            if (OrderProductDeleted == false)
+            {
+                return NotFound(); // 404 Not Found
+            }
+            return NoContent(); // 200 OK 
+        }
+    }
+}
