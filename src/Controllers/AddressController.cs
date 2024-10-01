@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.Address;
@@ -26,8 +28,11 @@ namespace src.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<AddressCreateDto>> CreateOne(AddressCreateDto createDto)
         {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
             var addressCretaed = await _addressService.CreateOnAsync(createDto);
             return Ok(addressCretaed);
         }
