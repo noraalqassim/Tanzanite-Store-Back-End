@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using src.Entity;
@@ -19,9 +20,17 @@ namespace src.DTO
         /// </summary>
         public class AddressCreateDto
         {
+            [Required]
             public string Street { get; set; }
+
+            [Required]
             public string City { get; set; }
+
+            [Required]
             public string County { get; set; }
+
+            [Required]
+            [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid ZipCode format")]
             public string ZipCode { get; set; }
             public Guid UserId { get; set; }
         }
@@ -38,9 +47,17 @@ namespace src.DTO
 
         public class AddressUpdateDto
         {
+            [Required]
             public string Street { get; set; }
+
+            [Required]
             public string City { get; set; }
+
+            [Required]
             public string County { get; set; }
+
+            [Required]
+            [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid ZipCode format")]
             public string ZipCode { get; set; }
         }
     }

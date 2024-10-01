@@ -16,7 +16,7 @@ namespace src.DTO
             public decimal CarvingPrice { get; set; }
             public string CarvingInfo { get; set; }
             public string Image { get; set; }
-            public Guid UserId { get; set; } // Assuming UserId is of type Guid
+            public Guid UserId { get; set; } 
 
         }
 

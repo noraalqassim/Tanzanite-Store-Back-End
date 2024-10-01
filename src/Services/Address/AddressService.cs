@@ -24,6 +24,10 @@ namespace src.Services.Address
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// user id so every address create for user 
+        /// </summary>
+       
         public async Task<AddressReadDto> CreateOnAsync(AddressCreateDto createDto)
         {
             var address = _mapper.Map<AddressCreateDto, Entity.Address>(createDto);
