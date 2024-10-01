@@ -112,5 +112,18 @@ namespace src.Controllers
             }
             return NoContent(); // 200 OK 
         }
+
+        //Search 
+        [HttpGet("Search/{name}")]
+        public async Task<ActionResult<JewelryReadDto>> GetJewelryByName(string name)
+        {
+            var foundJewelry = await _jewelryService.GetByNameAsync(name);
+            if (foundJewelry == null)
+            {
+                return NotFound();
+            }
+            return Ok(foundJewelry);
+        }
+
     }
 }

@@ -50,5 +50,13 @@ namespace src.Repository
             await _databaseContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<List<Jewelry>> GetByNameAsync(string searchJewelry)
+        {
+            return await _databaseContext.Jewelry
+                .Where(j => j.JewelryName.ToLower().Contains(searchJewelry.ToLower()))
+                .ToListAsync();
+        }
+
     }
 }

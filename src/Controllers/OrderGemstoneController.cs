@@ -28,24 +28,24 @@ namespace src.Controllers
             return Ok(orderGemstonesList); //200 OK
         }
 
-        // [HttpGet("{OrderProductId}")]
-        // public async Task<ActionResult<OrderGemstoneReadDto>> GetById(Guid OrderProductId)
-        // {
-        //     var foundOrderProduct = await _orderGemstoneService.GetByIdAsync(OrderProductId);
-        //     if (foundOrderProduct == null)
-        //     {
-        //         return NotFound("Order Product not found"); //400 Not Found
-        //     }
-        //     return Ok(foundOrderProduct); //200 Ok
-        // }
+        [HttpGet("{OrderProductId}")]
+        public async Task<ActionResult<OrderGemstoneReadDto>> GetById(Guid OrderProductId)
+        {
+            var foundOrderProduct = await _orderGemstoneService.GetByIdAsync(OrderProductId);
+            if (foundOrderProduct == null)
+            {
+                return NotFound("Order Product not found"); //400 Not Found
+            }
+            return Ok(foundOrderProduct); //200 Ok
+        }
 
-        // //Create 
-        // [HttpPost]
-        // public async Task<ActionResult<JewelryReadDto>> CreateOne(OrderGemstoneCreateDto createDto)
-        // {
-        //     var nweOrderProduct = await _orderGemstoneService.CreateOnAsync(createDto);
-        //     return Ok(nweOrderProduct);//200 Ok
-        // }
+        //Create 
+        [HttpPost]
+        public async Task<ActionResult<JewelryReadDto>> CreateOne(OrderGemstoneCreateDto createDto)
+        {
+            var nweOrderProduct = await _orderGemstoneService.CreateOnAsync(createDto);
+            return Ok(nweOrderProduct);//200 Ok
+        }
 
         //Update
         [HttpPut("{OrderProductId}")]

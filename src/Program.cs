@@ -19,11 +19,10 @@ using src.Services.User;
 // using src.Services.GemstoneCravings;
 using src.Services.Jewelry;
 using src.Services.Gemstone;
-
-
-
 using src.Utils;
 using src.Services.OrderGemstone;
+using src.Services.Order;
+using src.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +92,11 @@ builder.Services
     .AddScoped<IOrderGemstoneService, OrderGemstoneService>()
     .AddScoped<OrderGemstoneRepository, OrderGemstoneRepository>();
 
+//Order
+builder.Services
+    .AddScoped<IOrderService, OrderService>()
+    .AddScoped<OrderRepository, OrderRepository>();
+
 
 builder
     .Services.AddAuthentication(options =>
@@ -144,6 +148,12 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine($"Database connection failed: {ex.Message}");
     }
 }
+
+// add middleware 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 
