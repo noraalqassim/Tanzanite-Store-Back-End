@@ -80,8 +80,8 @@ namespace src.Controllers
         /// </summary>
 
         [HttpGet]
-        [Authorize] // --> For users
-        //[Authorize(Roles ="Admin")] //--> For admins
+        // [Authorize] // --> For users
+        [Authorize(Roles ="Admin")] //--> For admins
         public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();

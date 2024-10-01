@@ -8,7 +8,7 @@ namespace src.Entity
 {
     /// <summary>
     /// CarvingName: Name of the carving "Gemstone shepe" like (Oval, Heart, Round, pear).
-    /// Weight: Weight of the carving, likely in carats.
+    /// Weight: Weight of the carving, likely in carats .
     /// CarvingPrice: is the base price of the carving without considering the gemstone material.
     /// Users with the role "admin" to add jewelry items after authentication.
     /// </summary>
@@ -24,6 +24,6 @@ namespace src.Entity
 
         //one to many relaitonship
         public Guid GemstoneId { get; set; } // Foreign key property for the Gemstone entity
-        public Gemstones Gemstone { get; set; } // Navigation property referencing the Gemstone entity 
+        public Gemstones Gemstone { get; set; } = null!; // Navigation property referencing the Gemstone entity
     }
 }
