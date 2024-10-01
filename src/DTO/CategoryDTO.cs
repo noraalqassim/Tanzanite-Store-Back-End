@@ -27,7 +27,6 @@ namespace src.DTO
         public class CategoryCreateDto
         {
             public string CategoryName { get; set; }
-            public List<Gemstones> Gemstone { get; set; } // FK
 
         }
 
@@ -44,7 +43,6 @@ namespace src.DTO
         public class CategoryUpdateDto
         {
             public string CategoryName { get; set; }
-            public List<Gemstones> Gemstone { get; set; } // FK
 
         }
 

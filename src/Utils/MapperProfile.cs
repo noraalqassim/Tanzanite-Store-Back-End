@@ -8,7 +8,7 @@ using src.Entity;
 using static src.DTO.AddressDTO;
 using static src.DTO.CartDTO;
 using static src.DTO.CategoryDTO;
-using static src.DTO.GemstoneCarvingsDTO;
+// using static src.DTO.GemstoneCarvingsDTO;
 using static src.DTO.GemstonesDTO;
 using static src.DTO.JewelryDTO;
 using static src.DTO.OrderDTO;
@@ -99,13 +99,13 @@ namespace src.Utils
                     options.Condition((src, dest, srcProperty) => srcProperty != null)
                 );
 
-            //GemstonesCravings mappings
-            //table name is "Gemstones_Carvings"
-            CreateMap<Gemstones_Carvings, GemstoneCarvingReadDto>();
-            CreateMap<GemstoneCarvingCreateDto, Gemstones_Carvings>();
-            // Creates a mapping from GemstoneCarvingUpdateDto to Gemstones_Carvings and applies a condition to map only non-null members
-            CreateMap<GemstoneCarvingUpdateDto, Gemstones_Carvings>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            // //GemstonesCravings mappings
+            // //table name is "Gemstones_Carvings"
+            // CreateMap<Gemstones_Carvings, GemstoneCarvingReadDto>();
+            // CreateMap<GemstoneCarvingCreateDto, Gemstones_Carvings>();
+            // // Creates a mapping from GemstoneCarvingUpdateDto to Gemstones_Carvings and applies a condition to map only non-null members
+            // CreateMap<GemstoneCarvingUpdateDto, Gemstones_Carvings>()
+            //     .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             //Gemstones mappings
             CreateMap<Gemstones, GemstoneReadDto>();

@@ -22,7 +22,7 @@ namespace src.Database
          public DbSet<Category> Category { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<Cart> Cart { get; set; }
-        public DbSet<Gemstones_Carvings> Gemstones_Carvings { get; set; }
+        // public DbSet<Gemstones_Carvings> Gemstones_Carvings { get; set; }
         public DbSet<Gemstones> Gemstones { get; set; }
         public DbSet<Jewelry> Jewelry { get; set; }
         public DbSet<Payment> Payment { get; set; }
