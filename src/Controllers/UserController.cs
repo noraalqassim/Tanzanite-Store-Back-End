@@ -36,9 +36,9 @@ namespace src.Controllers
         /// <API>
         /// {
         ///     "name": "",
-        ///     "phoneNumber": "",
-        ///     "email": "",
-        ///     "password": ""
+        ///     "phoneNumber": "+1-9",
+        ///     "email": "@ .com",
+        ///     "password": "Aa-Zz 1-8"
         ///  }
         /// </API>
         /// return user info
@@ -80,8 +80,8 @@ namespace src.Controllers
         /// </summary>
 
         [HttpGet]
-        // [Authorize] // --> For users
-        [Authorize(Roles ="Admin")] //--> For admins
+        [Authorize] // --> For All users
+        // [Authorize(Roles ="Admin")] //--> For admins
         public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();
