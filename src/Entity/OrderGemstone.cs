@@ -18,7 +18,7 @@ namespace src.Entity
         [Key]
         public Guid OrderProductId { get; set; } // PK
         public decimal FinalPrice { get; set; } // JewelryPrice + GemstonePrice + CarvingPrice
-        public List<Jewelry> Jewelries { get; set; } = new List<Jewelry>(); //one to many relationship
+        public List<Jewelry> Jewelries { get; } = []; //one to many relationship //one to many relationship
 
 //         //one to many relationship 
 //         public Guid CartId { get; set; }

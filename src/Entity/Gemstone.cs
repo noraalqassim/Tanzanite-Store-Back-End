@@ -34,8 +34,9 @@ namespace src.Entity
         public string GemstoneClarity { get; set; }
         public decimal GemstonePrice { get; set; }
         public string GemstoneDescription { get; set; }
-        public ICollection<Gemstones_Carvings> Carving { get; set; } // Navigation property referencing Gemstones_Carvings
-        public List<Jewelry> Jewelries { get; }//many-to-many relationship
+        //public ICollection<Gemstones_Carvings> Carving { get; set; } // Navigation property referencing Gemstones_Carvings
+        public List<Gemstones_Carvings> Gemstone { get; } = new List<Gemstones_Carvings>(); //one to many
+        public List<Jewelry> Jewelries { get; } = [];//many-to-many relationship
         public Guid CategoryId { get; set; }//One-to-many relationship
         public Category Category { get; set; } = null!; //One-to-many relationship
 
