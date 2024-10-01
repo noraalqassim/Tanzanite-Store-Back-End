@@ -64,14 +64,14 @@
 //     }
 // }
 
-namespace src.Services.Order
-{
+// namespace src.Services.Order
+// {
     /// <summary>
     /// Services Contain the business logic of your application and interact with entities, repositories, and other services.
     //  Services use DTOs to transfer data between different layers of the application, such as between the controller and the repository.
     /// </summary>
-    public class OrderService : IOrderService
-    {
+    // public class OrderService : IOrderService
+    // {
     //     protected readonly OrderRepository _orderRepo;
     //     protected readonly IMapper _mapper;
 
@@ -118,5 +118,5 @@ namespace src.Services.Order
     //         _mapper.Map(updateDto, foundOrder);
     //         return await _orderRepo.UpdateOnAsync(foundOrder);
     //     }
-    }
-}
+//     }
+// }

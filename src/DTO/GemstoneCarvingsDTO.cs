@@ -4,21 +4,21 @@
 // using System.Threading.Tasks;
 // using src.Entity;
 
-namespace src.DTO
-{
-    public class GemstoneCarvingsDTO
-    {
-        // create category
-        public class GemstoneCarvingCreateDto
-        {
-            public string CarvingName { get; set; }
-            public decimal Weight { get; set; }
-            public decimal CarvingPrice { get; set; }
-            public string CarvingInfo { get; set; }
-            public string Image { get; set; }
-            public Guid UserId { get; set; } // Assuming UserId is of type Guid
+// namespace src.DTO
+// {
+//     public class GemstoneCarvingsDTO
+//     {
+//         // create category
+//         public class GemstoneCarvingCreateDto
+//         {
+//             public string CarvingName { get; set; }
+//             public decimal Weight { get; set; }
+//             public decimal CarvingPrice { get; set; }
+//             public string CarvingInfo { get; set; }
+//             public string Image { get; set; }
+//             public Guid UserId { get; set; } // Assuming UserId is of type Guid
 
-        }
+//         }
 
 //         // read data = get data
 //         public class GemstoneCarvingReadDto
