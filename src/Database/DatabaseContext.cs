@@ -17,8 +17,9 @@ namespace src.Database
 
         public DbSet<Users> User { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Order> Order { get; set; }
-        public DbSet<Category> Category { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderGemstone> OrderGemstones { get; set; }       
+         public DbSet<Category> Category { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Gemstones_Carvings> Gemstones_Carvings { get; set; }
