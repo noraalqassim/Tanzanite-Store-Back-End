@@ -47,14 +47,7 @@ namespace src.Services.Jewelry
         {
             var foundJewelry = await _jewelryRepo.GetByIdAsync(JewelryId);
             bool isDeleted = await _jewelryRepo.DeleteOnAsync(foundJewelry);
-
-            if (isDeleted)
-            {
-                return true; // Return false if the  is not found
-            }
-
-            return false;
-
+            return isDeleted;
         }
 
         // Update a Jewelry 
