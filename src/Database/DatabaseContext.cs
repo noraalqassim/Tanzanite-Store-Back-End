@@ -26,7 +26,7 @@ namespace src.Database
         public DbSet<Gemstones> Gemstones { get; set; }
         public DbSet<Jewelry> Jewelry { get; set; }
         public DbSet<Payment> Payment { get; set; }
-        public DbSet<PaymentCard> PaymentCard { get; set; }
+        // public DbSet<PaymentCard> PaymentCard { get; set; }
 
         // public DbSet<OrderGemstone> OrderGemstone { get; set; }
 
@@ -36,6 +36,10 @@ namespace src.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+             modelBuilder.Entity<Payment>()
+        .HasOne(p => p.Order)
+        .WithOne(o => o.Payment)
+        .HasForeignKey<Payment>(p => p.OrderId);
             modelBuilder.HasPostgresEnum<Role>();
         }
     } // end class

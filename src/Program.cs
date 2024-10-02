@@ -13,7 +13,7 @@ using src.Services.Address;
 using src.Services.cart;
 using src.Services.category;
 using src.Services.Payment;
-using src.Services.PaymentCard;
+// using src.Services.PaymentCard;
 using src.Services.review;
 using src.Services.User;
 using src.Services.Jewelry;
@@ -67,9 +67,9 @@ builder
     .AddScoped<PaymentRepository, PaymentRepository>();
 
 ///PaymentCard
-builder
-    .Services.AddScoped<IPaymentCardService, PaymentCardService>()
-    .AddScoped<PaymentCardRepository, PaymentCardRepository>();
+// builder
+//     .Services.AddScoped<IPaymentCardService, PaymentCardService>()
+//     .AddScoped<PaymentCardRepository, PaymentCardRepository>();
 
 //Gemstones
 builder.Services
