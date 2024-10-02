@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using src.Entity;
 using src.Repository;
+using src.Utils;
 using static src.DTO.GemstonesDTO;
 
 
@@ -40,6 +41,10 @@ namespace src.Services.Gemstone
         public async Task<GemstoneReadDto> GetByIdAsync(Guid GemstoneId)
         {
             var foundGemstone = await _gemstonesRepo.GetByIdAsync(GemstoneId);
+            if (foundGemstone == null)
+            {
+                throw CustomException.NotFound($"category with {GemstoneId} cant find");
+            }
             return _mapper.Map<src.Entity.Gemstones, GemstoneReadDto>(foundGemstone);
         }
 

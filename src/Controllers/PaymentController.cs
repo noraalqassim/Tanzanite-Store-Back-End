@@ -22,8 +22,8 @@ namespace src.Controllers
     /// Returns the payment details associated with the given id.
     /// </API>
 
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [Route("api/v1/[controller]")]
     public class PaymentController : ControllerBase
     {
         protected readonly IPaymentService _paymentService;

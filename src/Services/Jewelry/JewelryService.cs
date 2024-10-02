@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using src.Entity;
 using src.Repository;
+using src.Utils;
 using static src.DTO.JewelryDTO;
 
 namespace src.Services.Jewelry
@@ -39,15 +40,13 @@ namespace src.Services.Jewelry
         public async Task<JewelryReadDto> GetByIdAsync(Guid JewelryId)
         {
             var foundJewelry = await _jewelryRepo.GetByIdAsync(JewelryId);
-            return _mapper.Map<src.Entity.Jewelry, JewelryReadDto>(foundJewelry);
-        }
 
-        // Delete a Jewelry  by its ID
-        public async Task<bool> DeleteOneAsync(Guid JewelryId)
-        {
-            var foundJewelry = await _jewelryRepo.GetByIdAsync(JewelryId);
-            bool isDeleted = await _jewelryRepo.DeleteOnAsync(foundJewelry);
-            return isDeleted;
+            if (foundJewelry == null)
+            {
+                throw CustomException.NotFound($"category with {JewelryId} cant find");
+            }
+
+            return _mapper.Map<src.Entity.Jewelry, JewelryReadDto>(foundJewelry);
         }
 
         // Update a Jewelry 
@@ -57,11 +56,35 @@ namespace src.Services.Jewelry
 
             if (foundJewelry == null)
             {
-                return false; // Return false if the Jewelry is not found
+                throw CustomException.NotFound($"Jewelry with ID {JewelryId} not found for update");
             }
 
             _mapper.Map(updateDto, foundJewelry);
-            return await _jewelryRepo.UpdateOnAsync(foundJewelry);
+
+            bool isUpdated = await _jewelryRepo.UpdateOnAsync(foundJewelry);
+            return isUpdated;
+        }
+
+        // Delete a Jewelry  by its ID
+        public async Task<bool> DeleteOneAsync(Guid JewelryId)
+        {
+            var foundJewelry = await _jewelryRepo.GetByIdAsync(JewelryId);
+            if (foundJewelry == null)
+            {
+                throw CustomException.NotFound($"Jewelry with ID {JewelryId} not found for deletion");
+            }
+            bool isDeleted = await _jewelryRepo.DeleteOnAsync(foundJewelry);
+            return isDeleted;
+        }
+
+        public async Task<List<JewelryReadDto>> GetByNameAsync(string name)
+        {
+            var jewelryList = await _jewelryRepo.GetByNameAsync(name);
+            if (jewelryList.Count == 0)
+            {
+                throw CustomException.NotFound("No results found");
+            }
+            return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
 
     }

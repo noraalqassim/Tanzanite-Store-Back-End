@@ -1,58 +1,69 @@
- using Microsoft.AspNetCore.Mvc;
- using src.Entity;
- using System.Collections.Generic;
- using System.Linq;
- using System.Threading.Tasks;
- using src.Services ;
+using Microsoft.AspNetCore.Mvc;
+using src.DTO;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using src.Services.Order;
+using static src.DTO.OrderDTO;
 
 namespace src.Controllers
- {
-     [ApiController]
-     [Route("api/[controller]")]
+{
+    [ApiController]
+    [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase
     {
-//         // Dependency injection of the Order repository or service
-        private readonly IOrderService _orderService;
+        private readonly OrderService _orderService;
 
-         public OrderController(IOrderService orderService)
-         {
-             _orderService = orderService;
-         }
-
-//         // GET: api/Order
-       [HttpGet]
-         public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
+        public OrderController(OrderService orderService)
         {
-             return await _orderService.GetAllOrders();
-         }
+            _orderService = orderService;
+        }
 
-//         // GET: api/Order/5
-         [HttpGet("{id}")]
-         public async Task<ActionResult<Order>> GetOrder(int id)
-         {
-             return await _orderService.GetOrder(id);
-         }
-
-//         // POST: api/Order
-         [HttpPost]
-         public async Task<ActionResult<Order>> CreateOrder(Order order)
-         {
-            return await _orderService.CreateOrder(order);
-         }
-
-//         // PUT: api/Order/5
-         [HttpPut("{id}")]
-         public async Task<IActionResult> UpdateOrder(int id, Order order)
+        [HttpPost]
+        public async Task<ActionResult<OrderReadDto>> CreateOne(OrderCreateDto createDto)
         {
-             return await _orderService.UpdateOrder(id, order);
-         }
+            var nweOrderProduct = await _orderService.CreateOnAsync(createDto);
+            return Ok(nweOrderProduct);//200 Ok
+        }
 
-//         // DELETE: api/Order/5
-         [HttpDelete("{id}")]
-         public async Task<IActionResult> DeleteOrder(int id)
-         {
-             return await _orderService.DeleteOrder(id);
-         }
-     }
+        [HttpGet]
+        public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
+        {
+            var orders = await _orderService.GetAllAsync();
+            return Ok(orders);
+        }
+
+        [HttpGet("{OrderId}")]
+        public async Task<ActionResult<OrderReadDto>> GetOrder(Guid OrderId)
+        {
+            var order = await _orderService.GetByIdAsync(OrderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return Ok(order);
+        }
+
+        [HttpPut("{OrderId}")]
+        public async Task<IActionResult> UpdateOrder(Guid OrderId, OrderUpdateDto orderUpdateDto)
+        {
+            var updated = await _orderService.UpdateOnAsync(OrderId, orderUpdateDto);
+            if (!updated)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{OrderId}")]
+        public async Task<IActionResult> DeleteOrder(Guid OrderId)
+        {
+            var deleted = await _orderService.DeleteOneAsync(OrderId);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+    }
 }
