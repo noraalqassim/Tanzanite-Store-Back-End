@@ -36,12 +36,13 @@ namespace src.Controllers
 
         /// <API>
         /// {
-        ///  "categoryName": "string"
+        ///  "categoryName": "Category1"
         /// }
         /// </API>
         /// return category info
 
         // Create a new category
+        // http://localhost:5125/api/v1/categories
         [HttpPost]
         [Authorize(Roles = "Admin")] //--> For admins
         public async Task<ActionResult<CategoryReadDto>> CreateOne(CategoryCreateDto createDto)
@@ -50,12 +51,20 @@ namespace src.Controllers
             return Ok(categoryCreated); // 200 Ok
         }
 
-        // Update a category
-        [HttpPut("{CategoryId}")]
+        /// <API>
+        /// {
+        ///  "categoryName": "Category1"
+        /// }
+        /// </API>
+        /// return category info
+
+        // Create a new category
+        // http://localhost:5125/api/v1/categories
+        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")] //--> For admins
-        public async Task<ActionResult<CategoryReadDto>> UpdateOne(Guid CategoryId, CategoryUpdateDto updateDto)
+        public async Task<ActionResult<CategoryReadDto>> UpdateOne(Guid id, CategoryUpdateDto updateDto)
         {
-            var categoryUpdated = await _categoryService.UpdateOneAsync(CategoryId, updateDto);
+            var categoryUpdated = await _categoryService.UpdateOneAsync(id, updateDto);
             if (categoryUpdated == null)
             {
                 return NotFound(); // 404 Not Found
@@ -64,15 +73,13 @@ namespace src.Controllers
         }
 
         /// <API>
-        /// [
-        ///  {
-        ///    "categoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        ///    "categoryName": "string"
-        ///   }
-        /// ]
+        /// {
+        ///  "categoryName": "Category2"
+        /// }
         /// </API>
         /// return category info
 
+        // http://localhost:5125/api/v1/categories
         // Get all categories
         [HttpGet]
         public async Task<ActionResult<List<CategoryReadDto>>> GetAll()
@@ -81,6 +88,7 @@ namespace src.Controllers
             return Ok(categoryList); // 200 Ok
         }
 
+        // http://localhost:5125/api/v1/categories/178b89cf-fa2d-4bfb-b4b2-9e828df0ea9d
         // Get category by id
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoryReadDto>> GetById(Guid id)
@@ -93,6 +101,7 @@ namespace src.Controllers
             return Ok(category); // 200 OK 
         }
 
+        // http://localhost:5125/api/v1/categories/10940f21-96cc-4c94-ba5d-5afe5d767c98
         // Delete a category
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")] //--> For admins

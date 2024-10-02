@@ -19,38 +19,45 @@ namespace src.Repository
             _order = databaseContext.Set<Order>();
         }
 
-        //get all Order
-        public async Task<List<Order>> GetAllAsync()
-        {
-            return await _order.ToListAsync();
-        }
-        //get order by id
-        public async Task<Order> GetByIdAsync(Guid Orderid)
-        {
-            return await _order.FindAsync(Orderid);
-        }
+        // //get all Order
+        // public async Task<List<Order>> GetAllAsync()
+        // {
+        //     return await _order.ToListAsync();
+        // }
+        // //get order by id
+        // public async Task<Order> GetByIdAsync(Guid Orderid)
+        // {
+        //     return await _order.FindAsync(Orderid);
+        // }
 
         //Create new order 
         public async Task<Order> CreateOnAsync(Order newOrder)
         {
             await _order.AddAsync(newOrder);
             await _databaseContext.SaveChangesAsync();
+            //get orderGemston in Order
+            await _order.Entry(newOrder).Collection(o => o.OrderProducts).LoadAsync();
+            //get product info from OrderProduct(OrderGemstone)
+            foreach (var detail in newOrder.OrderProducts)
+            {
+                await _databaseContext.Entry(detail).Reference(od => od.Jewelry).LoadAsync();
+            }
             return newOrder;
         }
-        //update 
-        public async Task<bool> UpdateOnAsync(Order updateOrder)
-        {
-            _order.Update(updateOrder);
-            await _databaseContext.SaveChangesAsync();
-            return true;
-        }
+        // //update 
+        // public async Task<bool> UpdateOnAsync(Order updateOrder)
+        // {
+        //     _order.Update(updateOrder);
+        //     await _databaseContext.SaveChangesAsync();
+        //     return true;
+        // }
 
-        //Delete 
-        public async Task<bool> DeleteOnAsync(Order deleteOrder)
-        {
-            _order.Remove(deleteOrder);
-            await _databaseContext.SaveChangesAsync();
-            return true;
-        }
+        // //Delete 
+        // public async Task<bool> DeleteOnAsync(Order deleteOrder)
+        // {
+        //     _order.Remove(deleteOrder);
+        //     await _databaseContext.SaveChangesAsync();
+        //     return true;
+        // }
     }
 }

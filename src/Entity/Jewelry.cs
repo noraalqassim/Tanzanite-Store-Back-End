@@ -27,9 +27,9 @@ namespace src.Entity
         public string Description { get; set; }
         public ICollection<Gemstones> Gemstone { get; }= []; // many-to-many relationship with Gemstone
 
-        //one to many relationship
-        public Guid? OrderProductId { get; set; }
-        public OrderGemstone? OrderProducts { get; set; }
+        // //one to many relationship
+        // public Guid? OrderProductId { get; set; }
+        // public OrderGemstone? OrderProducts { get; set; }
 
     }
 }

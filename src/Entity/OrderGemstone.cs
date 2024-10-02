@@ -15,28 +15,17 @@ namespace src.Entity
     {
         [Key]
         public Guid OrderProductId { get; set; } // PK
-        public decimal FinalPrice { get; set; } // JewelryPrice + GemstonePrice + CarvingPrice
-        //one to many relationship 
-        public Guid CartId { get; set; }
-        public Cart Cart { get; set; } = null!;
+        public Guid OrderId { get; set; }
+        public decimal FinalPrice { get; set; } // JewelryPrice + GemstonePrice 
+        public int Quantity { get; set; }
 
         // public List<Jewelry> Jewelries { get; } = []; //one to many relationship 
-        public List<Jewelry> Jewelries { get; } = new List<Jewelry>(); //one to many relationship 
+        //public List<Jewelry> Jewelries { get; } = new List<Jewelry>(); //one to many relationship 
+        public Guid JewelryId { get; set; }
+        public Jewelry Jewelry { get; set; }
 
-        //         //one to many relationship 
-        //         public Guid CartId { get; set; }
-        //         public Cart Cart { get; set; } = null!;
-
-
-        //one to many relationship
-        public Guid OrderId { get; set; }
-        public Order Order { get; set; } = null!;
-
-        //one to many relationship
-        public Guid UserId { get; set; }
-        public Users User { get; set; } = null!;
-
-
-
+        // //one to many relationship 
+        // public Guid CartId { get; set; }
+        // public Cart Cart { get; set; } = null!;
     }
 }

@@ -35,7 +35,6 @@ namespace src.DTO
         {
             public Guid CategoryId { get; set; }
             public string CategoryName { get; set; }
-            public List<Gemstones> Gemstone { get; set; } // FK
 
         }
 

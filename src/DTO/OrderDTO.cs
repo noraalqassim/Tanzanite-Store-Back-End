@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static src.DTO.OrderGemstoneDTO;
 
 namespace src.DTO
 {
@@ -18,9 +19,10 @@ namespace src.DTO
         /// </summary>
         public class OrderCreateDto
         {
-            public Guid UserId { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public Guid AddressId { get; set; }
+            //public DateTime CreatedAt { get; set; }
+            // public Guid AddressId { get; set; }
+            public List<OrderGemstoneCreateDto> OrderGemstones { get; set; } 
+            
         }
 
         public class OrderReadDto
@@ -30,14 +32,17 @@ namespace src.DTO
             public DateTime CreatedAt { get; set; }
             public Guid AddressId { get; set; }
             public List<OrderGemstoneReadDto> OrderProducts { get; set; }
-            public PaymentReadDto Payment { get; set; }
-            public ReviewReadDto? Review { get; set; }
+            
+            // public PaymentReadDto Payment { get; set; }
+            // public ReviewReadDto? Review { get; set; }
         }
 
         public class OrderUpdateDto
         {
-            public DateTime CreatedAt { get; set; }
+            //public DateTime CreatedAt { get; set; }
             public Guid AddressId { get; set; }
+
+            
         }
 
         public class OrderGemstoneReadDto

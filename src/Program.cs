@@ -16,11 +16,10 @@ using src.Services.Payment;
 using src.Services.PaymentCard;
 using src.Services.review;
 using src.Services.User;
-// using src.Services.GemstoneCravings;
 using src.Services.Jewelry;
 using src.Services.Gemstone;
 using src.Utils;
-using src.Services.OrderGemstone;
+//using src.Services.OrderGemstone;
 using src.Services.Order;
 using src.Middlewares;
 
@@ -72,11 +71,6 @@ builder
     .Services.AddScoped<IPaymentCardService, PaymentCardService>()
     .AddScoped<PaymentCardRepository, PaymentCardRepository>();
 
-// //GemstoneCarving
-// builder.Services
-// .AddScoped<IGemstoneCarvingService, GemstoneCarvingService>()
-// .AddScoped<GemstonesCarvingsRepository, GemstonesCarvingsRepository>();
-
 //Gemstones
 builder.Services
     .AddScoped<IGemstoneService, GemstoneService>()
@@ -87,10 +81,10 @@ builder.Services
     .AddScoped<IJewelryService, JewelryService>()
     .AddScoped<JewelryRepository, JewelryRepository>();
 
-//OrderGemstone
-builder.Services
-    .AddScoped<IOrderGemstoneService, OrderGemstoneService>()
-    .AddScoped<OrderGemstoneRepository, OrderGemstoneRepository>();
+// //OrderGemstone
+// builder.Services
+//     .AddScoped<IOrderGemstoneService, OrderGemstoneService>()
+//     .AddScoped<OrderGemstoneRepository, OrderGemstoneRepository>();
 
 //Order
 builder.Services

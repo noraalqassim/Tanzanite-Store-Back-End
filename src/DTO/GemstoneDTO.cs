@@ -18,9 +18,8 @@ namespace src.DTO
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
-            //public ICollection<Gemstones_Carvings>? Carving { get; } = null;
-            // public Guid CarvingId { get; set; }
             public Guid CategoryId { get; set; }
+
 
         }
 
@@ -36,7 +35,7 @@ namespace src.DTO
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
-
+            public Category Category { get; set; }
         }
 
         // update
