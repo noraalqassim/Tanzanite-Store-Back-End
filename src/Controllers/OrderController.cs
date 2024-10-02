@@ -13,15 +13,15 @@ namespace src.Controllers
     [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly OrderService _orderService;
+        private readonly IOrderService _orderService;
 
-        public OrderController(OrderService orderService)
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrderReadDto>> CreateOne([FromBody]OrderCreateDto createDto)
+        public async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto createDto)
         {
             // exact user information by token
             var authenticateClaims = HttpContext.User;

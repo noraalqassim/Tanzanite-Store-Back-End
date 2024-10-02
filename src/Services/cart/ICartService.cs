@@ -8,7 +8,7 @@ namespace src.Services.cart
 {
     public interface ICartService // interface
     {
-        Task<CartReadDTO> CreateOneAsync(CartCreateDTO createDto);
+        Task<CartReadDTO> CreateOneAsync(Guid id, CartCreateDTO createDto);
         Task<List<CartReadDTO>> GetAllAsync();
         Task<CartReadDTO> GetByIdAsync(Guid id);
         // Task<bool> DeleteOneAsync(Guid id);
