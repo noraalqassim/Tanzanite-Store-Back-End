@@ -39,7 +39,7 @@ namespace src.Entity
         public string GemstoneDescription { get; set; }
         
         // public List<Gemstones_Carvings> Carving { get; } = new List<Gemstones_Carvings>();//one to many
-        public List<Jewelry> Jewelries { get; } = [];//many-to-many relationship
+        //public List<Jewelry> Jewelries { get; } = [];//many-to-many relationship
         public Guid CategoryId { get; set; }//One-to-many relationship
         public Category Category { get; set; } = null!; //One-to-many relationship
 

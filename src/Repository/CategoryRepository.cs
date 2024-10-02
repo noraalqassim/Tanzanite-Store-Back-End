@@ -45,6 +45,13 @@ namespace src.Repository
             return await _category.FindAsync(id); // find the category by id, then return it.
         }
 
+        // Get category by Name Asynchronously 
+        public async Task<Category?> GetByNameAsync(string name)
+        {
+            return await _category.FirstOrDefaultAsync(c => c.CategoryName.ToLower() == name.ToLower());
+        }
+
+
         // Delete category Asynchronously
         public async Task<bool> DeleteOneAsync(Category category)
         {

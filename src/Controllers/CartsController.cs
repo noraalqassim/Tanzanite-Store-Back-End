@@ -96,17 +96,5 @@ namespace src.Controllers
             return Ok(cart); // 200 OK 
         }
 
-        // Delete a cart
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult> DeleteOne(Guid id)
-        // {
-        //     var cartDeleted = await _cartService.DeleteOneAsync(id);
-        //     if (cartDeleted == false)
-        //     {
-        //         return NotFound(); // 404 Not Found
-        //     }
-        //     return NoContent(); // 200 OK 
-        // }
-
     } // end class
 } // end namespace

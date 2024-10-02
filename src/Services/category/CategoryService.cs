@@ -34,12 +34,25 @@ namespace src.Services.category
   
         public async Task<CategoryReadDto> CreateOneAsync(CategoryCreateDto createDto)
         {
+            var categoryExists = await _categoryRepo.GetByNameAsync(createDto.CategoryName);
+            if (string.IsNullOrWhiteSpace(createDto.CategoryName)) // Check if the category name is empty or consists only whitespace
+            {
+                throw new ArgumentException("Category name cannot be empty or whitespace.");
+            }
+            else if (createDto.CategoryName.All(char.IsDigit)) // Check if the category name consists only numbers
+            {
+                throw new ArgumentException("Category name should be a string.");
+            }
+            else if (categoryExists != null) // Check if a category with the same name already exists
+            {
+                throw new ArgumentException("A category with this name already exists.");
+            }
+            // else 
             var category = _mapper.Map<CategoryCreateDto, Category>(createDto);
 
             var categoryCreated = await _categoryRepo.CreateOneAsync(category);
 
             return _mapper.Map<Category, CategoryReadDto>(categoryCreated);
-
         }
 
         // Get all categories Asynchronously
