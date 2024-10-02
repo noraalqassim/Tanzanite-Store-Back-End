@@ -21,7 +21,7 @@ namespace src.DTO
         {
             //public DateTime CreatedAt { get; set; }
             // public Guid AddressId { get; set; }
-            public List<OrderGemstoneCreateDto> OrderGemstones { get; set; }
+            public List<OrderGemstoneCreateDto> OrderProducts { get; set; }
 
 
         }

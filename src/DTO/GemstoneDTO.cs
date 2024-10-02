@@ -35,7 +35,7 @@ namespace src.DTO
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
-            public Category Category { get; set; }
+            public Guid CategoryId { get; set; }
         }
 
         // update
