@@ -8,14 +8,14 @@ namespace src.Services.Address
 {
     public interface IAddressService
     {
-        Task<AddressReadDto> CreateOnAsync(AddressCreateDto createDto);
+        Task<AddressReadDto> CreateOnAsync(Guid userId, AddressCreateDto createDto);
 
         Task<List<AddressReadDto>> GetAllAsync();
 
-        Task<AddressReadDto> GetByIdAsync(Guid addressId);
+        Task<List<AddressReadDto>> GetByIdAsync(Guid userId);
 
         Task<bool> DeleteOnAsync(Guid addressId);
 
-        Task<bool> UpdateOnAsync(Guid addressId, AddressUpdateDto updateDto);
+        Task<AddressReadDto> UpdateOnAsync(Guid addressId, AddressUpdateDto updateDto);
     }
 }

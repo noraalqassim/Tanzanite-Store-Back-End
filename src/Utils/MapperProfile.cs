@@ -30,7 +30,6 @@ namespace src.Utils
         // constructor
         public MapperProfile()
         {
-
             // category
             // Mapping configurations between entity classes and DTOs
             CreateMap<Category, CategoryReadDto>();
@@ -60,7 +59,7 @@ namespace src.Utils
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcProperty) => srcProperty != null)
                 );
-
+            ///users
             // Mapping configurations between entity classes and DTOs
             CreateMap<Users, UserReadDto>();
             CreateMap<UserCreateDto, Users>();
@@ -72,11 +71,12 @@ namespace src.Utils
             CreateMap<PasswordUpdateDto, Users>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AdminUpdateDto, Users>();
-            CreateMap<Users, UserProfileDto>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-            
 
-            CreateMap<Address, AddressReadDto>();
+            CreateMap<Address, AddressReadDto>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId.ToString())); // Con
+
+            CreateMap<Users, UserProfileDto>();
+            ///Address
             CreateMap<AddressCreateDto, Address>();
 
             // Mapping from AddressUpdateDto to Address with a condition to map properties only if they are not null
@@ -120,19 +120,19 @@ namespace src.Utils
             // Creates a mapping from JewelryUpdateDto to Jewelry and applies a condition to map only non-null members
             CreateMap<JewelryUpdateDto, Jewelry>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-                // Order mappings
-CreateMap<Order, OrderReadDto>();
-CreateMap<OrderCreateDto, Order>();
-// Mapping from OrderUpdateDto to Order with a condition to map properties only if they are not null
-CreateMap<OrderUpdateDto, Order>()
-    .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            // Order mappings
+            CreateMap<Order, OrderReadDto>();
+            CreateMap<OrderCreateDto, Order>();
+            // Mapping from OrderUpdateDto to Order with a condition to map properties only if they are not null
+            CreateMap<OrderUpdateDto, Order>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-// OrderGemstone mappings
-CreateMap<OrderGemstone, OrderDTO.OrderGemstoneReadDto>();
-CreateMap<OrderGemstoneCreateDto, OrderGemstone>();
-// Mapping from OrderGemstoneUpdateDto to OrderGemstone with a condition to map properties only if they are not null
-CreateMap<OrderGemstoneUpdateDto, OrderGemstone>()
-    .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            // OrderGemstone mappings
+            CreateMap<OrderGemstone, OrderDTO.OrderGemstoneReadDto>();
+            CreateMap<OrderGemstoneCreateDto, OrderGemstone>();
+            // Mapping from OrderGemstoneUpdateDto to OrderGemstone with a condition to map properties only if they are not null
+            CreateMap<OrderGemstoneUpdateDto, OrderGemstone>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     } // end class
 } // end namespace

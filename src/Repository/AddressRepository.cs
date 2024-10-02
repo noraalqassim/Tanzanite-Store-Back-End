@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
@@ -12,7 +12,6 @@ namespace src.Repository
     {
         protected DbSet<Address> _addresses;
         protected DatabaseContext _databaseContext;
-
 
         public AddressRepository(DatabaseContext databaseContext)
         {
@@ -32,9 +31,14 @@ namespace src.Repository
             return await _addresses.ToListAsync();
         }
 
-        public async Task<Address?> GetByIdAsync(Guid id)
+        public async Task<List<Address>> GetListByIdAsync(Guid userId)
         {
-            return await _addresses.FindAsync();
+            return await _addresses.Where(a => a.UserId == userId).ToListAsync();
+        }
+
+        public async Task<Address> GetByIdAsync(Guid id)
+        {
+            return await _addresses.FindAsync(id);
         }
 
         public async Task<bool> DeleteOnAsync(Address address)
