@@ -28,13 +28,17 @@ namespace src.Services.cart
         }
 
         // Create new Cart Asynchronously
-        public async Task<CartReadDTO> CreateOneAsync(CartCreateDTO createDto)
+        public async Task<CartReadDTO> CreateOneAsync(Guid id, CartCreateDTO createDto)
         {
-            var cart = _mapper.Map<CartCreateDTO, Cart>(createDto);
+            //var cart = _mapper.Map<CartCreateDTO, Cart>(createDto);
 
-            var cartCreated = await _cartRepo.CreateOneAsync(cart);
+            //var cartCreated = await _cartRepo.CreateOneAsync(cart);
 
-            return _mapper.Map<Cart, CartReadDTO>(cartCreated);
+            var cart = _mapper.Map<CartCreateDTO, Entity.Cart>(createDto);
+            cart.UserId = id;
+            await _cartRepo.CreateOneAsync(cart);
+
+            return _mapper.Map<Cart, CartReadDTO>(cart);
 
         }
 

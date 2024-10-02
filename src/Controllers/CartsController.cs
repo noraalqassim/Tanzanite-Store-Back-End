@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using src.Services.cart;
 using Microsoft.AspNetCore.Mvc;
 using static src.DTO.CartDTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace src.Controllers
 {
@@ -45,10 +47,17 @@ namespace src.Controllers
 
         // Create a new Cart
         [HttpPost]
-        public async Task<ActionResult<CartReadDTO>> CreateOne(CartCreateDTO createDto)
+        [Authorize]
+        public async Task<ActionResult<CartReadDTO>> CreateOne([FromBody] CartCreateDTO createDto)
         {
-            var cartCreated = await _cartService.CreateOneAsync(createDto);
-            return Ok(cartCreated); // 200 Ok
+            var authenticateClaims = HttpContext.User;
+            var userId = authenticateClaims
+                .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
+                .Value;
+            var userGuid = new Guid(userId);
+            //var cartCreated = await _cartService.CreateOneAsync(createDto);
+            //return Ok(cartCreated); // 200 Ok
+            return await _cartService.CreateOneAsync(userGuid, createDto);
         }
 
         // Update a cart
