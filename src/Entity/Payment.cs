@@ -29,15 +29,13 @@ namespace src.Entity
         public Guid PaymentId { get; set; }
         public DateTime PaymentDate { get; set; }
         public float Amount { get; set; }
-        public string PaymentOption { get; set; }
+        // public string PaymentOption { get; set; }
 
-        // Foreign key property for Order
-        [ForeignKey("Order")]
         public Guid OrderId { get; set; } // Foreign key for Order
 
         // Navigation property to Order
-        public Order? Order { get; set; } // Reference to the Order
-        
-        public ICollection<PaymentCard> PaymentCard { get; } = new List<PaymentCard>(); // One to many
+        public Order Order { get; set; } // Reference to the Order (Order property is originally nullable)
+
+        // public ICollection<PaymentCard> PaymentCard { get; } = new List<PaymentCard>(); // One to many
     }
 }
