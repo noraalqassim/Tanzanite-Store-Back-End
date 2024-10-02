@@ -50,7 +50,7 @@ namespace src.Services.User
 
                 users.Password = hashedPassword;
                 users.Salt = salt;
-                //users.Role = Role.Customer;
+                // users.Role = Role.Customer;
                 users.Role = Role.Admin;
 
                 var userCreated = await _userRepo.CreateOnAsync(users);

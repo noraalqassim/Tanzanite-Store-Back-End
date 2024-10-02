@@ -38,7 +38,7 @@ namespace src.DTO
         public class AddressReadDto
         {
             public Guid AddressId { get; set; }
-            public int UserId { get; set; }
+            public Guid UserId { get; set; }
             public string Street { get; set; }
             public string City { get; set; }
             public string County { get; set; }
@@ -47,6 +47,8 @@ namespace src.DTO
 
         public class AddressUpdateDto
         {
+            public Guid AddressId { get; set; }
+
             [Required]
             public string Street { get; set; }
 

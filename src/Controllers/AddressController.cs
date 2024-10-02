@@ -29,31 +29,75 @@ namespace src.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<AddressCreateDto>> CreateOne(AddressCreateDto createDto)
+        public async Task<ActionResult<AddressReadDto>> CreateOne(
+            [FromBody] AddressCreateDto createDto
+        )
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            // var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var authenticateClaims = HttpContext.User;
+            var userId = authenticateClaims
+                .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
+                .Value;
+            var userGuid = new Guid(userId);
 
-            var addressCretaed = await _addressService.CreateOnAsync(createDto);
-            return Ok(addressCretaed);
+            return await _addressService.CreateOnAsync(userGuid, createDto);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AddressReadDto>> GetAllAsync()
         {
             var addresses = await _addressService.GetAllAsync();
             return Ok(addresses);
         }
 
-        [HttpGet("{addressId}")]
-        public async Task<ActionResult<AddressReadDto>> GetByIdAsync(Guid addressId)
+        [HttpGet("UserAddress")]
+        [Authorize]
+        public async Task<ActionResult<List<AddressReadDto>>> GetAddressesByUserId()
         {
-            var foundAddress = await _addressService.GetByIdAsync(addressId);
-            if (foundAddress == null)
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var foundAddresses = await _addressService.GetByIdAsync(userId);
+
+            if (foundAddresses == null || foundAddresses.Count == 0)
             {
-                return NotFound("there is no user in this name");
+                return NotFound("No addresses found for this user.");
             }
 
-            return Ok(foundAddress);
+            return Ok(foundAddresses);
         }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult> DeleteAddressAsync(Guid id)
+        {
+            var isDeleted = await _addressService.DeleteOnAsync(id);
+
+            if (!isDeleted)
+            {
+                return NotFound("Address not found.");
+            }
+
+            return Ok("Address is Delete"); // Return 204 No Content if address is successfully deleted
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult<AddressReadDto>> UpdateAddressesAsync(
+            AddressUpdateDto updateDto
+        )
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var updatedAddressDto = await _addressService.UpdateOnAsync(userId, updateDto);
+
+            if (updatedAddressDto == null)
+            {
+                return NotFound("Address not found.");
+            }
+
+            return Ok(updatedAddressDto);
+        }
+
+        //delete
     }
 }

@@ -101,7 +101,7 @@ namespace src.Controllers
         /// Profile just by user owner
         [HttpGet("Profile")] // Endpoint to view user profile
         [Authorize]
-        public async Task<ActionResult<UserProfileDto>> GetProfile()
+        public async Task<ActionResult<UserProfileDto>> GetProfileIdAsync()
         {
             var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var user = await _userService.GetProfileIdAsync(userId);

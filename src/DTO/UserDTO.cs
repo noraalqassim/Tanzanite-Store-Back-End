@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using src.Entity;
+using static src.DTO.AddressDTO;
 
 namespace src.DTO
 {
@@ -81,6 +82,8 @@ namespace src.DTO
 
         public class UserProfileDto
         {
+            public Guid UserId { get; set; }
+
             [Required]
             public string Name { get; set; }
 
@@ -100,7 +103,7 @@ namespace src.DTO
             )]
             public string Password { get; set; }
 
-            public ICollection<Address> Addresses { get; } = new List<Address>(); 
+            public ICollection<AddressReadDto> Addresses { get; set; } = new List<AddressReadDto>();
         }
 
         public class PasswordUpdateDto
