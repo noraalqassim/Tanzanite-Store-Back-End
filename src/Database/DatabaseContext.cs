@@ -42,7 +42,6 @@ namespace src.Database
                 .HasOne(p => p.Order)
                 .WithOne(o => o.Payment)
                 .HasForeignKey<Payment>(p => p.OrderId);
-           
             modelBuilder.HasPostgresEnum<Role>();
         }
     } // end class

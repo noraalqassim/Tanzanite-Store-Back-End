@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using src.Entity;
+using static src.DTO.GemstonesDTO;
 using static src.DTO.JewelryDTO;
 
 namespace src.DTO
@@ -21,7 +22,8 @@ namespace src.DTO
         public class OrderGemstoneCreateDto
         {
             public Guid JewelryId { get; set; }
-            public decimal FinalPrice { get; set; }
+            public Guid GemstoneId { get; set; }
+            // public decimal FinalPrice { get; set; }
             public int Quantity { get; set; }
         }
 
@@ -30,6 +32,7 @@ namespace src.DTO
             public Guid OrderProductId { get; set; }
             public decimal FinalPrice { get; set; }
             public JewelryReadDto Jewelry { get; set; }
+            public GemstoneReadDto Gemstone { get; set; }
         }
 
         public class OrderGemstoneUpdateDto
