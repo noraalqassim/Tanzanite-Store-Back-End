@@ -29,9 +29,35 @@ namespace src.Repository
         // {
         //     return await _order.FindAsync(Orderid);
         // }
+        //  public async Task<Order?> CreateOneAsync(Order createObject)
+        //     {
+        //         await _orders.AddAsync(createObject);
+        //         await _databaseContext.SaveChangesAsync();
 
-        //Create new order 
-        public async Task<Order> CreateOnAsync(Order newOrder)
+        //         // orderReadDto
+        //         // step 1: get order detail in order
+        //         // await _orders.Entry(createObject).Collection(o => o.OrderDetails).LoadAsync();
+        //         // // step 2: get product information from orderDetail
+
+        //         // foreach (var detail in createObject.OrderDetails)
+        //         // {
+        //         //     await _databaseContext.Entry(detail).Reference(od => od.Product).LoadAsync();
+        //         // }
+
+        //         // return createObject;
+
+
+        //         // use Include
+        //         // order - orderDetail - product
+        //         var orderWithDetails = await _orders
+        //         .Include(o => o.OrderDetails)
+        //         .ThenInclude(od => od.Product)
+        //         .FirstOrDefaultAsync(o => o.Id == createObject.Id);
+        //         return orderWithDetails;
+
+        //     }
+        //Create new order
+        public async Task<Order?> CreateOnAsync(Order newOrder)
         {
             await _order.AddAsync(newOrder);
             await _databaseContext.SaveChangesAsync();
@@ -42,9 +68,10 @@ namespace src.Repository
             {
                 await _databaseContext.Entry(detail).Reference(od => od.Jewelry).LoadAsync();
             }
+
             return newOrder;
         }
-        // //update 
+        // //update
         // public async Task<bool> UpdateOnAsync(Order updateOrder)
         // {
         //     _order.Update(updateOrder);
@@ -52,7 +79,7 @@ namespace src.Repository
         //     return true;
         // }
 
-        // //Delete 
+        // //Delete
         // public async Task<bool> DeleteOnAsync(Order deleteOrder)
         // {
         //     _order.Remove(deleteOrder);

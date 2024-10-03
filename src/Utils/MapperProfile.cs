@@ -128,7 +128,17 @@ namespace src.Utils
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             // OrderGemstone mappings
-            CreateMap<OrderGemstone, OrderDTO.OrderGemstoneReadDto>();
+            // CreateMap<OrderGemstone, OrderDTO.OrderGemstoneReadDto>();
+
+
+            //  CreateMap<OrderGemstone, OrderGemstoneReadDto>();
+            //             CreateMap<Order, OrderReadDto>()
+            //                 .ForMember(
+            //                     dest => dest.OrderProducts,
+            //                     opt => opt.MapFrom(src => src.OrderProducts)
+            //                 );
+
+            CreateMap<OrderGemstone, OrderGemstoneReadDto>();
             CreateMap<OrderGemstoneCreateDto, OrderGemstone>();
             // Mapping from OrderGemstoneUpdateDto to OrderGemstone with a condition to map properties only if they are not null
             CreateMap<OrderGemstoneUpdateDto, OrderGemstone>()

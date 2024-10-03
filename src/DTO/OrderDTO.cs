@@ -22,8 +22,6 @@ namespace src.DTO
             //public DateTime CreatedAt { get; set; }
             // public Guid AddressId { get; set; }
             public List<OrderGemstoneCreateDto> OrderProducts { get; set; }
-
-
         }
 
         public class OrderReadDto
@@ -32,6 +30,7 @@ namespace src.DTO
             public Guid UserId { get; set; }
             public DateTime CreatedAt { get; set; }
             public Guid AddressId { get; set; }
+            
             public List<OrderGemstoneReadDto> OrderProducts { get; set; }
 
             // public PaymentReadDto Payment { get; set; }
@@ -42,16 +41,14 @@ namespace src.DTO
         {
             //public DateTime CreatedAt { get; set; }
             public Guid AddressId { get; set; }
-
-
         }
 
-        public class OrderGemstoneReadDto
-        {
-            public Guid OrderId { get; set; }
-            public Guid GemstoneId { get; set; }
-            // Add other properties specific to OrderGemstone here
-        }
+        // public class OrderGemstoneReadDto
+        // {
+        //     public Guid OrderId { get; set; }
+        //     public Guid GemstoneId { get; set; }
+        //     // Add other properties specific to OrderGemstone here
+        // }
 
         public class PaymentReadDto
         {
@@ -60,11 +57,11 @@ namespace src.DTO
             // Add other properties specific to Payment here
         }
 
-        public class ReviewReadDto
-        {
-            public Guid ReviewId { get; set; }
-            public string Comment { get; set; }
-            // Add other properties specific to Review here
-        }
+        // public class ReviewReadDto
+        // {
+        //     public Guid ReviewId { get; set; }
+        //     public string Comment { get; set; }
+        //     // Add other properties specific to Review here
+        // }
     }
 }

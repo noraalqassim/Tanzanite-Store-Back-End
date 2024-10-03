@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using src.DTO;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using src.DTO;
 using src.Services.Order;
 using static src.DTO.OrderDTO;
-using System.Security.Claims;
 
 namespace src.Controllers
 {
@@ -21,12 +22,15 @@ namespace src.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto createDto)
         {
             // exact user information by token
             var authenticateClaims = HttpContext.User;
             // get user id by claims
-            var UserId = authenticateClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
+            var UserId = authenticateClaims
+                .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
+                .Value;
             // string => Guid
             var userGuid = new Guid(UserId);
             return await _orderService.CreateOnAsync(userGuid, createDto);
