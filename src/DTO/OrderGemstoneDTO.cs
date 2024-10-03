@@ -17,7 +17,7 @@ namespace src.DTO
         /// Mapper used the class down there.
         /// Contains order gemstone details such as OrderProductId, FinalPrice.
         /// This DTO is designed to encapsulate all necessary information for OrderGemstone creation.
-        /// </summary> 
+        /// </summary>
         public class OrderGemstoneCreateDto
         {
             public Guid JewelryId { get; set; }
@@ -29,7 +29,6 @@ namespace src.DTO
         {
             public Guid OrderProductId { get; set; }
             public decimal FinalPrice { get; set; }
-            // public List<Jewelry> Jewelries { get; } = new List<Jewelry>();
             public JewelryReadDto Jewelry { get; set; }
         }
 
@@ -38,11 +37,5 @@ namespace src.DTO
             public decimal FinalPrice { get; set; }
             public int Quantity { get; set; }
         }
-
-        // public class JewelryReadDto
-        // {
-        //     public Guid JewelryId { get; set; }
-        //     // Add other properties specific to Jewelry here
-        // }
     }
 }

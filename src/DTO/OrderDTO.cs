@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static src.DTO.OrderGemstoneDTO;
+using static src.DTO.PaymentDTO;
+using static src.DTO.ReviewDTO;
 
 namespace src.DTO
 {
@@ -19,11 +21,7 @@ namespace src.DTO
         /// </summary>
         public class OrderCreateDto
         {
-            //public DateTime CreatedAt { get; set; }
-            // public Guid AddressId { get; set; }
             public List<OrderGemstoneCreateDto> OrderProducts { get; set; }
-
-
         }
 
         public class OrderReadDto
@@ -32,39 +30,31 @@ namespace src.DTO
             public Guid UserId { get; set; }
             public DateTime CreatedAt { get; set; }
             public Guid AddressId { get; set; }
+
             public List<OrderGemstoneReadDto> OrderProducts { get; set; }
 
             // public PaymentReadDto Payment { get; set; }
-            // public ReviewReadDto? Review { get; set; }
+            // public ReviewReadDTO? Review { get; set; }
         }
 
         public class OrderUpdateDto
         {
             //public DateTime CreatedAt { get; set; }
             public Guid AddressId { get; set; }
-
-
         }
 
-        public class OrderGemstoneReadDto
-        {
-            public Guid OrderId { get; set; }
-            public Guid GemstoneId { get; set; }
-            // Add other properties specific to OrderGemstone here
-        }
+        // public class PaymentReadDto
+        // {
+        //     public Guid PaymentId { get; set; }
+        //     public decimal Amount { get; set; }
+        //     // Add other properties specific to Payment here
+        // }
 
-        public class PaymentReadDto
-        {
-            public Guid PaymentId { get; set; }
-            public decimal Amount { get; set; }
-            // Add other properties specific to Payment here
-        }
-
-        public class ReviewReadDto
-        {
-            public Guid ReviewId { get; set; }
-            public string Comment { get; set; }
-            // Add other properties specific to Review here
-        }
+        // public class ReviewReadDto
+        // {
+        //     public Guid ReviewId { get; set; }
+        //     public string Comment { get; set; }
+        //     // Add other properties specific to Review here
+        // }
     }
 }

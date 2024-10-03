@@ -12,7 +12,7 @@ namespace src.Entity
         public DateTime CreatedAt { get; set; }
         public Guid AddressId { get; set; } // FK
 
-        //public List<OrderGemstone> OrderProducts { get; set; }// One to many 
+        
         public List<OrderGemstone> OrderProducts { get; set; }// One to many 
 
         public Guid? CartId { get; set; }

@@ -15,9 +15,10 @@ namespace src.Services.Payment
             _mapper = mapper;
         }
 
-        public async Task<PaymentReadDto> CreateOneAsync(PaymentCreateDto createDto)
+        public async Task<PaymentReadDto> CreateOneAsync(Guid userGuid, PaymentCreateDto createDto)
         {
             var payment = _mapper.Map<PaymentCreateDto, Entity.Payment>(createDto);
+            // payment.OrderId = userGuid;
             var paymentCreated = await _paymentRepo.CreateOneAsync(payment);
             return _mapper.Map<Entity.Payment, PaymentReadDto>(paymentCreated);
         }
