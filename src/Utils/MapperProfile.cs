@@ -8,12 +8,10 @@ using src.Entity;
 using static src.DTO.AddressDTO;
 using static src.DTO.CartDTO;
 using static src.DTO.CategoryDTO;
-// using static src.DTO.GemstoneCarvingsDTO;
 using static src.DTO.GemstonesDTO;
 using static src.DTO.JewelryDTO;
 using static src.DTO.OrderDTO;
 using static src.DTO.OrderGemstoneDTO;
-// using static src.DTO.PaymentCardDTO;
 using static src.DTO.PaymentDTO;
 using static src.DTO.ReviewDTO;
 using static src.DTO.UserDTO;
@@ -83,29 +81,13 @@ namespace src.Utils
             CreateMap<AddressUpdateDto, Address>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-            CreateMap<Payment, OrderDTO.PaymentReadDto>();
+            CreateMap<Payment, PaymentReadDto>();
             CreateMap<PaymentCreateDto, Payment>();
             // Mapping from PaymentCard to Payment with a condition to map properties only if they are not null
             CreateMap<PaymentUpdateDto, Payment>()
                 .ForAllMembers(options =>
                     options.Condition((src, dest, srcProperty) => srcProperty != null)
                 );
-
-            // CreateMap<PaymentCard, PaymentCardReadDto>();
-            // CreateMap<PaymentCardCreateDto, PaymentCard>();
-            // // Mapping from PaymentCardUpdateDto to PaymentCard with a condition to map properties only if they are not null
-            // CreateMap<PaymentCardUpdateDto, PaymentCard>()
-            //     .ForAllMembers(options =>
-            //         options.Condition((src, dest, srcProperty) => srcProperty != null)
-            //     );
-
-            // //GemstonesCravings mappings
-            // //table name is "Gemstones_Carvings"
-            // CreateMap<Gemstones_Carvings, GemstoneCarvingReadDto>();
-            // CreateMap<GemstoneCarvingCreateDto, Gemstones_Carvings>();
-            // // Creates a mapping from GemstoneCarvingUpdateDto to Gemstones_Carvings and applies a condition to map only non-null members
-            // CreateMap<GemstoneCarvingUpdateDto, Gemstones_Carvings>()
-            //     .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             //Gemstones mappings
             CreateMap<Gemstones, GemstoneReadDto>();
@@ -128,15 +110,6 @@ namespace src.Utils
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             // OrderGemstone mappings
-            // CreateMap<OrderGemstone, OrderDTO.OrderGemstoneReadDto>();
-
-
-            //  CreateMap<OrderGemstone, OrderGemstoneReadDto>();
-            //             CreateMap<Order, OrderReadDto>()
-            //                 .ForMember(
-            //                     dest => dest.OrderProducts,
-            //                     opt => opt.MapFrom(src => src.OrderProducts)
-            //                 );
 
             CreateMap<OrderGemstone, OrderGemstoneReadDto>();
             CreateMap<OrderGemstoneCreateDto, OrderGemstone>();

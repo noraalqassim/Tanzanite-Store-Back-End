@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using static src.DTO.PaymentDTO;
-using src.Services.Payment;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using src.Services.Payment;
+using static src.DTO.PaymentDTO;
 
 namespace src.Controllers
 {
@@ -35,10 +36,20 @@ namespace src.Controllers
 
         [HttpPost]
         [Authorize] // --> For users
-        public async Task<ActionResult<PaymentCreateDto>> CreateOne(PaymentCreateDto createDto)
+        public async Task<ActionResult<PaymentReadDto>> CreateOne(
+            [FromBody] PaymentCreateDto createDto
+        )
         {
-            var paymentCreated = await _paymentService.CreateOneAsync(createDto);
-            return Ok(paymentCreated);
+            // exact user information by token
+            var authenticateClaims = HttpContext.User;
+            // get user id by claims
+            var UserId = authenticateClaims
+                .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
+                .Value;
+            // string => Guid
+            var userGuid = new Guid(UserId);
+
+            return await _paymentService.CreateOneAsync(userGuid, createDto);
         }
 
         [HttpGet]

@@ -4,7 +4,7 @@ namespace src.Services.Payment
 {
     public interface IPaymentService
     {
-        Task<PaymentReadDto> CreateOneAsync(PaymentCreateDto createDto);
+        Task<PaymentReadDto> CreateOneAsync(Guid userGuid, PaymentCreateDto createDto);
 
         Task<List<PaymentReadDto>> GetAllAsync();
 
