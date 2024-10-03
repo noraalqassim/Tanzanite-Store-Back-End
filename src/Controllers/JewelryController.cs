@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.Jewelry;
+using src.Utils;
 using static src.DTO.JewelryDTO;
 
 namespace src.Controllers
@@ -47,25 +48,26 @@ namespace src.Controllers
         /// <API>
         /// return jewelry info 
         [HttpPost]
-        [Authorize(Roles = "Admin")] //--> Just the Admin Can Create New Jewelry
+        // [Authorize(Roles = "Admin")] //--> Just the Admin Can Create New Jewelry
         public async Task<ActionResult<JewelryReadDto>> CreateOne(JewelryCreateDto createDto)
         {
             var nweJewelry = await _jewelryService.CreateOneAsync(createDto);
             return Ok(nweJewelry);//200 Ok
         }
 
-        // GET: api/v1/Jewelry
+
         // Get all jewelry items
-        [HttpGet]
+        [AllowAnonymous]
+        [HttpGet] // GET: api/v1/Jewelry
         public async Task<ActionResult<List<JewelryReadDto>>> GetAll()
         {
             var jewelryList = await _jewelryService.GetAllAsync();
             return Ok(jewelryList); //200 OK
         }
 
-        // GET: api/v1/Jewelry/{JewelryId}
+        [AllowAnonymous]
         // Get a jewelry item by its ID
-        [HttpGet("{JewelryId}")]
+        [HttpGet("{JewelryId}")]// GET: api/v1/Jewelry/{JewelryId}
         public async Task<ActionResult<JewelryReadDto>> GetById(Guid JewelryId)
         {
             var foundJewelry = await _jewelryService.GetByIdAsync(JewelryId);
@@ -76,19 +78,8 @@ namespace src.Controllers
             return Ok(foundJewelry); //200 Ok
         }
 
-        // PUT: api/v1/jewelry/{JewelryId}
-        // Update a jewelry item
-        /// <API>
-        /// {
-        ///   "jewelryName": " ",
-        ///   "jewelryType": " ",
-        ///   "jewelryPrice": ,
-        ///   "jewelryImage": " ",
-        ///   "description": " "
-        /// }
-        /// <API>
-        [HttpPut("{JewelryId}")]
         [Authorize(Roles = "Admin")]
+        [HttpPut("{JewelryId}")]
         public async Task<ActionResult<JewelryReadDto>> UpdateOne(Guid JewelryId, JewelryUpdateDto updateDto)
         {
             var jewelryUpdate = await _jewelryService.UpdateOneAsync(JewelryId, updateDto);
@@ -99,10 +90,9 @@ namespace src.Controllers
             return Ok(jewelryUpdate); //200 OK
         }
 
-        // DELETE: api/v1/Jewelry/{JewelryId}
         // Delete a jewelry item by its ID
-        [HttpDelete("{JewelryId}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{JewelryId}")] //api/v1/Jewelry/{JewelryId}
         public async Task<ActionResult> DeleteOne(Guid JewelryId)
         {
             var jewelryDeleted = await _jewelryService.DeleteOneAsync(JewelryId);
@@ -113,71 +103,21 @@ namespace src.Controllers
             return NoContent(); // 200 OK 
         }
 
-        //Search By jewelry name 
-        [HttpGet("Search/{name}")]
-        public async Task<ActionResult<JewelryReadDto>> GetJewelryByName(string name)
+        //Searsh with pagination
+        [AllowAnonymous]
+        [HttpGet("Search")] // /api/v1/Jewelry/Search?Limit=3&Offset=0&Search=ring
+        public async Task<ActionResult<List<JewelryReadDto>>> GetAllJewelryBySearch([FromQuery] PaginationOptions paginationOptions)
         {
-            var foundJewelry = await _jewelryService.GetByNameAsync(name);
-            if (foundJewelry == null)
-            {
-                return NotFound();
-            }
-            return Ok(foundJewelry);
+            var jewelryList = await _jewelryService.GetAllBySearchAsync(paginationOptions);
+            return Ok(jewelryList);
         }
 
-
-        // Get jewelry items within the specified price range
-        [HttpGet("FilteredJewelryByPriceRange")]//api/v1/Jewelry/FilteredJewelryByPriceRange?minPrice=100&maxPrice=200
-        public async Task<ActionResult<List<JewelryReadDto>>> GetByPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
+        [AllowAnonymous]
+        [HttpGet("Filter")] // /api/v1/Jewelry/Filter?Name or MinPrice Or MaxPrice
+        public async Task<ActionResult<List<Jewelry>>> FilterJe([FromQuery] FilterationOptions jewelryFilter)
         {
-            var jewelryList = await _jewelryService.GetAllAsync();
-
-            var filteredJewelry = jewelryList.Where(jewelry => jewelry.JewelryPrice >= minPrice && jewelry.JewelryPrice <= maxPrice).ToList();
-
-            return Ok(filteredJewelry);
-        }
-
-        // Get jewelry items within the specified price range with pagination
-        [HttpGet("PagedJewelryByPriceRange")]//api/v1/Jewelry/PagedJewelryByPriceRange?minPrice=100&maxPrice=200
-        public async Task<ActionResult<List<JewelryReadDto>>> GetByPriceRangeWithPagination([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
-        {
-            var jewelryList = await _jewelryService.GetAllAsync();
-
-            var filteredJewelry = jewelryList.Where(jewelry => jewelry.JewelryPrice >= minPrice && jewelry.JewelryPrice <= maxPrice).ToList();
-
-            var paginatedJewelry = filteredJewelry.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-            return Ok(paginatedJewelry);
-        }
-
-        // Get jewelry items within the specified price range and jewelry type
-        [HttpGet("FilteredJewelrye")] //api/v1/Jewelry/FilteredJewelrye?minPrice=100&maxPrice=200&jewelryType=Ring
-
-        public async Task<ActionResult<List<JewelryReadDto>>> GetByPriceRangeAndType([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice, [FromQuery] string jewelryType)
-        {
-            var jewelryList = await _jewelryService.GetAllAsync();
-
-            var filteredJewelry = jewelryList.Where(jewelry => jewelry.JewelryPrice >= minPrice && jewelry.JewelryPrice <= maxPrice).ToList();
-
-            if (!string.IsNullOrEmpty(jewelryType))
-            {
-                filteredJewelry = filteredJewelry.Where(jewelry => jewelry.JewelryType.Equals(jewelryType, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-
-            return Ok(filteredJewelry);
-        }
-
-        // Get jewelry items of a specific type  with pagination
-        [HttpGet("Type")] //api/v1/Jewelry/Type?jewelryType=Ring
-        public async Task<ActionResult<List<JewelryReadDto>>> GetByJewelryType([FromQuery] string jewelryType, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
-        {
-            var jewelryList = await _jewelryService.GetAllAsync();
-
-            var filteredJewelry = jewelryList.Where(jewelry => jewelry.JewelryType.Equals(jewelryType, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            var paginatedJewelry = filteredJewelry.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-            return Ok(paginatedJewelry);
+            var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter);
+            return Ok(jewelries);
         }
 
     }

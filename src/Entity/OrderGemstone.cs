@@ -8,6 +8,7 @@ namespace src.Entity
 {
 
     /// <summary>
+    /// OrderGemston its Order Details
     /// The "FinalPrice" property appears to represent the total price of the order, 
     /// which includes the prices of jewelry items, gemstones, and carvings.
     /// </summary>
