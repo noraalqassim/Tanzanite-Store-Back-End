@@ -16,9 +16,6 @@ namespace src.DTO
             public decimal JewelryPrice { get; set; }
             public string JewelryImage { get; set; }
             public string Description { get; set; }
-            [Required]
-            public Guid GemstoneId { get; set; }
-
         }
 
         // read data = get data
@@ -30,20 +27,16 @@ namespace src.DTO
             public decimal JewelryPrice { get; set; }
             public string JewelryImage { get; set; }
             public string Description { get; set; }
-
-
         }
 
         // update
         public class JewelryUpdateDto
         {
-
             public string JewelryName { get; set; }
             public string JewelryType { get; set; }
             public decimal JewelryPrice { get; set; }
             public string JewelryImage { get; set; }
             public string Description { get; set; }
         }
-
     }
 }
