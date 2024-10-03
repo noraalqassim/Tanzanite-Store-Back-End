@@ -9,21 +9,21 @@ namespace src.Entity
     public class Gemstones
     {
         /// <summary>
-        /// Explanation of the attributes of the Gemstones entity: 
+        /// Explanation of the attributes of the Gemstones entity:
         /// Gemstone Name its the Category like (Ruby,Emerald,Sapphire,...etc)
         /// and the GemstoneType -> (Burmese Ruby, “Pink” Ruby, and Star Ruby ..etc)
-        /// 
-        /// GemstoneColor -> (Pinkish Red, Blood Red, Deep Red, ..etc) 
-        /// 
+        ///
+        /// GemstoneColor -> (Pinkish Red, Blood Red, Deep Red, ..etc)
+        ///
         /// Gemstone clarity is assessed using a ten-fold microscope, categorizing clarity by identifying internal impurities and surface defects,
         /// impacting the gem's value. Clarity grades include Flawless (FL), Internally Flawless (IF), Very, Very Slightly Included (VVS1/VVS2),
         /// Very Slightly Included (VS1/VS2), Slightly Included (SI1/SI2), and Included (I1/I2/I3).
         /// CarvingName: Name of the carving "Gemstone shepe" like (Oval, Heart, Round, pear).
         /// Weight: Weight of the carving, likely in carats .
         /// GemstonPrice -> the price of a particular gemstone is based on various factors such as its type, color, clarity, rarity, weight and quality.
-        /// 
+        ///
         /// For example the GemstoneName = Rudy , GemstoneType = Pink Ruby , GemstoneColler = Pinkish Red , GemstoneClarity= VVS (Very, Very Slightly Included), CarvingName= Oval, Weight = 0.5 (1 carat)  GemstonPrice =  5,000
-        /// 
+        ///
         /// Users with the role "admin" to add jewelry items after authentication.
         /// </summary>
 
@@ -37,11 +37,8 @@ namespace src.Entity
         public string GemstoneClarity { get; set; }
         public decimal GemstonePrice { get; set; }
         public string GemstoneDescription { get; set; }
-        
-        // public List<Gemstones_Carvings> Carving { get; } = new List<Gemstones_Carvings>();//one to many
-        //public List<Jewelry> Jewelries { get; } = [];//many-to-many relationship
-        public Guid CategoryId { get; set; }//One-to-many relationship
-        public Category Category { get; set; } = null!; //One-to-many relationship
 
+        public Guid CategoryId { get; set; } //One-to-many relationship
+        public Category Category { get; set; } = null!; //One-to-many relationship
     }
 }
