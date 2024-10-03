@@ -1,4 +1,3 @@
-using static src.DTO.OrderDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using AutoMapper;
 using src.DTO;
 using src.Entity; // Import the src.Entity namespace
 using src.Repository;
+using static src.DTO.OrderDTO;
 
 namespace src.Services.Order
 {
@@ -21,11 +21,15 @@ namespace src.Services.Order
             _mapper = mapper;
         }
 
+        // FinalPrice =GemstonePrice+JewelryPrice;
+
         public async Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto)
         {
             var order = _mapper.Map<OrderCreateDto, Entity.Order>(createDto);
             order.UserId = UserId;
+
             await _orderRepo.CreateOnAsync(order);
+
             return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
 
