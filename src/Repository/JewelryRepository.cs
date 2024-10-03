@@ -57,6 +57,5 @@ namespace src.Repository
                 .Where(j => j.JewelryName.ToLower().Contains(searchJewelry.ToLower()))
                 .ToListAsync();
         }
-
     }
 }

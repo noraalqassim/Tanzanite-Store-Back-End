@@ -24,7 +24,6 @@ namespace src.DTO
         // create review
         public class ReviewCreateDTO
         {
-            public DateTime ReviewDate { get; set; }
             public int Rating { get; set; }
             public string ReviewComment { get; set; }
             public Guid UserId { get; set; } // FK
