@@ -113,7 +113,10 @@ namespace src.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("Filter")] // /api/v1/Jewelry/Filter?Name or MinPrice Or MaxPrice
+        [HttpGet("Filter")]
+        // /api/vi/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=true
+        // /api/vi/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=false --> descending order(false) 
+        // /api/vi/Jewelry/Filter?type=ring&minPrice=100&maxPrice=500sortBy=Price&isAscending=true
         public async Task<ActionResult<List<Jewelry>>> FilterJe([FromQuery] FilterationOptions jewelryFilter)
         {
             var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter);

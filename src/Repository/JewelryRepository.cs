@@ -70,26 +70,26 @@ namespace src.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<Jewelry>> GetAllByFilteringAsync(FilterationOptions filter)
+        public async Task<List<src.Entity.Jewelry>> GetAllByFilteringAsync(FilterationOptions jewelryFilter)
         {
-            IQueryable<Jewelry> queryFilter = _jewelry;
+            var query = _databaseContext.Jewelry.AsQueryable();
 
-            if (!string.IsNullOrEmpty(filter.Name))
+            if (!string.IsNullOrEmpty(jewelryFilter.Type))
             {
-                queryFilter = queryFilter.Where(j => j.JewelryName.ToLower() == filter.Name.ToLower());
+                query = query.Where(j => j.JewelryType.Contains(jewelryFilter.Type));
             }
 
-            if (filter.MinPrice.HasValue)
+            if (jewelryFilter.MinPrice.HasValue)
             {
-                queryFilter = queryFilter.Where(j => j.JewelryPrice <= filter.MinPrice.Value);
+                query = query.Where(j => j.JewelryPrice >= jewelryFilter.MinPrice.Value);
             }
 
-            if (filter.MaxPrice.HasValue)
+            if (jewelryFilter.MaxPrice.HasValue)
             {
-                queryFilter = queryFilter.Where(j => j.JewelryPrice >= filter.MaxPrice.Value);
+                query = query.Where(j => j.JewelryPrice <= jewelryFilter.MaxPrice.Value);
             }
 
-            return await queryFilter.ToListAsync();
+            return await query.ToListAsync();
         }
 
 

@@ -98,11 +98,28 @@ namespace src.Services.Jewelry
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
 
+        //Filtering and sorting Jewelrys 
         public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter)
         {
             var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter);
+            if (!string.IsNullOrEmpty(jewelryFilter.SortBy))
+            {
+                jewelryList = jewelryFilter.IsAscending
+                    ? jewelryList.OrderBy(j => GetSortValue(j, jewelryFilter.SortBy)).ToList()
+                    : jewelryList.OrderByDescending(j => GetSortValue(j, jewelryFilter.SortBy)).ToList();
+            }
 
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
+        }
+
+        private object GetSortValue(src.Entity.Jewelry jewelry, string sortBy)
+        {
+            return sortBy switch
+            {
+                "Price" => jewelry.JewelryPrice,
+                "Type" => jewelry.JewelryType,
+                _ => jewelry.JewelryType
+            };
         }
 
     }
