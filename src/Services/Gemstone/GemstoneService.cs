@@ -70,5 +70,23 @@ namespace src.Services.Gemstone
             return await _gemstonesRepo.UpdateOnAsync(foundGemstone);
         }
 
+        //Search with pagination
+        public async Task<List<GemstoneReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions)
+        {
+            var gemstonesList = await _gemstonesRepo.GetAllBySearch(paginationOptions);
+            if (gemstonesList.Count == 0)
+            {
+                throw CustomException.NotFound($"No results found");
+            }
+            return _mapper.Map<List<src.Entity.Gemstones>, List<GemstoneReadDto>>(gemstonesList);
+        }
+
+        public async Task<List<GemstoneReadDto>> GetAllByFilterationAsync(FilterationOptions gemstonesFilter)
+        {
+            var gemstonesList = await _gemstonesRepo.GetAllByFilteringAsync(gemstonesFilter);
+
+            return _mapper.Map<List<src.Entity.Gemstones>, List<GemstoneReadDto>>(gemstonesList);
+        }
+
     }
 }

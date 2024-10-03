@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.Jewelry;
+using src.Utils;
 using static src.DTO.JewelryDTO;
 
 namespace src.Controllers
@@ -47,25 +48,26 @@ namespace src.Controllers
         /// <API>
         /// return jewelry info 
         [HttpPost]
-        [Authorize(Roles = "Admin")] //--> Just the Admin Can Create New Jewelry
+        // [Authorize(Roles = "Admin")] //--> Just the Admin Can Create New Jewelry
         public async Task<ActionResult<JewelryReadDto>> CreateOne(JewelryCreateDto createDto)
         {
             var nweJewelry = await _jewelryService.CreateOneAsync(createDto);
             return Ok(nweJewelry);//200 Ok
         }
 
-        // GET: api/v1/Jewelry
+
         // Get all jewelry items
-        [HttpGet]
+        [AllowAnonymous]
+        [HttpGet] // GET: api/v1/Jewelry
         public async Task<ActionResult<List<JewelryReadDto>>> GetAll()
         {
             var jewelryList = await _jewelryService.GetAllAsync();
             return Ok(jewelryList); //200 OK
         }
 
-        // GET: api/v1/Jewelry/{JewelryId}
+        [AllowAnonymous]
         // Get a jewelry item by its ID
-        [HttpGet("{JewelryId}")]
+        [HttpGet("{JewelryId}")]// GET: api/v1/Jewelry/{JewelryId}
         public async Task<ActionResult<JewelryReadDto>> GetById(Guid JewelryId)
         {
             var foundJewelry = await _jewelryService.GetByIdAsync(JewelryId);
@@ -76,19 +78,8 @@ namespace src.Controllers
             return Ok(foundJewelry); //200 Ok
         }
 
-        // PUT: api/v1/jewelry/{JewelryId}
-        // Update a jewelry item
-        /// <API>
-        /// {
-        ///   "jewelryName": " ",
-        ///   "jewelryType": " ",
-        ///   "jewelryPrice": ,
-        ///   "jewelryImage": " ",
-        ///   "description": " "
-        /// }
-        /// <API>
-        [HttpPut("{JewelryId}")]
         [Authorize(Roles = "Admin")]
+        [HttpPut("{JewelryId}")]
         public async Task<ActionResult<JewelryReadDto>> UpdateOne(Guid JewelryId, JewelryUpdateDto updateDto)
         {
             var jewelryUpdate = await _jewelryService.UpdateOneAsync(JewelryId, updateDto);
@@ -99,10 +90,9 @@ namespace src.Controllers
             return Ok(jewelryUpdate); //200 OK
         }
 
-        // DELETE: api/v1/Jewelry/{JewelryId}
         // Delete a jewelry item by its ID
-        [HttpDelete("{JewelryId}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{JewelryId}")] //api/v1/Jewelry/{JewelryId}
         public async Task<ActionResult> DeleteOne(Guid JewelryId)
         {
             var jewelryDeleted = await _jewelryService.DeleteOneAsync(JewelryId);
@@ -113,16 +103,21 @@ namespace src.Controllers
             return NoContent(); // 200 OK 
         }
 
-        //Search 
-        [HttpGet("Search/{name}")]
-        public async Task<ActionResult<JewelryReadDto>> GetJewelryByName(string name)
+        //Searsh with pagination
+        [AllowAnonymous]
+        [HttpGet("Search")] // /api/v1/Jewelry/Search?Limit=3&Offset=0&Search=ring
+        public async Task<ActionResult<List<JewelryReadDto>>> GetAllJewelryBySearch([FromQuery] PaginationOptions paginationOptions)
         {
-            var foundJewelry = await _jewelryService.GetByNameAsync(name);
-            if (foundJewelry == null)
-            {
-                return NotFound();
-            }
-            return Ok(foundJewelry);
+            var jewelryList = await _jewelryService.GetAllBySearchAsync(paginationOptions);
+            return Ok(jewelryList);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("Filter")] // /api/v1/Jewelry/Filter?Name or MinPrice Or MaxPrice
+        public async Task<ActionResult<List<Jewelry>>> FilterJe([FromQuery] FilterationOptions jewelryFilter)
+        {
+            var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter);
+            return Ok(jewelries);
         }
 
     }

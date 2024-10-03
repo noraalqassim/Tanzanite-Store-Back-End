@@ -34,34 +34,19 @@ namespace src.Controllers
             _categoryService = service;
         }
 
-        /// <API>
-        /// {
-        ///  "categoryName": "Category1"
-        /// }
-        /// </API>
-        /// return category info
 
         // Create a new category
-        // http://localhost:5125/api/v1/categories
-        [HttpPost]
         [Authorize(Roles = "Admin")] //--> For admins
+        [HttpPost]// http://localhost:5125/api/v1/categories
         public async Task<ActionResult<CategoryReadDto>> CreateOne(CategoryCreateDto createDto)
         {
             var categoryCreated = await _categoryService.CreateOneAsync(createDto);
             return Ok(categoryCreated); // 200 Ok
         }
 
-        /// <API>
-        /// {
-        ///  "categoryName": "Category1"
-        /// }
-        /// </API>
-        /// return category info
-
         // Create a new category
-        // http://localhost:5125/api/v1/categories
-        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")] //--> For admins
+        [HttpPut("{id}")]// http://localhost:5125/api/v1/categories
         public async Task<ActionResult<CategoryReadDto>> UpdateOne(Guid id, CategoryUpdateDto updateDto)
         {
             var categoryUpdated = await _categoryService.UpdateOneAsync(id, updateDto);
@@ -72,16 +57,11 @@ namespace src.Controllers
             return Ok(categoryUpdated); // 200 OK 
         }
 
-        /// <API>
-        /// {
-        ///  "categoryName": "Category2"
-        /// }
-        /// </API>
-        /// return category info
 
-        // http://localhost:5125/api/v1/categories
+
+        
         // Get all categories
-        [HttpGet]
+        [HttpGet]// http://localhost:5125/api/v1/categories
         public async Task<ActionResult<List<CategoryReadDto>>> GetAll()
         {
             var categoryList = await _categoryService.GetAllAsync();

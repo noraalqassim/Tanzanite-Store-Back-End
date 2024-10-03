@@ -25,7 +25,7 @@ namespace src.Services.Jewelry
         public async Task<JewelryReadDto> CreateOneAsync(JewelryCreateDto createDto)
         {
             var JewelryItem = _mapper.Map<JewelryCreateDto, src.Entity.Jewelry>(createDto);
-            var createdJewelry = await _jewelryRepo.CreateOnAsync(JewelryItem);
+            var createdJewelry = await _jewelryRepo.CreateOneAsync(JewelryItem);
             return _mapper.Map<src.Entity.Jewelry, JewelryReadDto>(createdJewelry);
         }
 
@@ -84,6 +84,24 @@ namespace src.Services.Jewelry
             {
                 throw CustomException.NotFound("No results found");
             }
+            return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
+        }
+
+        //Search with pagination
+        public async Task<List<JewelryReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions)
+        {
+            var jewelryList = await _jewelryRepo.GetAllBySearch(paginationOptions);
+            if (jewelryList.Count == 0)
+            {
+                throw CustomException.NotFound($"No results found");
+            }
+            return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
+        }
+
+        public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter)
+        {
+            var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter);
+
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
+using src.Utils;
 
 namespace src.Repository
 {
@@ -49,6 +50,44 @@ namespace src.Repository
             _gemstones.Update(updateGemstone);
             await _databaseContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Gemstones>> GetAllBySearch(PaginationOptions paginationOptions)
+        { // check the naming convention
+            var result = _gemstones.Where(j =>
+                j.GemstoneType.ToLower().Contains(paginationOptions.Search.ToLower())
+            );
+            return await result
+                .Skip(paginationOptions.Offset)
+                .Take(paginationOptions.Limit)
+                .ToListAsync();
+        }
+
+        public async Task<List<Gemstones>> GetAllByFilteringAsync(FilterationOptions filter)
+        {
+            IQueryable<Gemstones> queryFilter = _gemstones;
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                queryFilter = queryFilter.Where(j => j.CarvingName.ToLower() == filter.Name.ToLower());
+            }
+
+            if (!string.IsNullOrEmpty(filter.Color))
+            {
+                queryFilter = queryFilter.Where(j => j.GemstoneColor.ToLower() == filter.Color.ToLower());
+            }
+
+            if (filter.MinPrice.HasValue)
+            {
+                queryFilter = queryFilter.Where(j => j.GemstonePrice <= filter.MinPrice.Value);
+            }
+
+            if (filter.MaxPrice.HasValue)
+            {
+                queryFilter = queryFilter.Where(j => j.GemstonePrice >= filter.MaxPrice.Value);
+            }
+
+            return await queryFilter.ToListAsync();
         }
 
 

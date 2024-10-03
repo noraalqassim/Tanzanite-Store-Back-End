@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace src.Entity
 {
     /// <summary>
-    /// The "FinalPrice" property appears to represent the total price of the order,
+    /// The "FinalPrice" property appears to represent the total price of the order, 
     /// which includes the prices of jewelry items, gemstones, and carvings.
     /// </summary>
     public class OrderGemstone

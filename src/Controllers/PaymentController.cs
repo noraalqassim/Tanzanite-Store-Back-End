@@ -35,7 +35,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        [Authorize] // --> For users
+        [Authorize(Roles = "Customer")] // --> For users
         public async Task<ActionResult<PaymentReadDto>> CreateOne(
             [FromBody] PaymentCreateDto createDto
         )
@@ -53,6 +53,7 @@ namespace src.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer")]
         public async Task<ActionResult<PaymentReadDto>> GetAllAsync()
         {
             var paymentList = await _paymentService.GetAllAsync();
@@ -60,6 +61,7 @@ namespace src.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Customer")]
         public async Task<ActionResult<PaymentReadDto>> GetByIdAsync(Guid id)
         {
             var foundPayment = await _paymentService.GetByIdAsync(id);

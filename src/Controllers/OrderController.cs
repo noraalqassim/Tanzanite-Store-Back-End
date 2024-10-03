@@ -22,7 +22,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Customer")]
         public async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto createDto)
         {
             // exact user information by token
