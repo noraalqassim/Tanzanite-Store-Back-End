@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using src.Entity;
 using src.Repository;
+using src.Utils;
 using static src.DTO.CategoryDTO;
 
 namespace src.Services.category
@@ -78,6 +79,24 @@ namespace src.Services.category
 
             _mapper.Map(updateDto, foundCategory);
             return await _categoryRepo.UpdateOneAsync(foundCategory);
+        }
+
+        public async Task<List<CategoryReadDto>> GetAllByFilterationAsync(
+            CategoryFilterationOptions categoryFilter,
+            PaginationOptions paginationOptions
+        )
+        {
+            var categoryName = await _categoryRepo.GetAllByFilteringAsync(
+                categoryFilter,
+                paginationOptions
+            );
+
+            categoryName = categoryName
+                .Skip(paginationOptions.Offset)
+                .Take(paginationOptions.Limit)
+                .ToList();
+
+            return _mapper.Map<List<src.Entity.Category>, List<CategoryReadDto>>(categoryName);
         }
     }
 }

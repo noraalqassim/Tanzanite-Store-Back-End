@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Services.category;
 using static src.DTO.CategoryDTO;
+using src.Utils;
 
 namespace src.Controllers
 {
@@ -72,5 +73,15 @@ namespace src.Controllers
             }
             return NoContent(); 
         }
-    } 
-} 
+    
+
+        [AllowAnonymous]
+        [HttpGet("Filter")] 
+        public async Task<ActionResult<List<CategoryReadDto>>> FilterJewelry([FromQuery] CategoryFilterationOptions categoryFilter, [FromQuery] PaginationOptions paginationOptions)
+        {
+            var categoryN = await _categoryService.GetAllByFilterationAsync(categoryFilter, paginationOptions);
+            return Ok(categoryN);
+        }
+
+    } // end class
+} // end namespace

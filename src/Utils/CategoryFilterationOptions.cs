@@ -1,9 +1,8 @@
 namespace src.Utils
 {
-    public class FilterationOptions
+    public class CategoryFilterationOptions
     {
-        public decimal? MinPrice { get; set; }
-        public decimal? MaxPrice { get; set; }
+        public string? Name { get; set; }
 
         // New properties for sorting
         public string? SortBy { get; set; } // e.g., "Price", "Name"
