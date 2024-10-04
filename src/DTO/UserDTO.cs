@@ -10,19 +10,7 @@ namespace src.DTO
 {
     public class UserDTO
     {
-        /// <summary>
-        /// Data Transfer Object (DTO)
-        ///This DTO is designed to encapsulate all necessary information.
-        /// transfer data between different parts of an application,
-        /// such as between services, and repositories.
-        /// Mapper used the class down there.
-        /// Contains user details such as name, phone number, email, password, addresses, salt for password hashing,and admin status.
-        /// add two scenarios:
-        /// 1- user login, only the email and password fields may be required.
-        /// 2- user forgot password, only the password fields may be required.
-        /// </summary>
-
-        public class UserCreateDto //can use for signUp
+        public class UserCreateDto
         {
             [Required]
             public string Name { get; set; }
@@ -44,7 +32,7 @@ namespace src.DTO
             public string Password { get; set; }
         }
 
-        public class UserReadDto //for Admin
+        public class UserReadDto 
         {
             public Guid UserId { get; set; }
             public string Name { get; set; }
@@ -55,7 +43,7 @@ namespace src.DTO
             public byte[]? Salt { get; set; }
         }
 
-        public class AdminUpdateDto //for Admin
+        public class AdminUpdateDto 
         {
             public Guid UserId { get; set; }
             public string Name { get; set; }

@@ -6,12 +6,11 @@ using static src.DTO.CartDTO;
 
 namespace src.Services.cart
 {
-    public interface ICartService // interface
+    public interface ICartService 
     {
         Task<CartReadDTO> CreateOneAsync(Guid id, CartCreateDTO createDto);
         Task<List<CartReadDTO>> GetAllAsync();
         Task<CartReadDTO> GetByIdAsync(Guid id);
-        // Task<bool> DeleteOneAsync(Guid id);
         Task<bool> UpdateOneAsync(Guid id, CartUpdateDTO updateDto);
 
     }

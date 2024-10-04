@@ -13,21 +13,17 @@ namespace src.Utils
             StatusCode = statusCode;
         }
 
-
-        // not found
         public static CustomException NotFound(string message = "Item not found")
         {
             return new CustomException(404, message);
         }
 
-        // bad request
         public static CustomException BadRequest(string message = "Bad request")
         {
             return new CustomException(400, message);
         }
 
 
-        // auth
         public static CustomException UnAuthorized(string message = "Unauthorized. Please log in")
         {
             return new CustomException(401, message);
@@ -39,7 +35,6 @@ namespace src.Utils
         }
 
 
-        // internal
         public static CustomException InternalError(string message = "Internal server error")
         {
             return new CustomException(500, message);

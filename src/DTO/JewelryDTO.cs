@@ -18,7 +18,6 @@ namespace src.DTO
             public string Description { get; set; }
         }
 
-        // read data = get data
         public class JewelryReadDto
         {
             public Guid JewelryId { get; set; }
@@ -29,7 +28,6 @@ namespace src.DTO
             public string Description { get; set; }
         }
 
-        // update
         public class JewelryUpdateDto
         {
             public string JewelryName { get; set; }

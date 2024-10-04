@@ -12,7 +12,7 @@ namespace src.Entity
         public double CartPrice { get; set; }
         public Guid UserId { get; set; }
         public Users User { get; set; } = null!;
-        public List<Order> Orders { get; set; } // One to many
+        public List<Order> Orders { get; set; }
 
         public double CalculateTotalCartPrice()
         {
@@ -28,5 +28,5 @@ namespace src.Entity
 
             return totalCartPrice;
         }
-    } // end class
-} // end namespace
+    } 
+} 

@@ -9,15 +9,6 @@ namespace src.DTO
 {
     public class AddressDTO
     {
-        /// <summary>
-        /// Data Transfer Object (DTO)
-        ///This DTO is designed to encapsulate all necessary information.
-        /// transfer data between different parts of an application,
-        /// such as between services, and repositories.
-        /// Mapper used the class down there.
-        /// Contains user details such as Street, City, County, ZipCode.
-        /// This DTO is designed to encapsulate all necessary information for Address creation.
-        /// </summary>
         public class AddressCreateDto
         {
             [Required]

@@ -7,27 +7,18 @@ namespace src.Entity
 {
     public class Order
     {
-        public Guid OrderId { get; set; } // PK
-        public Guid UserId { get; set; } // FK
+        public Guid OrderId { get; set; }
+        public Guid UserId { get; set; } 
         public DateTime CreatedAt { get; set; }
-        public Guid AddressId { get; set; } // FK
+        public Guid AddressId { get; set; } 
 
-        public List<OrderGemstone> OrderProducts { get; set; } // One to many
+        public List<OrderGemstone> OrderProducts { get; set; } 
 
         public Guid? CartId { get; set; }
         public Cart? Cart { get; set; } = null!;
 
-        // One to one relationship with Payment
-
-        public Guid? PaymentId { get; set; } // Foreign key property
+        public Guid? PaymentId { get; set; }
         public Payment Payment { get; set; } = null!;
 
-        // public Review? Review { get; set; } // One to one
-
-        // public object Serial { get; internal set; }
-
-        // internal class Services
-        // {
-        // }
     }
 }

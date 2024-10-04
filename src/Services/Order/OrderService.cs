@@ -33,8 +33,6 @@ namespace src.Services.Order
             return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
 
-  
-
         public async Task<List<OrderReadDto>> GetAllAsync()
         {
             var orderList = await _orderRepo.GetAllAsync();
@@ -49,6 +47,7 @@ namespace src.Services.Order
             return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(ordersByUserId);
         }
 
+        // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 Under construction 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
 
         // public async Task<bool> UpdateOnAsync(Guid orderId, OrderUpdateDto updateDto)

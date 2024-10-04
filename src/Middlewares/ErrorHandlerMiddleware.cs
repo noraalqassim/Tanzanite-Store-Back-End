@@ -10,14 +10,11 @@ namespace src.Middlewares
     {
         private readonly RequestDelegate _next;
 
-
         public ErrorHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-
-        // logic 
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -26,19 +23,11 @@ namespace src.Middlewares
             }
             catch (CustomException ex)
             {
-
                 context.Response.StatusCode = ex.StatusCode;
                 context.Response.ContentType = "application/json";
 
-                // response: status + message
-                var response = new
-                {
-                    ex.StatusCode,
-                    ex.Message,
-                    // fields
-                };
+                var response = new { ex.StatusCode, ex.Message };
                 await context.Response.WriteAsJsonAsync(response);
-
             }
         }
     }

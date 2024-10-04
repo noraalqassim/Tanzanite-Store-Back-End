@@ -22,16 +22,14 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")]
+        [Authorize]
         public async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto createDto)
         {
-            // exact user information by token
             var authenticateClaims = HttpContext.User;
-            // get user id by claims
             var UserId = authenticateClaims
                 .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
                 .Value;
-            // string => Guid
+
             var userGuid = new Guid(UserId);
             return await _orderService.CreateOnAsync(userGuid, createDto);
         }
@@ -42,7 +40,7 @@ namespace src.Controllers
             var orders = await _orderService.GetAllAsync();
             if (orders == null || !orders.Any())
             {
-                return NotFound(); // Or you could return an empty list, depending on your preference
+                return NotFound();
             }
             return Ok(orders);
         }
@@ -59,7 +57,7 @@ namespace src.Controllers
             }
             return Ok(order);
         }
-
+        // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 Under construction 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
         // [HttpPut("{OrderId}")]
         // public async Task<IActionResult> UpdateOrder(Guid OrderId, OrderUpdateDto orderUpdateDto)
         // {

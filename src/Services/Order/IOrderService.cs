@@ -8,10 +8,8 @@ namespace src.Services.Order
 {
     public interface IOrderService
     {
-        Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto);//create new order
-        Task<List<OrderReadDto>> GetAllAsync(); //get all
-        Task<List<OrderReadDto>> GetByUserIdAsync(Guid userId);//get by id
-        // Task<bool> DeleteOneAsync(Guid OrderId);
-        // Task<bool> UpdateOnAsync(Guid OrderId, OrderUpdateDto updateDto);
+        Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto);
+        Task<List<OrderReadDto>> GetAllAsync();
+        Task<List<OrderReadDto>> GetByUserIdAsync(Guid userId);
     }
 }

@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
-using Microsoft.EntityFrameworkCore;
 using src.Utils;
 
 namespace src.Repository
 {
     public class JewelryRepository
     {
-        // Jewkry table
         protected DbSet<Jewelry> _jewelry;
-        protected DatabaseContext _databaseContext; //database 
+        protected DatabaseContext _databaseContext;
 
         public JewelryRepository(DatabaseContext databaseContext)
         {
@@ -54,13 +53,13 @@ namespace src.Repository
 
         public async Task<List<Jewelry>> GetByNameAsync(string searchJewelry)
         {
-            return await _databaseContext.Jewelry
-                .Where(j => j.JewelryName.ToLower().Contains(searchJewelry.ToLower()))
+            return await _databaseContext
+                .Jewelry.Where(j => j.JewelryName.ToLower().Contains(searchJewelry.ToLower()))
                 .ToListAsync();
         }
 
         public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
-        { // check the naming convention
+        {
             var result = _jewelry.Where(j =>
                 j.JewelryName.ToLower().Contains(paginationOptions.Search.ToLower())
             );
@@ -76,7 +75,9 @@ namespace src.Repository
 
             if (!string.IsNullOrEmpty(filter.Name))
             {
-                queryFilter = queryFilter.Where(j => j.JewelryName.ToLower() == filter.Name.ToLower());
+                queryFilter = queryFilter.Where(j =>
+                    j.JewelryName.ToLower() == filter.Name.ToLower()
+                );
             }
 
             if (filter.MinPrice.HasValue)
@@ -91,8 +92,5 @@ namespace src.Repository
 
             return await queryFilter.ToListAsync();
         }
-
-
-
     }
 }

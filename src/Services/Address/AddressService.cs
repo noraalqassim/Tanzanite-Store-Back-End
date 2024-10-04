@@ -9,10 +9,6 @@ using static src.DTO.AddressDTO;
 
 namespace src.Services.Address
 {
-    /// <summary>
-    /// Services Contain the business logic of your application and interact with entities, repositories, and other services.
-    //  Services use DTOs to transfer data between different layers of the application, such as between the controller and the repository.
-    /// </summary>
     public class AddressService : IAddressService
     {
         protected readonly AddressRepository _addressRepo;
@@ -23,10 +19,6 @@ namespace src.Services.Address
             _addressRepo = addressRepo;
             _mapper = mapper;
         }
-
-        /// <summary>
-        /// user id so every address create for user
-        /// </summary>
 
         public async Task<AddressReadDto> CreateOnAsync(Guid userId, AddressCreateDto createDto)
         {

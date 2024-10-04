@@ -30,6 +30,11 @@ namespace src.Repository
         {
             return await _addresses.ToListAsync();
         }
+          public async Task<List<Address>> GetAllUserAsync()
+        {
+           
+            return await _addresses.ToListAsync();
+        }
 
         public async Task<List<Address>> GetListByIdAsync(Guid userId)
         {

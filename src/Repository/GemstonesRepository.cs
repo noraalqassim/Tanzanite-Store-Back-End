@@ -12,7 +12,7 @@ namespace src.Repository
     public class GemstonesRepository
     {
         protected DbSet<Gemstones> _gemstones;
-        protected DatabaseContext _databaseContext; //database 
+        protected DatabaseContext _databaseContext;
 
         public GemstonesRepository(DatabaseContext databaseContext)
         {
@@ -31,7 +31,6 @@ namespace src.Repository
         {
             return await _gemstones.ToListAsync();
         }
-
 
         public async Task<Gemstones?> GetByIdAsync(Guid GemstoneId)
         {
@@ -53,7 +52,7 @@ namespace src.Repository
         }
 
         public async Task<List<Gemstones>> GetAllBySearch(PaginationOptions paginationOptions)
-        { // check the naming convention
+        {
             var result = _gemstones.Where(j =>
                 j.GemstoneType.ToLower().Contains(paginationOptions.Search.ToLower())
             );
@@ -69,12 +68,16 @@ namespace src.Repository
 
             if (!string.IsNullOrEmpty(filter.Name))
             {
-                queryFilter = queryFilter.Where(j => j.CarvingName.ToLower() == filter.Name.ToLower());
+                queryFilter = queryFilter.Where(j =>
+                    j.CarvingName.ToLower() == filter.Name.ToLower()
+                );
             }
 
             if (!string.IsNullOrEmpty(filter.Color))
             {
-                queryFilter = queryFilter.Where(j => j.GemstoneColor.ToLower() == filter.Color.ToLower());
+                queryFilter = queryFilter.Where(j =>
+                    j.GemstoneColor.ToLower() == filter.Color.ToLower()
+                );
             }
 
             if (filter.MinPrice.HasValue)
@@ -89,9 +92,5 @@ namespace src.Repository
 
             return await queryFilter.ToListAsync();
         }
-
-
-
-
     }
 }

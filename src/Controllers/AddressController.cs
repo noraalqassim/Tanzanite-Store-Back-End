@@ -12,14 +12,10 @@ using static src.DTO.AddressDTO;
 namespace src.Controllers
 {
     [Route("api/v1/[controller]")]
-    [ApiController] //Adderss
+    [ApiController] 
     public class AddressController : ControllerBase
     {
-        /// <summary>
-        /// make the list static so all the sellers and the customers access it.
-        /// make lis info.
-        /// get, post, put and delete method for user without consider is(seller, customer).
-        /// </summary>
+ 
         protected readonly IAddressService _addressService;
 
         public AddressController(IAddressService service)
@@ -33,7 +29,6 @@ namespace src.Controllers
             [FromBody] AddressCreateDto createDto
         )
         {
-            // var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var authenticateClaims = HttpContext.User;
             var userId = authenticateClaims
                 .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
@@ -78,7 +73,7 @@ namespace src.Controllers
                 return NotFound("Address not found.");
             }
 
-            return Ok("Address is Delete"); // Return 204 No Content if address is successfully deleted
+            return Ok("Address is Delete"); 
         }
 
         [HttpPut]
@@ -97,7 +92,5 @@ namespace src.Controllers
 
             return Ok(updatedAddressDto);
         }
-
-        //delete
     }
 }
