@@ -32,7 +32,7 @@ namespace src.Repository
             // Get product info from OrderProduct (OrderGemstone)
             foreach (var detail in newOrder.OrderProducts)
             {
-                
+
                 await _databaseContext.Entry(detail).Reference(od => od.Jewelry).LoadAsync();
                 await _databaseContext.Entry(detail).Reference(od => od.Gemstone).LoadAsync();
 
@@ -41,6 +41,13 @@ namespace src.Repository
             }
 
             return newOrder;
+        }
+
+        public async Task<List<Order>> GetAllAsync()
+        {
+            return await _databaseContext.Orders
+    .Include(o => o.OrderProducts) // Include OrderProducts
+    .ToListAsync();
         }
         // //update
         // public async Task<bool> UpdateOnAsync(Order updateOrder)

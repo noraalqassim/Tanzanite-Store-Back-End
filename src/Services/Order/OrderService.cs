@@ -33,6 +33,16 @@ namespace src.Services.Order
             return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
 
+        public async Task<List<OrderReadDto>> GetAllAsync()
+        {
+            // Fetch all orders from the repository
+            var orders = await _orderRepo.GetAllAsync(); // Assuming you have this method in your repository
+
+            // Map the list of orders to DTOs
+            return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(orders);
+        }
+
+
         // public async Task<List<OrderReadDto>> GetAllAsync()
         // {
         //     var orderList = await _orderRepo.GetAllAsync();

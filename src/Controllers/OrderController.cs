@@ -36,6 +36,21 @@ namespace src.Controllers
             return await _orderService.CreateOnAsync(userGuid, createDto);
         }
 
+        // ---------- Get all Orders ----------
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
+        {
+            var orders = await _orderService.GetAllAsync();
+
+            if (orders == null || !orders.Any())
+            {
+                return NotFound(); // Or you could return an empty list, depending on your preference
+            }
+
+            return Ok(orders);
+        }
+
         // [HttpGet]
         // public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
         // {
