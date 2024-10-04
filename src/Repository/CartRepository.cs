@@ -2,37 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
-    /// <summary>
-    /// Repository Acts as the data access layer, responsible for database operations like fetching, saving, updating, and deleting records.
-    /// </summary>
     public class CartRepository
     {
-
-        // fields
         protected DbSet<Cart> _cart;
         protected DatabaseContext _databaseContext;
 
-        // Constructor
         public CartRepository(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
             _cart = databaseContext.Set<Cart>();
         }
 
-        // Create a new cart Asynchronously
         public async Task<Cart> CreateOneAsync(Cart newCart)
         {
-            await _cart.AddAsync(newCart); // Add the new cart
-            await _databaseContext.SaveChangesAsync(); // Save changes
-            return newCart; // return the created cart
+            await _cart.AddAsync(newCart);
+            await _databaseContext.SaveChangesAsync();
+            return newCart;
         }
-
+        
+        // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 Under construction 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
         // Get All carts Asynchronously
         // public async Task<List<Cart>> GetAllAsync()
         // {
@@ -41,33 +35,39 @@ namespace src.Repository
 
         public async Task<List<Cart>> GetAllAsync()
         {
-            return await _databaseContext.Cart
-.Include(o => o.Orders) // Include OrderProducts
-.ToListAsync();
+            return await _cart
+                .Include(o => o.Orders)
+                .ThenInclude(op => op.OrderProducts)
+                .ThenInclude(op => op.Jewelry)
+                .Include(o => o.Orders)
+                .ThenInclude(op => op.OrderProducts)
+                .ThenInclude(op => op.Gemstone)
+                .ToListAsync();
         }
 
-
-        // Get cart by Id Asynchronously 
         public async Task<Cart?> GetByIdAsync(Guid id)
         {
-            return await _cart.FindAsync(id); // find the cart by id, then return it.
+            return await _cart.FindAsync(id);
         }
 
-        // Delete cart Asynchronously
-        // public async Task<bool> DeleteOneAsync(Cart cart)
-        // {
-        //     _cart.Remove(cart); // Remove the cart
-        //     await _databaseContext.SaveChangesAsync(); // Save changes
-        //     return true;
-        // }
+        public async Task<List<Cart>> GetByIdUserAsync(Guid userId)
+        {
+            return await _cart
+                .Where(c => c.UserId == userId)
+                .Include(o => o.Orders)
+                .ThenInclude(op => op.OrderProducts)
+                .ThenInclude(op => op.Jewelry)
+                .Include(o => o.Orders)
+                .ThenInclude(op => op.OrderProducts)
+                .ThenInclude(op => op.Gemstone)
+                .ToListAsync();
+        }
 
-        // Update cart Asynchronously
         public async Task<bool> UpdateOneAsync(Cart updateCart)
         {
-            _cart.Update(updateCart); // Update the cart
-            await _databaseContext.SaveChangesAsync(); // Save changes
+            _cart.Update(updateCart);
+            await _databaseContext.SaveChangesAsync();
             return true;
         }
-
-    } // end class
-} // end namespace
+    }
+}

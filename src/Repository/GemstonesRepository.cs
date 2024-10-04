@@ -12,7 +12,7 @@ namespace src.Repository
     public class GemstonesRepository
     {
         protected DbSet<Gemstones> _gemstones;
-        protected DatabaseContext _databaseContext; //database 
+        protected DatabaseContext _databaseContext;
 
         public GemstonesRepository(DatabaseContext databaseContext)
         {
@@ -31,7 +31,6 @@ namespace src.Repository
         {
             return await _gemstones.ToListAsync();
         }
-
 
         public async Task<Gemstones?> GetByIdAsync(Guid GemstoneId)
         {
@@ -53,7 +52,7 @@ namespace src.Repository
         }
 
         public async Task<List<Gemstones>> GetAllBySearch(PaginationOptions paginationOptions)
-        { // check the naming convention
+        {
             var result = _gemstones.Where(j =>
                 j.GemstoneType.ToLower().Contains(paginationOptions.Search.ToLower())
             );

@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
-using Microsoft.EntityFrameworkCore;
 using src.Utils;
 
 namespace src.Repository
 {
     public class JewelryRepository
     {
-        // Jewkry table
         protected DbSet<Jewelry> _jewelry;
-        protected DatabaseContext _databaseContext; //database 
+        protected DatabaseContext _databaseContext;
 
         public JewelryRepository(DatabaseContext databaseContext)
         {
@@ -52,11 +51,8 @@ namespace src.Repository
             return true;
         }
 
-
-        //Searsh By name with paging
         public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
         {
-            // check the naming convention
             var result = _jewelry.Where(j =>
                 j.JewelryName.ToLower().Contains(paginationOptions.Search.ToLower())
             );
@@ -85,6 +81,5 @@ namespace src.Repository
 
             return await query.ToListAsync();
         }
-
     }
 }

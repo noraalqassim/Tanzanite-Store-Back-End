@@ -17,13 +17,6 @@ namespace src.Controllers
     [ApiController] //User
     public class UserController : ControllerBase
     {
-        /// <summary>
-        /// make the list static so all the sellers and the customers access it.
-        /// make lis info.
-        /// get, post, put and delete method for user without consider is(seller, customer).
-        /// </summary>
-
-
         protected readonly IUserService _userService;
 
         public UserController(IUserService userService)
@@ -31,20 +24,7 @@ namespace src.Controllers
             _userService = userService;
         }
 
-        /// <summary>
-        /// http://localhost:5125/api/v1/User/SignUp
-        /// <API>
-        /// {
-        ///     "name": "",
-        ///     "phoneNumber": "+1-9",
-        ///     "email": "@ .com",
-        ///     "password": "Aa-Zz 1-8"
-        ///  }
-        /// </API>
-        /// return user info
-        ///
-        /// </summary>
-        [HttpPost("SignUp")] //SignUp
+        [HttpPost("SignUp")]
         public async Task<ActionResult<UserCreateDto>> CreateOne([FromBody] UserCreateDto createDto)
         {
             var userCretaed = await _userService.CreateOneAsync(createDto);
@@ -55,33 +35,15 @@ namespace src.Controllers
             return Ok(userCretaed);
         }
 
-        /// <summary>
-        /// http://localhost:5125/api/v1/User/LogIn
-        /// <API>
-        ///{
-        ///     "email": "",
-        ///     "password": ""
-        /// }
-        /// </API>
-        /// return Token
-        ///</summary>
-
-        [HttpPost("LogIn")] //Login
+        [HttpPost("LogIn")]
         public async Task<ActionResult<string>> LogInOne([FromBody] UserLoginDto createDto)
         {
             var token = await _userService.LogInAsync(createDto);
             return Ok(token);
         }
 
-        /// <summary>
-        /// get all user info just by Admin
-        /// in postman => authorization => choose the AuthType "Bearer Token" => then add the token
-        /// the token is the ine give to you when you login
-        /// </summary>
-
         [HttpGet]
-        [Authorize] // --> For All users
-        // [Authorize(Roles ="Admin")] //--> For admins
+        [Authorize]
         public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();
@@ -93,13 +55,7 @@ namespace src.Controllers
             return Ok(users);
         }
 
-        /// http://localhost:5125/api/v1/User/Profile
-        /// <summary>
-        /// in postman => authorization => choose the AuthType "Bearer Token" => then add the token
-        /// the token is the ine give to you when you login
-        /// </summary>
-        /// Profile just by user owner
-        [HttpGet("Profile")] // Endpoint to view user profile
+        [HttpGet("Profile")]
         [Authorize]
         public async Task<ActionResult<UserProfileDto>> GetProfileIdAsync()
         {
@@ -114,16 +70,7 @@ namespace src.Controllers
             return Ok(user);
         }
 
-        /// in postman => authorization => choose the AuthType "Bearer Token" => then add the token
-        /// the token is the ine give to you when you login
-        /// /// <API>
-        /// {
-        ///  "password": "1457337"
-        ///  }
-        ///  </API>
-        ///  return true
-        /// </summary>
-        [HttpPut("UpdateProfile")] // Endpoint to view user profile
+        [HttpPut("UpdateProfile")]
         [Authorize]
         public async Task<ActionResult<UserProfileDto>> UpdateProfileAsync(UserProfileDto updateDto)
         {
@@ -138,17 +85,6 @@ namespace src.Controllers
 
             return Ok(updatedUserDto);
         }
-
-        /// <summary>
-        /// in postman => authorization => choose the AuthType "Bearer Token" => then add the token
-        /// the token is the ine give to you when you login
-        /// <API>
-        /// {
-        ///  "password": "1457337"
-        ///  }
-        ///  </API>
-        ///  return true
-        /// </summary>
 
         [HttpPut("UpdatePassword")]
         [Authorize]

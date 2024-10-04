@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using src.Database;
 using src.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace src.Repository
 {
@@ -28,7 +28,7 @@ namespace src.Repository
 
         public async Task<List<Users>> GetAllAsync()
         {
-            return await _user.ToListAsync();
+            return await _user.Include(o => o.Addresses).ToListAsync();
         }
 
         public async Task<Users> FindByEmailAsync(string email)
@@ -38,7 +38,11 @@ namespace src.Repository
 
         public async Task<Users?> GetByIdAsync(Guid userId)
         {
-            return await _user.FindAsync(userId);
+            var user = await _user
+                .Include(u => u.Addresses)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+
+            return user;
         }
 
         public async Task<bool> DeleteOnAsync(Users user)

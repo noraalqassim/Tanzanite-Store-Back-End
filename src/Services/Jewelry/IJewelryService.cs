@@ -10,11 +10,11 @@ namespace src.Services.Jewelry
     public interface IJewelryService
     {
         Task<JewelryReadDto> CreateOneAsync(JewelryCreateDto createDto);
-        Task<List<JewelryReadDto>> GetAllAsync(); //get all
-        Task<JewelryReadDto> GetByIdAsync(Guid JewelryId);//get by id
+        Task<List<JewelryReadDto>> GetAllAsync();
+        Task<JewelryReadDto> GetByIdAsync(Guid JewelryId);
         Task<bool> UpdateOneAsync(Guid JewelryId, JewelryUpdateDto updateDto);
         Task<bool> DeleteOneAsync(Guid JewelryId);
-        Task<List<JewelryReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions); //jewelry Search with pagination
+        Task<List<JewelryReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions); 
 
         Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions);
 

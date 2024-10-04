@@ -23,7 +23,6 @@ namespace src.DTO
 
         }
 
-        // read data = get data
         public class GemstoneReadDto
         {
             public Guid GemstoneId { get; set; }
@@ -38,7 +37,6 @@ namespace src.DTO
             public Guid CategoryId { get; set; }
         }
 
-        // update
         public class GemstoneUpdateDto
         {
             public string GemstoneType { get; set; }

@@ -6,23 +6,6 @@ using static src.DTO.PaymentDTO;
 
 namespace src.Controllers
 {
-    /// <API>
-    /// POST: /api/v1/Payment
-    /// {
-    ///     "paymentDate": "DateTime",
-    ///     "amount": 0,
-    ///     "paymentOption": "string",
-    ///     "orderId": "Guid"
-    /// }
-    /// Returns the created payment information.
-    ///
-    /// GET: /api/v1/Payment
-    /// Returns the list of all payments.
-    ///
-    /// GET: /api/v1/Payment/{id}
-    /// Returns the payment details associated with the given id.
-    /// </API>
-
     [ApiController]
     [Route("api/v1/[controller]")]
     public class PaymentController : ControllerBase
@@ -35,25 +18,22 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")] // --> For users
+        [Authorize]
         public async Task<ActionResult<PaymentReadDto>> CreateOne(
             [FromBody] PaymentCreateDto createDto
         )
         {
-            // exact user information by token
             var authenticateClaims = HttpContext.User;
-            // get user id by claims
             var UserId = authenticateClaims
                 .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
                 .Value;
-            // string => Guid
             var userGuid = new Guid(UserId);
 
             return await _paymentService.CreateOneAsync(userGuid, createDto);
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize]
         public async Task<ActionResult<PaymentReadDto>> GetAllAsync()
         {
             var paymentList = await _paymentService.GetAllAsync();
@@ -61,7 +41,7 @@ namespace src.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Customer")]
+        [Authorize]
         public async Task<ActionResult<PaymentReadDto>> GetByIdAsync(Guid id)
         {
             var foundPayment = await _paymentService.GetByIdAsync(id);

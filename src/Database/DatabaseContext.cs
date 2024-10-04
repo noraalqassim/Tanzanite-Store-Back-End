@@ -8,12 +8,8 @@ using src.Entity;
 
 namespace src.Database
 {
-    public class DatabaseContext : DbContext // DatabaseContext inherits from DbContext
+    public class DatabaseContext : DbContext
     {
-        /// <summary>
-        /// The point of the database is to hold classes or configurations related to database setup
-        /// </summary>
-
         public DbSet<Users> User { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -25,7 +21,6 @@ namespace src.Database
         public DbSet<Jewelry> Jewelry { get; set; }
         public DbSet<Payment> Payment { get; set; }
 
-        // Constructor
         public DatabaseContext(DbContextOptions options)
             : base(options) { }
 
@@ -38,5 +33,5 @@ namespace src.Database
                 .HasForeignKey<Payment>(p => p.OrderId);
             modelBuilder.HasPostgresEnum<Role>();
         }
-    } // end class
-} // end namespace
+    }
+}

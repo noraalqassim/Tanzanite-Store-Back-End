@@ -12,10 +12,6 @@ using static src.DTO.UserDTO;
 
 namespace src.Services.User
 {
-    /// <summary>
-    /// Services Contain the business logic of your application and interact with entities, repositories, and other services.
-    //  Services use DTOs to transfer data between different layers of the application, such as between the controller and the repository.
-    /// </summary>
     public class UserService : IUserService
     {
         protected readonly UserRepository _userRepo;
@@ -30,7 +26,6 @@ namespace src.Services.User
             _config = config;
         }
 
-        //SignUp
         public async Task<UserReadDto?> CreateOneAsync(UserCreateDto createDto)
         {
             var foundUser = await _userRepo.FindByEmailAsync(createDto.Email);
@@ -50,8 +45,8 @@ namespace src.Services.User
 
                 users.Password = hashedPassword;
                 users.Salt = salt;
-                users.Role = Role.Customer;
-                // users.Role = Role.Admin;
+                // users.Role = Role.Customer;
+                users.Role = Role.Admin;
 
                 var userCreated = await _userRepo.CreateOnAsync(users);
                 return _mapper.Map<Users, UserReadDto>(userCreated);
@@ -108,14 +103,11 @@ namespace src.Services.User
                 return null;
             }
 
-            // Update the user's information with the new data
             foundUser.Name = updateDto.Name;
             foundUser.Email = updateDto.Email;
-
-            // Check if the password needs to be updated
+            foundUser.PhoneNumber = updateDto.PhoneNumber;
             if (!string.IsNullOrEmpty(updateDto.Password))
             {
-                // Hash the new password
                 PasswordUtils.HashPassword(
                     updateDto.Password,
                     out string hashedPassword,
@@ -136,12 +128,11 @@ namespace src.Services.User
 
             if (foundUser == null)
             {
-                return false; // User not found
+                return false;
             }
 
             if (!string.IsNullOrEmpty(updateDto.Password))
             {
-                // Hash the new password
                 PasswordUtils.HashPassword(
                     updateDto.Password,
                     out string hashedPassword,

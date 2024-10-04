@@ -8,7 +8,7 @@ namespace src.Entity
     public class Category
     {
         public Guid CategoryId { get; set; }
-        public string CategoryName { get; set; } //Gemstone Name (Ruby)
+        public string CategoryName { get; set; } 
         
-    } // end class
-} // end namespace
+    } 
+} 

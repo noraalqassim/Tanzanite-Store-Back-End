@@ -8,19 +8,18 @@ using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using src.Database;
 using src.Entity;
+using src.Middlewares;
 using src.Repository;
 using src.Services.Address;
 using src.Services.cart;
 using src.Services.category;
+using src.Services.Gemstone;
+using src.Services.Jewelry;
+using src.Services.Order;
 using src.Services.Payment;
 using src.Services.review;
 using src.Services.User;
-using src.Services.Jewelry;
-using src.Services.Gemstone;
 using src.Utils;
-//using src.Services.OrderGemstone;
-using src.Services.Order;
-using src.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,23 +64,20 @@ builder
     .Services.AddScoped<IPaymentService, PaymentService>()
     .AddScoped<PaymentRepository, PaymentRepository>();
 
-
 //Gemstones
-builder.Services
-    .AddScoped<IGemstoneService, GemstoneService>()
+builder
+    .Services.AddScoped<IGemstoneService, GemstoneService>()
     .AddScoped<GemstonesRepository, GemstonesRepository>();
 
 //Jewelry
-builder.Services
-    .AddScoped<IJewelryService, JewelryService>()
+builder
+    .Services.AddScoped<IJewelryService, JewelryService>()
     .AddScoped<JewelryRepository, JewelryRepository>();
 
-
 //Order
-builder.Services
-    .AddScoped<IOrderService, OrderService>()
+builder
+    .Services.AddScoped<IOrderService, OrderService>()
     .AddScoped<OrderRepository, OrderRepository>();
-
 
 builder
     .Services.AddAuthentication(options =>
@@ -118,7 +114,6 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Check if the application can connect to the database
         if (dbContext.Database.CanConnect())
         {
             Console.WriteLine("Database is connected");
@@ -134,11 +129,9 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// add middleware 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.MapControllers();
 
