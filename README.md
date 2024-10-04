@@ -149,6 +149,7 @@ The API will be available at: `http://localhost:5125`
 ### Order
 
 - **POST** `/api/v1/Order` - Create a new Order.
+- **GET** `/api/v1/Order` - View all Orders.
 
 ### Carts
 
