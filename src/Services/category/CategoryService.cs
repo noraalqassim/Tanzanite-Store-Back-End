@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using src.Entity;
 using src.Repository;
+using src.Utils;
 using static src.DTO.CategoryDTO;
 
 namespace src.Services.category
@@ -31,7 +32,7 @@ namespace src.Services.category
         /// <summary>
         ///  when create new category the name should not be created already  
         /// </summary>
-  
+
         public async Task<CategoryReadDto> CreateOneAsync(CategoryCreateDto createDto)
         {
             var categoryExists = await _categoryRepo.GetByNameAsync(createDto.CategoryName);
@@ -107,5 +108,14 @@ namespace src.Services.category
 
         }
 
-    } // end class 
-} // end namespace
+        public async Task<List<CategoryReadDto>> GetAllByFilterationAsync(CategoryFilterationOptions categoryFilter, PaginationOptions paginationOptions)
+        {
+            var categoryName = await _categoryRepo.GetAllByFilteringAsync(categoryFilter, paginationOptions);
+
+            categoryName = categoryName.Skip(paginationOptions.Offset).Take(paginationOptions.Limit).ToList();
+
+            return _mapper.Map<List<src.Entity.Category>, List<CategoryReadDto>>(categoryName);
+        }
+
+    } 
+} 

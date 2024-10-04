@@ -42,7 +42,7 @@ namespace src.Repository
         public async Task<List<Cart>> GetAllAsync()
         {
             return await _databaseContext.Cart
-.Include(o => o.order) // Include OrderProducts
+.Include(o => o.Orders) // Include OrderProducts
 .ToListAsync();
         }
 

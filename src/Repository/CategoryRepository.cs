@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using src.Database;
 using src.Entity;
 using Microsoft.EntityFrameworkCore;
+using src.Utils;
 
 namespace src.Repository
 {
@@ -68,5 +69,18 @@ namespace src.Repository
             return true;
         }
 
-    } // end class
-} // end namespace
+        public async Task<List<src.Entity.Category>> GetAllByFilteringAsync(CategoryFilterationOptions categoryFilter, PaginationOptions paginationOptions)
+        {
+            var query = _databaseContext.Category.AsQueryable();
+
+            if (!string.IsNullOrEmpty(categoryFilter.Name))
+            {
+                var filterName = categoryFilter.Name.ToLower(); 
+                query = query.Where(c => c.CategoryName.ToLower() == filterName);
+            }
+            query = query.Skip(paginationOptions.Offset).Take(paginationOptions.Limit);
+
+            return await query.ToListAsync();
+        }
+    } 
+} 
