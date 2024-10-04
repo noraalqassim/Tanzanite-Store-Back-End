@@ -7,10 +7,10 @@ ENV ASPNETCORE_URLS=http://0.0.0.0:5125
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["Backend.csproj", "./"]
-RUN dotnet restore "Backend.csproj"
+COPY ["sda-3-online-Backend_Teamwork/Backend.csproj", "sda-3-online-Backend_Teamwork/"]
+RUN dotnet restore "sda-3-online-Backend_Teamwork/Backend.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/sda-3-online-Backend_Teamwork"
 RUN dotnet build "Backend.csproj" -c $configuration -o /app/build
 
 FROM build AS publish
