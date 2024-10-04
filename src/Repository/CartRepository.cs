@@ -34,10 +34,18 @@ namespace src.Repository
         }
 
         // Get All carts Asynchronously
+        // public async Task<List<Cart>> GetAllAsync()
+        // {
+        //     return await _cart.ToListAsync(); // Return the list of carts
+        // }
+
         public async Task<List<Cart>> GetAllAsync()
         {
-            return await _cart.ToListAsync(); // Return the list of carts
+            return await _databaseContext.Cart
+.Include(o => o.order) // Include OrderProducts
+.ToListAsync();
         }
+
 
         // Get cart by Id Asynchronously 
         public async Task<Cart?> GetByIdAsync(Guid id)

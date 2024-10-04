@@ -27,7 +27,8 @@ namespace src.DTO
         {
             public double CartPrice { get; set; }
             public int CartQuantity { get; set; }
-            // public Guid UserId { get; set; } // FK
+            public Guid UserId { get; set; } // FK
+            public Guid orderId { get; set; } // FK
             // public List<OrderGemstone> OrderProducts { get; set; } // FK
 
             // public List<Order> order { get; set; } // FK
