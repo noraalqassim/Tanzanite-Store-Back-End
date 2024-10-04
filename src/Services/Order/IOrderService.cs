@@ -10,7 +10,7 @@ namespace src.Services.Order
     {
         Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto);//create new order
         Task<List<OrderReadDto>> GetAllAsync(); //get all
-        // Task<OrderReadDto> GetByIdAsync(Guid OrderId);//get by id
+        Task<List<OrderReadDto>> GetByUserIdAsync(Guid userId);//get by id
         // Task<bool> DeleteOneAsync(Guid OrderId);
         // Task<bool> UpdateOnAsync(Guid OrderId, OrderUpdateDto updateDto);
     }

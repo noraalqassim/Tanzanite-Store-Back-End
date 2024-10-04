@@ -21,7 +21,9 @@ namespace src.DTO
         /// </summary>
         public class OrderGemstoneCreateDto
         {
-            public Guid JewelryId { get; set; }
+           
+            
+          public Guid JewelryId { get; set; }
             public Guid GemstoneId { get; set; }
             // public decimal FinalPrice { get; set; }
             public int Quantity { get; set; }

@@ -36,38 +36,29 @@ namespace src.Controllers
             return await _orderService.CreateOnAsync(userGuid, createDto);
         }
 
-        // ---------- Get all Orders ----------
         [HttpGet]
-        [Authorize(Roles = "Customer")]
         public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
         {
             var orders = await _orderService.GetAllAsync();
-
             if (orders == null || !orders.Any())
             {
                 return NotFound(); // Or you could return an empty list, depending on your preference
             }
-
             return Ok(orders);
         }
 
-        // [HttpGet]
-        // public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
-        // {
-        //     var orders = await _orderService.GetAllAsync();
-        //     return Ok(orders);
-        // }
-
-        // [HttpGet("{OrderId}")]
-        // public async Task<ActionResult<OrderReadDto>> GetOrder(Guid OrderId)
-        // {
-        //     var order = await _orderService.GetByIdAsync(OrderId);
-        //     if (order == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return Ok(order);
-        // }
+        [HttpGet("Order")]
+        [Authorize]
+        public async Task<ActionResult<OrderReadDto>> GetOrder()
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var order = await _orderService.GetByUserIdAsync(userId);
+            if (order == null || !order.Any())
+            {
+                return NotFound();
+            }
+            return Ok(order);
+        }
 
         // [HttpPut("{OrderId}")]
         // public async Task<IActionResult> UpdateOrder(Guid OrderId, OrderUpdateDto orderUpdateDto)

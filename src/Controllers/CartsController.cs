@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using src.Services.cart;
-using Microsoft.AspNetCore.Mvc;
-using static src.DTO.CartDTO;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using src.Services.cart;
+using static src.DTO.CartDTO;
 
 namespace src.Controllers
 {
@@ -15,7 +15,6 @@ namespace src.Controllers
     // api/v1/carts
     public class CartsController : ControllerBase // CartsController inherits from ControllerBase
     {
-
         /// <summary>
         /// The point of the carts controller is to act as the entry point for handling HTTP requests related to the shopping cart.
         /// It defines endpoints (routes) for clients to interact with the application.
@@ -69,7 +68,7 @@ namespace src.Controllers
             {
                 return NotFound(); // 404 Not Found
             }
-            return Ok(cartUpdated); // 200 OK 
+            return Ok(cartUpdated); // 200 OK
         }
 
         /// <API>
@@ -94,16 +93,21 @@ namespace src.Controllers
         }
 
         // Get cart by id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CartReadDTO>> GetById(Guid id)
-        {
-            var cart = await _cartService.GetByIdAsync(id);
-            if (cart == null)
-            {
-                return NotFound(); // 404 Not Found
-            }
-            return Ok(cart); // 200 OK 
-        }
-
+        // [HttpGet]
+        // [Authorize]
+        // public async Task<ActionResult<CartReadDTO>> GetById(Guid id)
+        // {
+        //     var authenticateClaims = HttpContext.User;
+        //     var userId = authenticateClaims
+        //         .FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!
+        //         .Value;
+        //     var userGuid = new Guid(userId);
+        //     var cart = await _cartService.GetByIdAsync(userGuid);
+        //     if (cart == null)
+        //     {
+        //         return NotFound(); // 404 Not Found
+        //     }
+        //     return Ok(cart); // 200 OK
+        // }
     } // end class
 } // end namespace
