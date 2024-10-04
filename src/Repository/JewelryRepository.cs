@@ -52,15 +52,19 @@ namespace src.Repository
             return true;
         }
 
-        public async Task<List<Jewelry>> GetByNameAsync(string searchJewelry)
+        public async Task<List<Jewelry>> GetByNameAsync(PaginationOptions paginationOptions)
         {
-            return await _databaseContext.Jewelry
-                .Where(j => j.JewelryName.ToLower().Contains(searchJewelry.ToLower()))
-                .ToListAsync();
+            var result = _jewelry.Where(j =>
+                j.JewelryName.ToLower().Contains(paginationOptions.Search.ToLower())
+            ).ToList();
+
+            return await Task.FromResult(result);
         }
 
+        //Searsh By name with paging
         public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
-        { // check the naming convention
+        {
+            // check the naming convention
             var result = _jewelry.Where(j =>
                 j.JewelryName.ToLower().Contains(paginationOptions.Search.ToLower())
             );
@@ -70,6 +74,7 @@ namespace src.Repository
                 .ToListAsync();
         }
 
+        // Filtering and Sorting
         public async Task<List<src.Entity.Jewelry>> GetAllByFilteringAsync(FilterationOptions jewelryFilter)
         {
             var query = _databaseContext.Jewelry.AsQueryable();
@@ -91,8 +96,6 @@ namespace src.Repository
 
             return await query.ToListAsync();
         }
-
-
 
     }
 }

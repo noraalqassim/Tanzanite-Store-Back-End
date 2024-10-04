@@ -77,9 +77,21 @@ namespace src.Services.Jewelry
             return isDeleted;
         }
 
-        public async Task<List<JewelryReadDto>> GetByNameAsync(string name)
+        //Search By name
+        // public async Task<List<JewelryReadDto>> GetByNameAsync(string name)
+        // {
+        //     var jewelryList = await _jewelryRepo.GetByNameAsync(name);
+        //     if (jewelryList.Count == 0)
+        //     {
+        //         throw CustomException.NotFound("No results found");
+        //     }
+        //     return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
+        // }
+
+        //Search By name
+        public async Task<List<JewelryReadDto>> GetByNameAsync(PaginationOptions paginationOptions)
         {
-            var jewelryList = await _jewelryRepo.GetByNameAsync(name);
+            var jewelryList = await _jewelryRepo.GetByNameAsync(paginationOptions);
             if (jewelryList.Count == 0)
             {
                 throw CustomException.NotFound("No results found");
@@ -98,16 +110,20 @@ namespace src.Services.Jewelry
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
 
-        //Filtering and sorting Jewelrys 
-        public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter)
+        public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions)
         {
             var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter);
+
+            // Sorting logic based on SortBy and IsAscending from jewelryFilter
             if (!string.IsNullOrEmpty(jewelryFilter.SortBy))
             {
                 jewelryList = jewelryFilter.IsAscending
                     ? jewelryList.OrderBy(j => GetSortValue(j, jewelryFilter.SortBy)).ToList()
                     : jewelryList.OrderByDescending(j => GetSortValue(j, jewelryFilter.SortBy)).ToList();
             }
+
+            // Pagination logic using Limit and Offset from paginationOptions
+            jewelryList = jewelryList.Skip(paginationOptions.Offset).Take(paginationOptions.Limit).ToList();
 
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }

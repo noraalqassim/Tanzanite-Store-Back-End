@@ -32,21 +32,6 @@ namespace src.Controllers
             _jewelryService = jewelryService;
         }
 
-        // POST: api/v1/Jewelry
-        // Create a new jewelry item
-        /// <API>
-        /// {
-        ///  "jewelryName": " ",
-        ///   "jewelryType": " ",
-        ///   "jewelryPrice": ,
-        ///   "jewelryImage": " ",
-        ///   "description": " ",
-        ///  "gemstoneId": " ",
-        ///  "carvingId": " ",
-        ///  "userId": " "
-        ///}
-        /// <API>
-        /// return jewelry info 
         [HttpPost]
         // [Authorize(Roles = "Admin")] //--> Just the Admin Can Create New Jewelry
         public async Task<ActionResult<JewelryReadDto>> CreateOne(JewelryCreateDto createDto)
@@ -54,7 +39,6 @@ namespace src.Controllers
             var nweJewelry = await _jewelryService.CreateOneAsync(createDto);
             return Ok(nweJewelry);//200 Ok
         }
-
 
         // Get all jewelry items
         [AllowAnonymous]
@@ -103,6 +87,16 @@ namespace src.Controllers
             return NoContent(); // 200 OK 
         }
 
+        //Searsh by Name
+        [AllowAnonymous]
+        [HttpGet("JewelrySearch")]
+        public async Task<ActionResult<List<JewelryReadDto>>> GetJewelryByName([FromQuery] PaginationOptions paginationOptions)
+        {
+            var jewelryList = await _jewelryService.GetByNameAsync(paginationOptions);
+
+            return Ok(jewelryList);
+        }
+
         //Searsh with pagination
         [AllowAnonymous]
         [HttpGet("Search")] // /api/v1/Jewelry/Search?Limit=3&Offset=0&Search=ring
@@ -113,13 +107,11 @@ namespace src.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("Filter")]
-        // /api/vi/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=true
-        // /api/vi/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=false --> descending order(false) 
-        // /api/vi/Jewelry/Filter?type=ring&minPrice=100&maxPrice=500sortBy=Price&isAscending=true
-        public async Task<ActionResult<List<Jewelry>>> FilterJe([FromQuery] FilterationOptions jewelryFilter)
+        [HttpGet("Filter")] // /api/v1/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=true&Limit=5&Offset=1   --> isAscending=false (for descending)
+        public async Task<ActionResult<List<JewelryReadDto>>> FilterJewelry([FromQuery] FilterationOptions jewelryFilter, [FromQuery] PaginationOptions paginationOptions)
         {
-            var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter);
+            var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter, paginationOptions);
+
             return Ok(jewelries);
         }
 
