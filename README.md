@@ -1,52 +1,187 @@
-# E-commerce Application API
+# E-Commerce Backend Project (TANZANITE WEBSITE)
 
-This repository contains ASP.NET Core application with RESTful API endpoints for e-commerce application. The API allows you to interact with products in the store.
+## Project Overview
 
-`This is a teamwork assignment where you will work as a team within your group`
+This project is a backend solution for an e-commerce platform dedicated to selling jewelry and gemstones, built using .NET 8. The project includes core functionalities such as user authentication, product management, category management, and order processing.
 
-**_DEADLINE: 06.10.2024_**
+## Features
 
-## How to work
+- **User Management**
+  - Register new user
+  - User Authentication with JWT token
+  - Role-based access control (Admin, Customer)
+  - Login user
+  - View Profile Information and Update it
+  - Update Password
+  - Add Address Details, Update it and Delete it
+  - Create Review, Update it and Delete it
+- **Product Management**
+  - Admin Create Gemstone & Jewelry
+  - Admin Update Gemstone & Jewelry
+  - Admin Delete Gemstone & Jewelry
+  - Customer have a Filter Search By Name, Min Price, Max Price for both the Gemstone & Jewelry
+  - Customer can Search with Pagination for both the Gemstone & Jewelry
+- **Category Management**
+  - Admin Create Category
+  - Admin Update Category
+  - Admin Delete Category
+  - Customer can view all categories
+- **Order Management**
+  - Customer Make Order
 
-1. One team member (admin) should fork the repo and add other members to that admin repo as collaborators.
-2. The other team members should fork then clone the forked repo (the admin repo).
-3. Any change/update made should be submitted to admin repo as pull request.
-4. Each change should be done in a separate pull request.
-5. Pull request must be reviewed by at least 2 members before merged to admin repo.
-6. Admin should open a PR to the original (Integrify) repo.
+## Technologies Used
 
-Please ask your instructor or supporting instructor if you have any questions or need help.
+- **.Net 8**: Web API Framework
+- **Entity Framework Core**: ORM for database interactions
+- **PostgreSQL**: Relational database for storing data
+- **JWT**: For user authentication and authorization
+- **Swagger**: API documentation
 
-## Level 1: Basic Requirements
+## Prerequisites
 
-In this level, the application includes the following features:
+- .Net 8 SDK
+- SQL Server
+- VSCode
 
-1. Identify Entities: Identify the main entities that need to be stored in the database. These could include customers, products, categories, orders, etc.
-2. Define Attributes: For each entity, list and define the attributes or properties associated with it. For example, for a "customer" entity, attributes might include "id," "firstName," "lastName," "email" and so on.
-3. Establish Relationships: Determine the relationships between entities. Relationships can be one-to-one, one-to-many, or many-to-many. For instance, in an E-commerce system, a "customer" may have multiple "orders".
-4. Key: When establishing relationships, remember to create a key in your ERD to explain the notation used for relationships.
-5. According to the ERD above, create the entities, and build the database with Entity Framework Core. Add ERD in screenshots folders
-6. Create basic CRUD operations for each endpoint.
-7. Use authentication and role-based authorization
+## Getting Started
 
-## Level 2: Additional Requirements
+### 1. Clone the repository
 
-In addition to the basic requirements, the application enhances its functionality with the following features:
+```bash
+git clone git@github.com:R-1493/sda-3-online-Backend_Teamwork.git
+```
 
-1. Include pagination functionality to the method getting all products.
-2. Implement search functionality to allow users to search for specific products based on keywords or specific fields (e.g., by title).
-3. Add validation checks to ensure the data meets certain criteria before executing the actions.
+### 2. Setup database
 
-## Level 3: Advanced Requirements
+- Make sure PostgreSQL Server is running
+- Create `appsettings.json` file
+- Update the connection string in `appsettings.json`
 
-If you have a higher skill level and finish the previous requirements before the deadline, you can tackle the following bonus tasks:
+```bash
+  {
+    "ConnectionStrings": {
+      "Local": "Server=localhost;Database=ECommerceDb;Username=your_username;Password=your_password;"
+    }
+  }
+```
 
-1. Refactor method getting all products to also handle query parameters for filtering and sorting products based on specific criteria (e.g., price range, by title, by date, etc). Pagination still need to be integrated.
-2. Use claim-based or resource-based where applicable.
-3. Peer Review:
-   - Review 2 assignments from other teams.
-   - Provide constructive feedback and suggestions for improvement.
+- Run migrations to create database
 
-`Please note that the bonus requirements and reviews are optional and can be completed if you have additional time and advanced skills.`
+```bash
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
 
-Happy coding!
+- Run the application
+
+```bash
+dotnet watch
+```
+
+The API will be available at: `http://localhost:5125`
+
+### Swagger
+
+- Navigate to `http://localhost:5125/swagger/index.html` to explore the API endpoints.
+
+## Project Structure
+
+```bash
+|-- Controllers: API controller with request and response
+|-- Database # DbConext and Database Configurations
+|-- DTOs # Data Transfer Objects
+|-- Entities # Database Entities (User, Product, Category, Order)
+|-- Middleware # Logging request, response and Error Handler
+|-- Repositories # Repository Layer for database operations
+|-- Services # Business Logic Layer
+|-- Utils # Common Logics
+|-- Migrations # Entity Framework Migrations
+|-- Program.cs # Application Entry Point
+```
+
+## API Endpoints
+
+### User
+
+- **POST** `/api/v1/User/SignUp` - Register a new user.
+- **POST** `/api/v1/User/LogIn` - Login and get JWT token.
+- **GET** `/api/v1/User/Profile` - View Profile Details.
+- **PUT** `/api/v1/User/UpdateProfile` - Update Profile Information.
+- **PUT** `/api/v1/User/UpdatePassword` - Update the Password.
+- **GET** `/api/v1/User` - View All Users.
+
+### Address
+
+- **POST** `/api/v1/Address` - Create a new Address.
+- **GET** `/api/v1/Address` - View Address.
+- **PUT** `/api/v1/Address` - Update Address.
+- **GET** `/api/v1/Address/UserAddress` - View User Address Details.
+- **DELETE** `/api/v1/Address/{id}` - Delete the Address.
+
+### Categories
+
+- **POST** `/api/v1/Categories` - Create a new Category.
+- **GET** `/api/v1/Categories` - View Categories.
+- **PUT** `/api/v1/Categories/{id}` - Update Category by Id.
+- **GET** `/api/v1/Categories/{id}` - View Category by Id.
+- **DELETE** `/api/v1/Categories/{id}` - Delete Category by Id.
+
+### Gemstone
+
+- **POST** `/api/v1/Gemstone` - Create a new Gemstone.
+- **GET** `/api/v1/Gemstone` - View all Gemstones.
+- **GET** `/api/v1/Gemstone/{GemstoneId}` - View Gemstone by Id.
+- **PUT** `/api/v1/Gemstone/{GemstoneId}` - Update Gemstone by Id.
+- **DELETE** `/api/v1/Gemstone/{GemstoneId}` - Delete Gemstone by Id.
+- **GET** `/api/v1/Gemstone/Search` - Searsh with pagination for Gemstone.
+- **GET** `/api/v1/Gemstone/Filter` - Filter for Gemstone by Name/MinPrice/MaxPrice.
+
+### Jewelry
+
+- **POST** `/api/v1/Jewelry` - Create a new Jewelry.
+- **GET** `/api/v1/Jewelry` - View all Jewelry.
+- **GET** `/api/v1/Jewelry/{JewelryId}` - View Jewelry by Id.
+- **PUT** `/api/v1/Jewelry/{JewelryId}` - Update Jewelry by Id.
+- **DELETE** `/api/v1/Jewelry/{JewelryId}` - Delete Jewelry by Id.
+- **GET** `/api/v1/Jewelry/Search` - Searsh with pagination for Jewelry.
+- **GET** `/api/v1/Jewelry/Filter` - Filter for Jewelry by Name/MinPrice/MaxPrice.
+
+### Order
+
+- **POST** `/api/v1/Order` - Create a new Order.
+
+### Carts
+
+- **POST** `/api/v1/Carts` - Create a new Cart.
+- **GET** `/api/v1/Carts` - View Carts.
+- **GET** `/api/v1/Carts/{id}` - View Cart by Id.
+- **PUT** `/api/v1/Carts/{id}` - Update Cart Details.
+
+### Payment
+
+- **POST** `/api/v1/Payment` - Create a new Payment.
+- **GET** `/api/v1/Payment` - View Payment Details.
+- **GET** `/api/v1/Payment/{id}` - View Payment by Id.
+
+### Reviews
+
+- **POST** `/api/v1/Reviews` - Create a new Review.
+- **GET** `/api/v1/Reviews` - View all Reviews.
+- **GET** `/api/v1/Reviews/{id}` - View Review by Id.
+- **PUT** `/api/v1/Reviews/{id}` - Update Review by Id.
+- **DELETE** `/api/v1/Reviews/{id}` - Delete Review by Id.
+
+## Deployment
+
+The application is deployed and can be accessed at: [https://your-deploy-link.com](https://your-deploy-link.com)
+
+## Team Members
+
+- **Lead**: Retaj (@R-1493)
+- **Team Member**: Norah Alqassim (@noraalqassim)
+- **Team Member**: Ethar Alrehaili (@etharalrehaili)
+- **Team Member**: Waad (@Waad-Raggam)
+
+## License
+
+This project is licensed under the MIT License.
