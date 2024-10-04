@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using src.Entity;
+using static src.DTO.OrderDTO;
 
 // DTO (Data Transfer Object):
-// Role: Used to transfer data between layers of the application, 
+// Role: Used to transfer data between layers of the application,
 // typically between the controller and service.
 
 namespace src.DTO
@@ -25,13 +26,10 @@ namespace src.DTO
         // create Cart
         public class CartCreateDTO
         {
-            public double CartPrice { get; set; }
-            public int CartQuantity { get; set; }
             // public Guid UserId { get; set; } // FK
             // public List<OrderGemstone> OrderProducts { get; set; } // FK
 
             // public List<Order> order { get; set; } // FK
-
         }
 
         // read data = get data
@@ -40,10 +38,8 @@ namespace src.DTO
             public Guid Id { get; set; }
             public double CartPrice { get; set; }
             public int CartQuantity { get; set; }
-            public Guid UserId { get; set; } // FK
-                                             // public List<OrderGemstone> OrderProducts { get; set; } // FK
-            public List<Order> order { get; set; } // FK
-
+            public Guid UserId { get; set; } // FK                                             // public List<OrderGemstone> OrderProducts { get; set; } // FK
+            public List<OrderReadDto> order { get; set; } // FK
         }
 
         // update
@@ -52,10 +48,9 @@ namespace src.DTO
             public double CartPrice { get; set; }
             public int CartQuantity { get; set; }
             public Guid UserId { get; set; } // FK
-                                             // public List<OrderGemstone> OrderProducts { get; set; } // FK
+
+            // public List<OrderGemstone> OrderProducts { get; set; } // FK
             public List<Order> order { get; set; } // FK
-
         }
-
     } // end class
 } // end namespace

@@ -33,17 +33,21 @@ namespace src.Services.Order
             return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
 
-        // public async Task<List<OrderReadDto>> GetAllAsync()
-        // {
-        //     var orderList = await _orderRepo.GetAllAsync();
-        //     return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(orderList);
-        // }
+        public async Task<List<OrderReadDto>> GetAllAsync()
+        {
+            var orderList = await _orderRepo.GetAllAsync();
+            return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(orderList);
+        }
 
-        // public async Task<OrderReadDto> GetByIdAsync(Guid orderId)
-        // {
-        //     var foundOrder = await _orderRepo.GetByIdAsync(orderId);
-        //     return _mapper.Map<Entity.Order, OrderReadDto>(foundOrder);
-        // }
+        public async Task<List<OrderReadDto>> GetByUserIdAsync(Guid userId)
+        {
+            var orders = await _orderRepo.GetAllAsync();
+            var ordersByUserId = orders.Where(o => o.UserId == userId).ToList();
+
+            return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(ordersByUserId);
+        }
+
+
 
         // public async Task<bool> UpdateOnAsync(Guid orderId, OrderUpdateDto updateDto)
         // {

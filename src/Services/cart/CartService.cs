@@ -15,7 +15,6 @@ namespace src.Services.cart
     /// </summary>
     public class CartService : ICartService // CartService implements from ICartService
     {
-
         // fields
         protected readonly CartRepository _cartRepo;
         protected readonly IMapper _mapper;
@@ -39,7 +38,6 @@ namespace src.Services.cart
             await _cartRepo.CreateOneAsync(cart);
 
             return _mapper.Map<Cart, CartReadDTO>(cart);
-
         }
 
         // Get all carts Asynchronously
@@ -54,9 +52,10 @@ namespace src.Services.cart
         {
             var foundCart = await _cartRepo.GetByIdAsync(id);
             // TO DO: handle error
+            // var ordersByUserId = orders.Where(o => o.UserId == userId).ToList();
+
             // throw
             return _mapper.Map<Cart, CartReadDTO>(foundCart);
-
         }
 
         // Delete cart by Id Asynchronously
@@ -86,8 +85,6 @@ namespace src.Services.cart
 
             _mapper.Map(updateDto, foundCart);
             return await _cartRepo.UpdateOneAsync(foundCart);
-
         }
-
-    } // end class 
+    } // end class
 } // end namespace

@@ -19,6 +19,17 @@ namespace src.Repository
             _order = databaseContext.Set<Order>();
         }
 
+        public async Task<List<Order>> GetAllAsync()
+        {
+            // return await _order.ToListAsync();
+            return await _order
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Jewelry)
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Gemstone)
+                .ToListAsync();
+        }
+
         //Create new order
         public async Task<Order?> CreateOnAsync(Order newOrder)
         {
@@ -28,11 +39,9 @@ namespace src.Repository
             // Get orderGemstone in Order
             await _order.Entry(newOrder).Collection(o => o.OrderProducts).LoadAsync();
 
-
             // Get product info from OrderProduct (OrderGemstone)
             foreach (var detail in newOrder.OrderProducts)
             {
-                
                 await _databaseContext.Entry(detail).Reference(od => od.Jewelry).LoadAsync();
                 await _databaseContext.Entry(detail).Reference(od => od.Gemstone).LoadAsync();
 

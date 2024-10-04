@@ -10,13 +10,23 @@ namespace src.Entity
         public Guid CartId { get; set; }
         public int CartQuantity { get; set; }
         public double CartPrice { get; set; }
-
-        // Foreign key for the User entity (One to One) Relationship
         public Guid UserId { get; set; }
         public Users User { get; set; } = null!;
-        //  public List<OrderGemstone> OrderProducts { get; } = new List<OrderGemstone>(); //one to many 
-        public List<Order> order { get; set; }// One to many 
+        public List<Order> Orders { get; set; } // One to many
 
+        public double CalculateTotalCartPrice()
+        {
+            double totalCartPrice = 0;
 
+            foreach (var order in Orders)
+            {
+                foreach (var orderProduct in order.OrderProducts)
+                {
+                    totalCartPrice += (double)orderProduct.FinalPrice;
+                }
+            }
+
+            return totalCartPrice;
+        }
     } // end class
 } // end namespace
