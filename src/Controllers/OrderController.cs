@@ -22,7 +22,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Customer")]
         public async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto createDto)
         {
             // exact user information by token
@@ -40,6 +40,10 @@ namespace src.Controllers
         public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
         {
             var orders = await _orderService.GetAllAsync();
+            if (orders == null || !orders.Any())
+            {
+                return NotFound(); // Or you could return an empty list, depending on your preference
+            }
             return Ok(orders);
         }
 
@@ -49,7 +53,7 @@ namespace src.Controllers
         {
             var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var order = await _orderService.GetByUserIdAsync(userId);
-            if (order == null)
+            if (order == null || !order.Any())
             {
                 return NotFound();
             }

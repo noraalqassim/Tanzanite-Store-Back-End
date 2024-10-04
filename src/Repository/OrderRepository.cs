@@ -51,6 +51,13 @@ namespace src.Repository
 
             return newOrder;
         }
+
+    //     public async Task<List<Order>> GetAllAsync()
+    //     {
+    //         return await _databaseContext.Orders
+    // .Include(o => o.OrderProducts) // Include OrderProducts
+    // .ToListAsync();
+    //     }
         // //update
         // public async Task<bool> UpdateOnAsync(Order updateOrder)
         // {

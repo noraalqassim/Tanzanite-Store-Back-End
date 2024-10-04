@@ -47,7 +47,7 @@ namespace src.Controllers
 
         // Create a new review
         [HttpPost]
-        [Authorize] // --> For users
+        [Authorize(Roles = "Customer")] // --> For users
         public async Task<ActionResult<ReviewReadDTO>> CreateOne(ReviewCreateDTO createDto)
         {
             var reviewCreated = await _reviewService.CreateOneAsync(createDto);
@@ -56,7 +56,7 @@ namespace src.Controllers
 
         // Update a review
         [HttpPut("{id}")]
-        [Authorize] // --> For users
+        [Authorize(Roles = "Customer")] // --> For users
         public async Task<ActionResult<ReviewReadDTO>> UpdateOne(Guid id, ReviewUpdateDTO updateDto)
         {
             var reviewUpdated = await _reviewService.UpdateOneAsync(id, updateDto);
@@ -103,7 +103,7 @@ namespace src.Controllers
 
         // Delete a review
         [HttpDelete("{id}")]
-        [Authorize] // --> For users
+        [Authorize(Roles = "Customer")] // --> For users
         public async Task<ActionResult> DeleteOne(Guid id)
         {
             var reviewDeleted = await _reviewService.DeleteOneAsync(id);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Entity;
 using src.Services.Gemstone;
+using src.Utils;
 using static src.DTO.GemstonesDTO;
 
 namespace src.Controllers
@@ -33,6 +34,7 @@ namespace src.Controllers
 
         // GET: api/v1/Gemstone
         // Get all gemstones
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<GemstoneReadDto>>> GetAll()
         {
@@ -40,9 +42,10 @@ namespace src.Controllers
             return Ok(gemstonesList);
         }
 
-        // GET: api/v1/Gemstone/{GemstoneId}
+
         // Get a gemstone by its ID
-        [HttpGet("{GemstoneId}")]
+        [AllowAnonymous]
+        [HttpGet("{GemstoneId}")] // GET: api/v1/Gemstone/{GemstoneId}
         public async Task<ActionResult<GemstoneReadDto>> GetById(Guid GemstoneId)
         {
             var foundGemstone = await _gemstoneService.GetByIdAsync(GemstoneId);
@@ -53,20 +56,19 @@ namespace src.Controllers
             return Ok(foundGemstone);
         }
 
-        // POST: api/v1/Gemstone
         // Create a new gemstone
-        [HttpPost]
         [Authorize(Roles = "Admin")]
+        [HttpPost] //api/v1/Gemstone
         public async Task<ActionResult<GemstoneReadDto>> CreateOne(GemstoneCreateDto createDto)
         {
             var newGemstone = await _gemstoneService.CreateOneAsync(createDto);
             return Ok(newGemstone);
         }
 
-        // PUT: api/v1/Gemstone/{GemstoneId}
+
         // Update a gemstone
-        [HttpPut("{GemstoneId}")]
         [Authorize(Roles = "Admin")]
+        [HttpPut("{GemstoneId}")] // PUT: api/v1/Gemstone/{GemstoneId}
         public async Task<ActionResult> UpdateOne(Guid GemstoneId, GemstoneUpdateDto updateDto)
         {
             var gemstoneUpdated = await _gemstoneService.UpdateOneAsync(GemstoneId, updateDto);
@@ -77,10 +79,9 @@ namespace src.Controllers
             return Ok(gemstoneUpdated); // 200 OK 
         }
 
-        // DELETE: api/v1/Gemstone/{GemstoneId}
         // Delete a gemstone by its ID
-        [HttpDelete("{GemstoneId}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{GemstoneId}")] // DELETE: api/v1/Gemstone/{GemstoneId}
         public async Task<ActionResult> DeleteOne(Guid GemstoneId)
         {
             var gemstoneDeleted = await _gemstoneService.DeleteOneAsync(GemstoneId);
@@ -89,6 +90,23 @@ namespace src.Controllers
                 return NotFound();
             }
             return NoContent(); // 200 OK 
+        }
+
+        //Searsh with pagination
+        [AllowAnonymous]
+        [HttpGet("Search")] // /api/v1/Gemstone/Search?Limit=3&Offset=0&Search=ring
+        public async Task<ActionResult<List<GemstoneReadDto>>> GetAllJewelryBySearch([FromQuery] PaginationOptions paginationOptions)
+        {
+            var gemstonesList = await _gemstoneService.GetAllBySearchAsync(paginationOptions);
+            return Ok(gemstonesList);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("Filter")] // /api/v1/Gemstone/Filter?Name or MinPrice Or MaxPrice
+        public async Task<ActionResult<List<Gemstones>>> FilterJe([FromQuery] FilterationOptions jewelryFilter)
+        {
+            var gemstonesList = await _gemstoneService.GetAllByFilterationAsync(jewelryFilter);
+            return Ok(gemstonesList);
         }
 
     }
