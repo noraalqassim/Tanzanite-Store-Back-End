@@ -87,16 +87,6 @@ namespace src.Controllers
             return NoContent(); // 200 OK 
         }
 
-        //Searsh by Name
-        [AllowAnonymous]
-        [HttpGet("JewelrySearch")]
-        public async Task<ActionResult<List<JewelryReadDto>>> GetJewelryByName([FromQuery] PaginationOptions paginationOptions)
-        {
-            var jewelryList = await _jewelryService.GetByNameAsync(paginationOptions);
-
-            return Ok(jewelryList);
-        }
-
         //Searsh with pagination
         [AllowAnonymous]
         [HttpGet("Search")] // /api/v1/Jewelry/Search?Limit=3&Offset=0&Search=ring
@@ -107,7 +97,7 @@ namespace src.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("Filter")] // /api/v1/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=true&Limit=5&Offset=1   --> isAscending=false (for descending)
+        [HttpGet("Filter")] // /api/v1/Jewelry/Filter?maxPrice=550&sortBy=Price&isAscending=true&Limit=5&Offset=1   --> isAscending=false (for descending) ,sortBy= Price ,Name and Type
         public async Task<ActionResult<List<JewelryReadDto>>> FilterJewelry([FromQuery] FilterationOptions jewelryFilter, [FromQuery] PaginationOptions paginationOptions)
         {
             var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter, paginationOptions);

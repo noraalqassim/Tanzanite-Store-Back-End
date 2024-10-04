@@ -101,13 +101,5 @@ namespace src.Controllers
             return Ok(gemstonesList);
         }
 
-        [AllowAnonymous]
-        [HttpGet("Filter")] // /api/v1/Gemstone/Filter?Name or MinPrice Or MaxPrice
-        public async Task<ActionResult<List<Gemstones>>> FilterJe([FromQuery] FilterationOptions jewelryFilter)
-        {
-            var gemstonesList = await _gemstoneService.GetAllByFilterationAsync(jewelryFilter);
-            return Ok(gemstonesList);
-        }
-
     }
 }

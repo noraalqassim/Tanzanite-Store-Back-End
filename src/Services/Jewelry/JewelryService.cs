@@ -77,28 +77,6 @@ namespace src.Services.Jewelry
             return isDeleted;
         }
 
-        //Search By name
-        // public async Task<List<JewelryReadDto>> GetByNameAsync(string name)
-        // {
-        //     var jewelryList = await _jewelryRepo.GetByNameAsync(name);
-        //     if (jewelryList.Count == 0)
-        //     {
-        //         throw CustomException.NotFound("No results found");
-        //     }
-        //     return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
-        // }
-
-        //Search By name
-        public async Task<List<JewelryReadDto>> GetByNameAsync(PaginationOptions paginationOptions)
-        {
-            var jewelryList = await _jewelryRepo.GetByNameAsync(paginationOptions);
-            if (jewelryList.Count == 0)
-            {
-                throw CustomException.NotFound("No results found");
-            }
-            return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
-        }
-
         //Search with pagination
         public async Task<List<JewelryReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions)
         {
@@ -112,7 +90,7 @@ namespace src.Services.Jewelry
 
         public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions)
         {
-            var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter);
+            var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter, paginationOptions);
 
             // Sorting logic based on SortBy and IsAscending from jewelryFilter
             if (!string.IsNullOrEmpty(jewelryFilter.SortBy))
@@ -133,6 +111,7 @@ namespace src.Services.Jewelry
             return sortBy switch
             {
                 "Price" => jewelry.JewelryPrice,
+                "Name" => jewelry.JewelryName,
                 "Type" => jewelry.JewelryType,
                 _ => jewelry.JewelryType
             };

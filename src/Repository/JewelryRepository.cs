@@ -52,14 +52,6 @@ namespace src.Repository
             return true;
         }
 
-        public async Task<List<Jewelry>> GetByNameAsync(PaginationOptions paginationOptions)
-        {
-            var result = _jewelry.Where(j =>
-                j.JewelryName.ToLower().Contains(paginationOptions.Search.ToLower())
-            ).ToList();
-
-            return await Task.FromResult(result);
-        }
 
         //Searsh By name with paging
         public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
@@ -75,14 +67,9 @@ namespace src.Repository
         }
 
         // Filtering and Sorting
-        public async Task<List<src.Entity.Jewelry>> GetAllByFilteringAsync(FilterationOptions jewelryFilter)
+        public async Task<List<src.Entity.Jewelry>> GetAllByFilteringAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions)
         {
             var query = _databaseContext.Jewelry.AsQueryable();
-
-            if (!string.IsNullOrEmpty(jewelryFilter.Type))
-            {
-                query = query.Where(j => j.JewelryType.Contains(jewelryFilter.Type));
-            }
 
             if (jewelryFilter.MinPrice.HasValue)
             {
@@ -93,6 +80,8 @@ namespace src.Repository
             {
                 query = query.Where(j => j.JewelryPrice <= jewelryFilter.MaxPrice.Value);
             }
+
+            query = query.Skip(paginationOptions.Offset).Take(paginationOptions.Limit);
 
             return await query.ToListAsync();
         }

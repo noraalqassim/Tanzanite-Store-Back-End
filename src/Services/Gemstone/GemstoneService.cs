@@ -81,12 +81,6 @@ namespace src.Services.Gemstone
             return _mapper.Map<List<src.Entity.Gemstones>, List<GemstoneReadDto>>(gemstonesList);
         }
 
-        public async Task<List<GemstoneReadDto>> GetAllByFilterationAsync(FilterationOptions gemstonesFilter)
-        {
-            var gemstonesList = await _gemstonesRepo.GetAllByFilteringAsync(gemstonesFilter);
-
-            return _mapper.Map<List<src.Entity.Gemstones>, List<GemstoneReadDto>>(gemstonesList);
-        }
 
     }
 }
