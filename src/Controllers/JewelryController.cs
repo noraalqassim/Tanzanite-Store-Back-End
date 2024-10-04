@@ -89,10 +89,15 @@ namespace src.Controllers
         [AllowAnonymous]
         [HttpGet("Filter")]
         public async Task<ActionResult<List<Jewelry>>> FilterJe(
-            [FromQuery] FilterationOptions jewelryFilter
+            [FromQuery] FilterationOptions jewelryFilter,
+            [FromQuery] PaginationOptions paginationOptions
         )
         {
-            var jewelries = await _jewelryService.GetAllByFilterationAsync(jewelryFilter);
+            var jewelries = await _jewelryService.GetAllByFilterationAsync(
+                jewelryFilter,
+                paginationOptions
+            );
+
             return Ok(jewelries);
         }
     }

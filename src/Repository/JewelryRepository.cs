@@ -51,13 +51,6 @@ namespace src.Repository
             return true;
         }
 
-        public async Task<List<Jewelry>> GetByNameAsync(string searchJewelry)
-        {
-            return await _databaseContext
-                .Jewelry.Where(j => j.JewelryName.ToLower().Contains(searchJewelry.ToLower()))
-                .ToListAsync();
-        }
-
         public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
         {
             var result = _jewelry.Where(j =>
@@ -69,28 +62,24 @@ namespace src.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<Jewelry>> GetAllByFilteringAsync(FilterationOptions filter)
+        // Filtering and Sorting
+        public async Task<List<src.Entity.Jewelry>> GetAllByFilteringAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions)
         {
-            IQueryable<Jewelry> queryFilter = _jewelry;
+            var query = _databaseContext.Jewelry.AsQueryable();
 
-            if (!string.IsNullOrEmpty(filter.Name))
+            if (jewelryFilter.MinPrice.HasValue)
             {
-                queryFilter = queryFilter.Where(j =>
-                    j.JewelryName.ToLower() == filter.Name.ToLower()
-                );
+                query = query.Where(j => j.JewelryPrice >= jewelryFilter.MinPrice.Value);
             }
 
-            if (filter.MinPrice.HasValue)
+            if (jewelryFilter.MaxPrice.HasValue)
             {
-                queryFilter = queryFilter.Where(j => j.JewelryPrice <= filter.MinPrice.Value);
+                query = query.Where(j => j.JewelryPrice <= jewelryFilter.MaxPrice.Value);
             }
 
-            if (filter.MaxPrice.HasValue)
-            {
-                queryFilter = queryFilter.Where(j => j.JewelryPrice >= filter.MaxPrice.Value);
-            }
+            query = query.Skip(paginationOptions.Offset).Take(paginationOptions.Limit);
 
-            return await queryFilter.ToListAsync();
+            return await query.ToListAsync();
         }
     }
 }

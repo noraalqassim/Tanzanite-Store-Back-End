@@ -74,15 +74,6 @@ namespace src.Services.Jewelry
             return isDeleted;
         }
 
-        public async Task<List<JewelryReadDto>> GetByNameAsync(string name)
-        {
-            var jewelryList = await _jewelryRepo.GetByNameAsync(name);
-            if (jewelryList.Count == 0)
-            {
-                throw CustomException.NotFound("No results found");
-            }
-            return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
-        }
 
         public async Task<List<JewelryReadDto>> GetAllBySearchAsync(
             PaginationOptions paginationOptions
@@ -96,13 +87,35 @@ namespace src.Services.Jewelry
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
 
-        public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(
-            FilterationOptions jewelryFilter
-        )
+        public async Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions)
         {
-            var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter);
+            var jewelryList = await _jewelryRepo.GetAllByFilteringAsync(jewelryFilter, paginationOptions);
+
+            // Sorting logic based on SortBy and IsAscending from jewelryFilter
+            if (!string.IsNullOrEmpty(jewelryFilter.SortBy))
+            {
+                jewelryList = jewelryFilter.IsAscending
+                    ? jewelryList.OrderBy(j => GetSortValue(j, jewelryFilter.SortBy)).ToList()
+                    : jewelryList.OrderByDescending(j => GetSortValue(j, jewelryFilter.SortBy)).ToList();
+            }
+
+            // Pagination logic using Limit and Offset from paginationOptions
+            jewelryList = jewelryList.Skip(paginationOptions.Offset).Take(paginationOptions.Limit).ToList();
 
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
+
+        private object GetSortValue(src.Entity.Jewelry jewelry, string sortBy)
+        {
+            return sortBy switch
+            {
+                "Price" => jewelry.JewelryPrice,
+                "Name" => jewelry.JewelryName,
+                "Type" => jewelry.JewelryType,
+                _ => jewelry.JewelryType
+            };
+        }
+
     }
 }
+

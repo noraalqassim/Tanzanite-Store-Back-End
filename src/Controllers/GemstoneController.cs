@@ -84,14 +84,5 @@ namespace src.Controllers
             return Ok(gemstonesList);
         }
 
-        [AllowAnonymous]
-        [HttpGet("Filter")]
-        public async Task<ActionResult<List<Gemstones>>> FilterJe(
-            [FromQuery] FilterationOptions jewelryFilter
-        )
-        {
-            var gemstonesList = await _gemstoneService.GetAllByFilterationAsync(jewelryFilter);
-            return Ok(gemstonesList);
-        }
     }
 }
