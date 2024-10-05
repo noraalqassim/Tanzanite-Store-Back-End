@@ -62,6 +62,9 @@ namespace src.Repository
                 .ToListAsync();
         }
 
+        // Filters Jewelry items based on price range defined in jewelryFilter.
+        // Implements pagination as well.
+        // Uses AsQueryable for building the query dynamically.
         // Filtering and Sorting
         public async Task<List<src.Entity.Jewelry>> GetAllByFilteringAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions)
         {

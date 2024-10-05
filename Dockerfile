@@ -4,10 +4,11 @@ EXPOSE 5125
 
 ENV ASPNETCORE_URLS=http://0.0.0.0:5125
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["sda-3-online-Backend_Teamwork/Backend.csproj", "sda-3-online-Backend_Teamwork/"]
+
 
 RUN dotnet restore "sda-3-online-Backend_Teamwork/Backend.csproj"
 COPY . .
@@ -22,3 +23,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Backend.dll"]
+
