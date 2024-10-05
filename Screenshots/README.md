@@ -6,7 +6,7 @@ Here we presents the Entity Relationship Diagram (ERD) for the Gemstone Store we
 
 ## Entity Relationship Diagram (ERD)
 
-![Gemstone](/sda-3-online-Backend_Teamwork/Screenshots/GemstoneERD.png)
+![Gemstone](\sda-3-online-Backend_Teamwork\Screenshots\GemstoneERD.png)
 
 ## Tables and Their Attributes
 
