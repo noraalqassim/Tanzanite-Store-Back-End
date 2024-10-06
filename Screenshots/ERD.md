@@ -6,7 +6,7 @@ Here we presents the Entity Relationship Diagram (ERD) for the Gemstone Store we
 
 ## Entity Relationship Diagram (ERD)
 
-![Gemstone](\sda-3-online-Backend_Teamwork\Screenshots\GemstoneERD.png)
+![Gemstone](\sda-3-online-Backend_Teamwork\Screenshots\Gemstone Store ERD.png)
 
 ## Tables and Their Attributes
 
@@ -49,8 +49,8 @@ Here we presents the Entity Relationship Diagram (ERD) for the Gemstone Store we
 ### 5. Jewelry Table
 
 - **JewelryId** (PK): identifier for each jewelry item.
-- **JewelryName**: Name of the jewelry.
-- **JewelryType**: Type of jewelry (ring, necklace, etc).
+- **JewelryName**: Name of the jewelry (ring, necklace, etc).
+- **JewelryType**: Type of jewelry (Gold, Rose Gold, etc).
 - **JewelryImage**: Image of the jewelry.
 - **Description**: Description of the jewelry.
 - **Price**: Price of the Jewelry.
@@ -104,7 +104,10 @@ Here we presents the Entity Relationship Diagram (ERD) for the Gemstone Store we
 
 - **Category ↔ Gemstone**: One-to-Many between Category and Gemstone. Each category can have multiple gemstones.
 
-- **Gemstone ↔ Jewelry**: One-to-One between Gemstone and Jewelry. Each jewelry piece has one gemstone, and each gemstone is part of one jewelry piece.
+- **OrderGemstones ↔ Jewelry**: One-to-Many between OrderGemstones and Jewelry. Each OrderGemstones piece has multiple jewelry.
+
+- **OrderGemstones ↔ Gemstones**: One-to-Many between OrderGemstones and Gemstone. Each OrderGemstones piece has multiple Gemstone.
+
 - **Order ↔ OrderGemstones**: One-to-Many between Order and OrderGemstones. An order can contain multiple gemstones/jewelries.
 
 - **Order ↔ Payment**: One-to-One between Payment and Order. Each order has one payment associated with it.
@@ -114,4 +117,6 @@ Here we presents the Entity Relationship Diagram (ERD) for the Gemstone Store we
 - **Cart ↔ Order**: One-to-Many between Cart and Order, as a cart can have multiple orders.
 
 - **User ↔ Review**: One-to-Many between User and Review. Each user can write multiple reviews.
+
 - **Order ↔ Review**: One-to-One between Review and Order. Each order can have one review associated with it.
+
