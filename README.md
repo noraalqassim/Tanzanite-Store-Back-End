@@ -125,6 +125,7 @@ The API will be available at: `http://localhost:5125`
 - **PUT** `/api/v1/Categories/{id}` - Update Category by Id.
 - **GET** `/api/v1/Categories/{id}` - View Category by Id.
 - **DELETE** `/api/v1/Categories/{id}` - Delete Category by Id.
+- **GET** `/api/v1/Gemstone/Filter` - Filter for Categories by Name
 
 ### Gemstone
 
@@ -134,7 +135,6 @@ The API will be available at: `http://localhost:5125`
 - **PUT** `/api/v1/Gemstone/{GemstoneId}` - Update Gemstone by Id.
 - **DELETE** `/api/v1/Gemstone/{GemstoneId}` - Delete Gemstone by Id.
 - **GET** `/api/v1/Gemstone/Search` - Searsh with pagination for Gemstone.
-- **GET** `/api/v1/Gemstone/Filter` - Filter for Gemstone by Name/MinPrice/MaxPrice.
 
 ### Jewelry
 
@@ -144,7 +144,7 @@ The API will be available at: `http://localhost:5125`
 - **PUT** `/api/v1/Jewelry/{JewelryId}` - Update Jewelry by Id.
 - **DELETE** `/api/v1/Jewelry/{JewelryId}` - Delete Jewelry by Id.
 - **GET** `/api/v1/Jewelry/Search` - Searsh with pagination for Jewelry.
-- **GET** `/api/v1/Jewelry/Filter` - Filter for Jewelry by Name/MinPrice/MaxPrice.
+- **GET** `/api/v1/Jewelry/Filter` - Filter for Jewelry by MinPrice/MaxPrice.
 
 ### Order
 
@@ -174,7 +174,7 @@ The API will be available at: `http://localhost:5125`
 
 ## Deployment
 
-The application is deployed and can be accessed at: [https://your-deploy-link.com](https://your-deploy-link.com)
+The application is deployed and can be accessed at: https://gemstonestore.onrender.com/
 
 ## Team Members
 
