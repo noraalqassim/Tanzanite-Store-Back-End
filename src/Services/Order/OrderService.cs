@@ -23,15 +23,21 @@ namespace src.Services.Order
 
         // FinalPrice =GemstonePrice+JewelryPrice;
 
-        public async Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto)
+
+        public async Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto, Guid addressId)
         {
             var order = _mapper.Map<OrderCreateDto, Entity.Order>(createDto);
+
+            // Set UserId and AddressId 
             order.UserId = UserId;
+            order.AddressId = addressId;
 
             await _orderRepo.CreateOnAsync(order);
 
             return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
+
+
 
         public async Task<List<OrderReadDto>> GetAllAsync()
         {

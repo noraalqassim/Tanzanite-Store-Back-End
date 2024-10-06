@@ -19,14 +19,25 @@ namespace src.Repository
             _order = databaseContext.Set<Order>();
         }
 
+
         public async Task<List<Order>> GetAllAsync()
         {
-            return await _order
+            var orders = await _order
                 .Include(o => o.OrderProducts)
-                .ThenInclude(op => op.Jewelry)
+                    .ThenInclude(op => op.Jewelry)
                 .Include(o => o.OrderProducts)
-                .ThenInclude(op => op.Gemstone)
+                    .ThenInclude(op => op.Gemstone)
                 .ToListAsync();
+            // Calculate FinalPrice for each order product
+            foreach (var order in orders)
+            {
+                foreach (var product in order.OrderProducts)
+                {
+                    product.CalculateFinalPrice();
+                    Console.WriteLine($"OrderProductId: {product.OrderProductId}, FinalPrice: {product.FinalPrice}");
+                }
+            }
+            return orders;
         }
 
         public async Task<Order?> CreateOnAsync(Order newOrder)
