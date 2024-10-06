@@ -8,7 +8,7 @@ namespace src.Services.Order
 {
     public interface IOrderService
     {
-        Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto);
+        Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto, Guid addressId);
         Task<List<OrderReadDto>> GetAllAsync();
         Task<List<OrderReadDto>> GetByUserIdAsync(Guid userId);
     }
