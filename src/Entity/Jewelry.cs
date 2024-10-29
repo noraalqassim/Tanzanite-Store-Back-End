@@ -13,7 +13,10 @@ namespace src.Entity
         public string JewelryName { get; set; } //ring
         public string JewelryType { get; set; } //gold
         public decimal JewelryPrice { get; set; }
-        public string JewelryImage { get; set; }
+        public List<string> JewelryImage { get; set; } = new List<string>();
+        // public string JewelryImage { get; set; }
         public string Description { get; set; }
+
+        
     }
 }

@@ -15,7 +15,8 @@ namespace src.Entity
         public string GemstoneColor { get; set; }
         public string CarvingName { get; set; }
         public decimal Weight { get; set; }
-        public string GemstoneImage { get; set; }
+        // public string GemstoneImage { get; set; }
+        public List<string> GemstoneImages { get; set; } = new List<string>();
         public string GemstoneClarity { get; set; }
         public decimal GemstonePrice { get; set; }
         public string GemstoneDescription { get; set; }

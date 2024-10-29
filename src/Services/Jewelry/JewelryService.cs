@@ -74,6 +74,11 @@ namespace src.Services.Jewelry
             return isDeleted;
         }
 
+        public async Task<int> CountJewelryAsync()
+        {
+            return await _jewelryRepo.CountAsync();
+        }
+
 
         public async Task<List<JewelryReadDto>> GetAllBySearchAsync(
             PaginationOptions paginationOptions

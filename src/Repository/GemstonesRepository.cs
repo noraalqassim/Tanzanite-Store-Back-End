@@ -51,6 +51,12 @@ namespace src.Repository
             return true;
         }
 
+        // Count all products
+        public async Task<int> CountAsync()
+        {
+            return await _databaseContext.Set<Gemstones>().CountAsync();
+        }
+
         public async Task<List<Gemstones>> GetAllBySearch(PaginationOptions paginationOptions)
         {
             var result = _gemstones.Where(j =>

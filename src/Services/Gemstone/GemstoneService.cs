@@ -64,6 +64,12 @@ namespace src.Services.Gemstone
             return await _gemstonesRepo.UpdateOnAsync(foundGemstone);
         }
 
+        public async Task<int> CountGemstoneAsync()
+        {
+            return await _gemstonesRepo.CountAsync();
+        }
+
+
         public async Task<List<GemstoneReadDto>> GetAllBySearchAsync(
             PaginationOptions paginationOptions
         )

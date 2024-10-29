@@ -101,6 +101,23 @@ builder
         };
     });
 
+
+//cors
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000") //later when i deployed FE -> added hear ("http://localhost:3000" , deployed)
+                          .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .SetIsOriginAllowed((host) => true)
+                            .AllowCredentials();
+                      });
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -129,6 +146,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -140,5 +158,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapGet("/", () => "Gemstone store");
 
 app.Run();

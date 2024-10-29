@@ -8,11 +8,16 @@ namespace src.DTO
 {
     public class GemstonesDTO
     {
+        public class GemstoneListDto
+        {
+            public List<GemstoneReadDto> Gemstones { get; set; }
+            public int TotalCount { get; set; }
+        }
         public class GemstoneCreateDto
         {
             public string GemstoneType { get; set; }
             public string GemstoneColor { get; set; }
-            public string GemstoneImage { get; set; }
+            public List<string> GemstoneImages { get; set; } 
             public string CarvingName { get; set; }
             public decimal Weight { get; set; }
             public string GemstoneClarity { get; set; }
@@ -30,7 +35,7 @@ namespace src.DTO
             public string GemstoneColor { get; set; }
             public string CarvingName { get; set; }
             public decimal Weight { get; set; }
-            public string GemstoneImage { get; set; }
+            public List<string> GemstoneImages { get; set; }
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
             public string GemstoneDescription { get; set; }
@@ -41,7 +46,7 @@ namespace src.DTO
         {
             public string GemstoneType { get; set; }
             public string GemstoneColor { get; set; }
-            public string GemstoneImage { get; set; }
+            public List<string> GemstoneImages { get; set; }
             public string CarvingName { get; set; }
             public decimal Weight { get; set; }
             public string GemstoneClarity { get; set; }

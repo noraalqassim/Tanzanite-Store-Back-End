@@ -14,6 +14,7 @@ namespace src.Services.Gemstone
         Task<GemstoneReadDto> GetByIdAsync(Guid GemstoneId);
         Task<bool> DeleteOneAsync(Guid GemstoneId);
         Task<bool> UpdateOneAsync(Guid GemstoneId, GemstoneUpdateDto updateDto);
+         Task<int> CountGemstoneAsync();
         Task<List<GemstoneReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions); //jewelry Search with pagination
     }
 }

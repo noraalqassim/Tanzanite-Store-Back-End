@@ -34,6 +34,7 @@ namespace src.Controllers
         public async Task<ActionResult<List<JewelryReadDto>>> GetAll()
         {
             var jewelryList = await _jewelryService.GetAllAsync();
+
             return Ok(jewelryList);
         }
 
@@ -78,12 +79,20 @@ namespace src.Controllers
 
         [AllowAnonymous]
         [HttpGet("Search")]
-        public async Task<ActionResult<List<JewelryReadDto>>> GetAllJewelryBySearch(
+        public async Task<ActionResult<List<JewelryListDto>>> GetAllJewelryBySearch(
             [FromQuery] PaginationOptions paginationOptions
         )
         {
             var jewelryList = await _jewelryService.GetAllBySearchAsync(paginationOptions);
-            return Ok(jewelryList);
+            var totalCount = await _jewelryService.CountJewelryAsync();
+
+            var response = new JewelryListDto
+            {
+                Jewelry = jewelryList,
+                TotalCount = totalCount
+            };
+
+            return Ok(response);
         }
 
         [AllowAnonymous]

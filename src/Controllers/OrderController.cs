@@ -31,12 +31,21 @@ namespace src.Controllers
         {
             var authenticateClaims = HttpContext.User;
             var userIdClaim = authenticateClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+            {
+                return Unauthorized("User not authenticated.");
+            }
 
             var userGuid = new Guid(userIdClaim);
 
             // Directly query the database to find the user's address
             var address = await _databaseContext.Addresses
                 .FirstOrDefaultAsync(a => a.UserId == userGuid);
+
+            if (address == null)
+            {
+                return NotFound("Address not found for this user.");
+            }
 
             // Use the found addressId
             var addressId = address.AddressId;
@@ -56,15 +65,14 @@ namespace src.Controllers
         }
 
 
-        [HttpGet("Order")]
+        [HttpGet("{userid}")]
         [Authorize]
-        public async Task<ActionResult<OrderReadDto>> GetOrder()
+        public async Task<ActionResult<OrderReadDto>> GetOrder(Guid userId)
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var order = await _orderService.GetByUserIdAsync(userId);
-            if (order == null || !order.Any())
+            if (order == null)
             {
-                return NotFound();
+                return NotFound("Order not found for this user.");
             }
             return Ok(order);
         }

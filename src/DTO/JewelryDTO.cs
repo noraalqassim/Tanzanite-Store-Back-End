@@ -9,12 +9,17 @@ namespace src.DTO
 {
     public class JewelryDTO
     {
+        public class JewelryListDto
+        {
+            public List<JewelryReadDto> Jewelry { get; set; }
+            public int TotalCount { get; set; }
+        }
         public class JewelryCreateDto
         {
             public string JewelryName { get; set; }
             public string JewelryType { get; set; }
             public decimal JewelryPrice { get; set; }
-            public string JewelryImage { get; set; }
+            public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
         }
 
@@ -24,7 +29,7 @@ namespace src.DTO
             public string JewelryName { get; set; }
             public string JewelryType { get; set; }
             public decimal JewelryPrice { get; set; }
-            public string JewelryImage { get; set; }
+            public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
         }
 
@@ -33,7 +38,7 @@ namespace src.DTO
             public string JewelryName { get; set; }
             public string JewelryType { get; set; }
             public decimal JewelryPrice { get; set; }
-            public string JewelryImage { get; set; }
+            public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
         }
     }

@@ -39,6 +39,9 @@ namespace src.Repository
 
         public async Task<bool> DeleteOnAsync(Jewelry jewelry)
         {
+            if (jewelry == null)
+                return false;
+
             _jewelry.Remove(jewelry);
             await _databaseContext.SaveChangesAsync();
             return true;
@@ -46,9 +49,17 @@ namespace src.Repository
 
         public async Task<bool> UpdateOnAsync(Jewelry updateJewelry)
         {
+            if (updateJewelry == null)
+                return false;
+                
             _jewelry.Update(updateJewelry);
             await _databaseContext.SaveChangesAsync();
             return true;
+        }
+        // Count all products
+        public async Task<int> CountAsync()
+        {
+            return await _databaseContext.Set<Jewelry>().CountAsync();
         }
 
         public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
