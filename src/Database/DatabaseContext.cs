@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using src.Entity;
 
@@ -32,6 +33,13 @@ namespace src.Database
                 .WithOne(o => o.Payment)
                 .HasForeignKey<Payment>(p => p.OrderId);
             modelBuilder.HasPostgresEnum<Role>();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .ConfigureWarnings(warnings =>
+                    warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
         }
     }
 }

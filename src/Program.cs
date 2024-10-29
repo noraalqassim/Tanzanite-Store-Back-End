@@ -27,6 +27,7 @@ var dataSourceBuilder = new NpgsqlDataSourceBuilder(
     builder.Configuration.GetConnectionString("Local")
 );
 dataSourceBuilder.MapEnum<Role>();
+
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseNpgsql(dataSourceBuilder.Build());
@@ -79,6 +80,22 @@ builder
     .Services.AddScoped<IOrderService, OrderService>()
     .AddScoped<OrderRepository, OrderRepository>();
 
+//cors
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000") //later when i deployed FE -> added hear ("http://localhost:3000" , deployed)
+                          .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .SetIsOriginAllowed((host) => true)
+                            .AllowCredentials();
+                      });
+});
+
 builder
     .Services.AddAuthentication(options =>
     {
@@ -101,22 +118,6 @@ builder
         };
     });
 
-
-//cors
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:3000") //later when i deployed FE -> added hear ("http://localhost:3000" , deployed)
-                          .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .SetIsOriginAllowed((host) => true)
-                            .AllowCredentials();
-                      });
-});
 
 builder.Services.AddControllers();
 
@@ -146,11 +147,12 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseCors(MyAllowSpecificOrigins);
+
 app.UseMiddleware<ErrorHandlerMiddleware>();
+
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 if (app.Environment.IsDevelopment())

@@ -22,6 +22,7 @@ namespace src.Controllers
             _jewelryService = jewelryService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<JewelryReadDto>> CreateOne(JewelryCreateDto createDto)
         {
@@ -30,7 +31,7 @@ namespace src.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<List<JewelryReadDto>>> GetAll()
         {
             var jewelryList = await _jewelryService.GetAllAsync();
@@ -78,7 +79,7 @@ namespace src.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("Search")]
+        [HttpGet]
         public async Task<ActionResult<List<JewelryListDto>>> GetAllJewelryBySearch(
             [FromQuery] PaginationOptions paginationOptions
         )
