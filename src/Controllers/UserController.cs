@@ -24,10 +24,21 @@ namespace src.Controllers
             _userService = userService;
         }
 
-        [HttpPost("SignUp")]
+        [HttpPost("Register")]
         public async Task<ActionResult<UserCreateDto>> CreateOne([FromBody] UserCreateDto createDto)
         {
             var userCretaed = await _userService.CreateOneAsync(createDto);
+            if (userCretaed == null)
+            {
+                return Conflict("The email is already in use.");
+            }
+            return Ok(userCretaed);
+        }
+
+        [HttpPost("Admin/SignUp")]
+        public async Task<ActionResult<UserCreateDto>> CreateAdminOne([FromBody] UserCreateDto createDto)
+        {
+            var userCretaed = await _userService.CreateAdminAsync(createDto);
             if (userCretaed == null)
             {
                 return Conflict("The email is already in use.");

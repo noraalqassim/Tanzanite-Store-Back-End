@@ -45,7 +45,34 @@ namespace src.Services.User
 
                 users.Password = hashedPassword;
                 users.Salt = salt;
-                // users.Role = Role.Customer;
+                users.Role = Role.Customer;
+
+
+                var userCreated = await _userRepo.CreateOnAsync(users);
+                return _mapper.Map<Users, UserReadDto>(userCreated);
+            }
+        }
+
+
+        public async Task<UserReadDto?> CreateAdminAsync(UserCreateDto createDto)
+        {
+            var foundUser = await _userRepo.FindByEmailAsync(createDto.Email);
+            if (foundUser != null)
+            {
+                return null;
+            }
+            else
+            {
+                PasswordUtils.HashPassword(
+                    createDto.Password,
+                    out string hashedPassword,
+                    out byte[] salt
+                );
+
+                var users = _mapper.Map<UserCreateDto, Users>(createDto);
+
+                users.Password = hashedPassword;
+                users.Salt = salt;
                 users.Role = Role.Admin;
 
                 var userCreated = await _userRepo.CreateOnAsync(users);

@@ -12,15 +12,15 @@ namespace src.DTO
     {
         public class UserCreateDto
         {
-            [Required]
+            [Required(ErrorMessage = "Name is required.")]
             public string Name { get; set; }
 
-            [Required]
-            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number format")]
+            [Required(ErrorMessage = "Phone number is required.")]
+            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Phone number must start with a '+' followed by the country code and up to 14 digits. Example: +966123456789.")]
             public string PhoneNumber { get; set; }
 
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Email is required.")]
+            [EmailAddress(ErrorMessage = "Please enter a valid email address. Example: user@example.com.")]
             public string Email { get; set; }
 
             [Required]
@@ -76,7 +76,7 @@ namespace src.DTO
             public string Name { get; set; }
 
             [Required]
-            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number format")]
+            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Phone number must start with a '+' followed by the country code and up to 14 digits. Example: +966123456789.")]
             public string PhoneNumber { get; set; }
 
             [Required]

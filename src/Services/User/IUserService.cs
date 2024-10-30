@@ -9,6 +9,7 @@ namespace src.Services.User
     public interface IUserService
     {
         Task<UserReadDto> CreateOneAsync(UserCreateDto createDto);
+        Task<UserReadDto?> CreateAdminAsync(UserCreateDto createDto);
         Task<List<UserReadDto>> GetAllAsync();
         Task<UserReadDto> GetByIdAsync(Guid userId);
         Task<bool> DeleteOneAsync(Guid userId);
