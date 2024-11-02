@@ -80,11 +80,11 @@ namespace src.Services.Jewelry
         }
 
 
-        public async Task<List<JewelryReadDto>> GetAllBySearchAsync(
+        public async Task<List<JewelryReadDto>> GetAllwithPaginationAsync(
             PaginationOptions paginationOptions
         )
         {
-            var jewelryList = await _jewelryRepo.GetAllBySearch(paginationOptions);
+            var jewelryList = await _jewelryRepo.GetAllwithPagination(paginationOptions);
             if (jewelryList.Count == 0)
             {
                 throw CustomException.NotFound($"No results found");

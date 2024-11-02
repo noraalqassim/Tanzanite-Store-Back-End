@@ -51,7 +51,7 @@ namespace src.Repository
         {
             if (updateJewelry == null)
                 return false;
-                
+
             _jewelry.Update(updateJewelry);
             await _databaseContext.SaveChangesAsync();
             return true;
@@ -62,15 +62,39 @@ namespace src.Repository
             return await _databaseContext.Set<Jewelry>().CountAsync();
         }
 
-        public async Task<List<Jewelry>> GetAllBySearch(PaginationOptions paginationOptions)
+        public async Task<List<Jewelry>> GetAllwithPagination(PaginationOptions paginationOptions)
         {
-            var result = _jewelry.Where(j =>
-                j.JewelryName.ToLower().Contains(paginationOptions.Search.ToLower())
-            );
-            return await result
+            var jewelries = _jewelry.ToList();          
+            // search
+            if (!string.IsNullOrEmpty(paginationOptions.Search))
+            {
+                jewelries = jewelries
+                    .Where(p => p.JewelryName.Contains(paginationOptions.Search, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            // min price
+            if (paginationOptions.MinPrice.HasValue && paginationOptions.MinPrice > 0)
+            {
+                jewelries = jewelries
+                    .Where(p => p.JewelryPrice >= paginationOptions.MinPrice)
+                    .ToList();
+            }
+            // max price
+            if (paginationOptions.MinPrice.HasValue && paginationOptions.MaxPrice < decimal.MaxValue)
+            {
+                jewelries = jewelries
+                    .Where(p => p.JewelryPrice <= paginationOptions.MaxPrice)
+                    .ToList();
+            }
+
+            // Apply pagination 
+            jewelries = jewelries
                 .Skip(paginationOptions.Offset)
                 .Take(paginationOptions.Limit)
-                .ToListAsync();
+                .ToList();
+
+            return jewelries;
         }
 
         // Filters Jewelry items based on price range defined in jewelryFilter.

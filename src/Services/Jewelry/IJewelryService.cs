@@ -14,7 +14,7 @@ namespace src.Services.Jewelry
         Task<JewelryReadDto> GetByIdAsync(Guid JewelryId);
         Task<bool> UpdateOneAsync(Guid JewelryId, JewelryUpdateDto updateDto);
         Task<bool> DeleteOneAsync(Guid JewelryId);
-        Task<List<JewelryReadDto>> GetAllBySearchAsync(PaginationOptions paginationOptions);
+        Task<List<JewelryReadDto>> GetAllwithPaginationAsync(PaginationOptions paginationOptions);
         Task<int> CountJewelryAsync();
         Task<List<JewelryReadDto>> GetAllByFilterationAsync(FilterationOptions jewelryFilter, PaginationOptions paginationOptions);
 
