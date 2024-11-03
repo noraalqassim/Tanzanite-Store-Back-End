@@ -70,15 +70,15 @@ namespace src.Services.Gemstone
         }
 
 
-        public async Task<List<GemstoneReadDto>> GetAllBySearchAsync(
+        public async Task<List<GemstoneReadDto>> GetAllwithPaginationhAsync(
             PaginationOptions paginationOptions
         )
         {
-            var gemstonesList = await _gemstonesRepo.GetAllBySearch(paginationOptions);
-            if (gemstonesList.Count == 0)
-            {
-                throw CustomException.NotFound($"No results found");
-            }
+            var gemstonesList = await _gemstonesRepo.GetAllwithPagination(paginationOptions);
+            // if (gemstonesList.Count == 0)
+            // {
+            //     throw CustomException.NotFound($"No results found");
+            // }
             return _mapper.Map<List<src.Entity.Gemstones>, List<GemstoneReadDto>>(gemstonesList);
         }
 

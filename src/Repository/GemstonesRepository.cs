@@ -29,12 +29,15 @@ namespace src.Repository
 
         public async Task<List<Gemstones>> GetAllAsync()
         {
-            return await _gemstones.ToListAsync();
+            var gemstones = await _gemstones.Include(g => g.Category).ToListAsync();
+            return gemstones;
         }
 
         public async Task<Gemstones?> GetByIdAsync(Guid GemstoneId)
         {
-            return await _gemstones.FindAsync(GemstoneId);
+            return await _gemstones
+    .Include(g => g.Category)
+    .FirstOrDefaultAsync(g => g.GemstoneId == GemstoneId);
         }
 
         public async Task<bool> DeleteOnAsync(Gemstones Gemstone)
@@ -57,15 +60,39 @@ namespace src.Repository
             return await _databaseContext.Set<Gemstones>().CountAsync();
         }
 
-        public async Task<List<Gemstones>> GetAllBySearch(PaginationOptions paginationOptions)
+        public async Task<List<Gemstones>>GetAllwithPagination(PaginationOptions paginationOptions)
         {
-            var result = _gemstones.Where(j =>
-                j.GemstoneType.ToLower().Contains(paginationOptions.Search.ToLower())
-            );
-            return await result
+            var gemstones = _gemstones.Include(g => g.Category).ToList();          
+            // search
+            if (!string.IsNullOrEmpty(paginationOptions.Search))
+            {
+                gemstones = gemstones
+                    .Where(p => p.GemstoneType.Contains(paginationOptions.Search, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            // min price
+            if (paginationOptions.MinPrice.HasValue && paginationOptions.MinPrice > 0)
+            {
+                gemstones = gemstones
+                    .Where(p => p.GemstonePrice >= paginationOptions.MinPrice)
+                    .ToList();
+            }
+            // max price
+            if (paginationOptions.MinPrice.HasValue && paginationOptions.MaxPrice < decimal.MaxValue)
+            {
+                gemstones = gemstones
+                    .Where(p => p.GemstonePrice <= paginationOptions.MaxPrice)
+                    .ToList();
+            }
+
+            // Apply pagination 
+            gemstones = gemstones
                 .Skip(paginationOptions.Offset)
                 .Take(paginationOptions.Limit)
-                .ToListAsync();
+                .ToList();
+
+            return gemstones;
         }
 
     }
