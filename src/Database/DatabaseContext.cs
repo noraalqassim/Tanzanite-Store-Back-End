@@ -34,12 +34,13 @@ namespace src.Database
                 .HasForeignKey<Payment>(p => p.OrderId);
             modelBuilder.HasPostgresEnum<Role>();
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-                .ConfigureWarnings(warnings =>
-                    warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
+            optionsBuilder.ConfigureWarnings(warnings =>
+            {
+                warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning);
+            });
         }
+        
     }
 }
