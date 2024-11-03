@@ -85,10 +85,10 @@ namespace src.Services.Jewelry
         )
         {
             var jewelryList = await _jewelryRepo.GetAllwithPagination(paginationOptions);
-            if (jewelryList.Count == 0)
-            {
-                throw CustomException.NotFound($"No results found");
-            }
+            // if (jewelryList.Count == 0)
+            // {
+            //     throw CustomException.NotFound($"No results found");
+            // }
             return _mapper.Map<List<src.Entity.Jewelry>, List<JewelryReadDto>>(jewelryList);
         }
 
