@@ -15,7 +15,7 @@ namespace src.Services.User
         Task<bool> DeleteOneAsync(Guid userId);
         Task<string> LogInAsync(UserLoginDto createDto);
         Task<UserProfileDto> GetProfileIdAsync(Guid userId);
-        Task<UserProfileDto> UpdateOneAsync(Guid userId, UserProfileDto updateDto);
+        Task<UserProfileDto> UpdateOneAsync(Guid userId, UserUpdateDto updateDto);
         Task<bool> UpdatePasswordAsync(Guid userId, PasswordUpdateDto updateDto);
     }
 }

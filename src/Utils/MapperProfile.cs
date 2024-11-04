@@ -53,6 +53,7 @@ namespace src.Utils
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AdminUpdateDto, Users>();
             CreateMap<Users, UserProfileDto>();
+            CreateMap<UserUpdateDto, Users>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));;
 
 
             CreateMap<Address, AddressReadDto>()

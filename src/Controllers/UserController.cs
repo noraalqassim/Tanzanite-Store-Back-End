@@ -86,19 +86,11 @@ namespace src.Controllers
             return Ok(user);
         }
 
-        [HttpPut("UpdateProfile")]
         [Authorize]
-        public async Task<ActionResult<UserProfileDto>> UpdateProfileAsync(UserProfileDto updateDto)
+        [HttpPatch("UpdateProfile/{userId}")]
+        public async Task<ActionResult<UserProfileDto>> UpdateProfileAsync([FromRoute] Guid userId,UserUpdateDto updateDto)
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
             var updatedUserDto = await _userService.UpdateOneAsync(userId, updateDto);
-
-            if (updatedUserDto == null)
-            {
-                return NotFound("User not found.");
-            }
-
             return Ok(updatedUserDto);
         }
 

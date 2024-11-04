@@ -32,7 +32,7 @@ namespace src.DTO
             public string Password { get; set; }
         }
 
-        public class UserReadDto 
+        public class UserReadDto
         {
             public Guid UserId { get; set; }
             public string Name { get; set; }
@@ -40,10 +40,9 @@ namespace src.DTO
             public string Email { get; set; }
             public string Password { get; set; }
             public Role Role { get; set; }
-            public byte[]? Salt { get; set; }
         }
 
-        public class AdminUpdateDto 
+        public class AdminUpdateDto
         {
             public Guid UserId { get; set; }
             public string Name { get; set; }
@@ -67,6 +66,23 @@ namespace src.DTO
             public string Email { get; set; }
             public string Password { get; set; }
             public ICollection<AddressReadDto> Addresses { get; set; } = new List<AddressReadDto>();
+        }
+
+        public class UserUpdateDto
+        {
+            public string? Name { get; set; }
+
+            [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Phone number must start with a '+' followed by the country code and up to 14 digits. Example: +966123456789.")]
+            public string? PhoneNumber { get; set; }
+
+            [EmailAddress(ErrorMessage = "Please enter a valid email address. Example: user@example.com.")]
+            public string? Email { get; set; }
+            [MinLength(8)]
+            [RegularExpression(
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$",
+                ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit."
+            )]
+            public string? Password { get; set; }
         }
 
         public class PasswordUpdateDto

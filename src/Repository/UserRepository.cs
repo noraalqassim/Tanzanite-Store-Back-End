@@ -56,11 +56,11 @@ namespace src.Repository
             return true;
         }
 
-        public async Task<bool> UpdateOnAsync(Users updateUser)
+        public async Task<Users> UpdateOnAsync(Users updateUser)
         {
             _user.Update(updateUser);
             await _databaseContext.SaveChangesAsync();
-            return true;
+            return updateUser;
         }
     }
 }

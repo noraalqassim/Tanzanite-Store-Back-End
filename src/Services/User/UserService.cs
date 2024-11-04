@@ -133,32 +133,20 @@ namespace src.Services.User
             return _mapper.Map<Users, UserProfileDto>(foundUser);
         }
 
-        public async Task<UserProfileDto> UpdateOneAsync(Guid userId, UserProfileDto updateDto)
+        public async Task<UserProfileDto> UpdateOneAsync(Guid userId, UserUpdateDto updateDto)
         {
             var foundUser = await _userRepo.GetByIdAsync(userId);
 
             if (foundUser == null)
             {
-                return null;
+                throw CustomException.NotFound($"User with {userId} is not found");
             }
 
-            foundUser.Name = updateDto.Name;
-            foundUser.Email = updateDto.Email;
-            foundUser.PhoneNumber = updateDto.PhoneNumber;
-            if (!string.IsNullOrEmpty(updateDto.Password))
-            {
-                PasswordUtils.HashPassword(
-                    updateDto.Password,
-                    out string hashedPassword,
-                    out byte[] salt
-                );
-                foundUser.Password = hashedPassword;
-                foundUser.Salt = salt;
-            }
+            _mapper.Map(updateDto, foundUser);
 
-            await _userRepo.UpdateOnAsync(foundUser);
+            var updatedUser = await _userRepo.UpdateOnAsync(foundUser);
 
-            return _mapper.Map<Users, UserProfileDto>(foundUser);
+            return _mapper.Map<UserProfileDto>(updatedUser);
         }
 
         public async Task<bool> UpdatePasswordAsync(Guid userId, PasswordUpdateDto updateDto)
