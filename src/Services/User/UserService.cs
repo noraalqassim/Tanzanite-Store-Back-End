@@ -82,18 +82,30 @@ namespace src.Services.User
 
         public async Task<string> LogInAsync(UserLoginDto createDto)
         {
-            var foundUser = await _userRepo.FindByEmailAsync(createDto.Email);
-            var passwordMatched = PasswordUtils.VerifyPassword(
-                createDto.Password,
-                foundUser.Password,
-                foundUser.Salt
-            );
+            var foundByEmail = await _userRepo.FindByEmailAsync(createDto.Email);
+            if (foundByEmail is null)
+            {
+                throw CustomException.UnAuthorized("Dont have an account, please register");
+            }
+            var passwordMatched = PasswordUtils.VerifyPassword(createDto.Password, foundByEmail.Password, foundByEmail.Salt);
             if (passwordMatched)
             {
-                var tokenUtil = new TokenUtils(_config);
-                return tokenUtil.GenerateToken(foundUser);
+                var tokenUtils = new TokenUtils(_config);
+                return tokenUtils.GenerateToken(foundByEmail);
             }
-            return "Unauthorized";
+            throw CustomException.UnAuthorized("Password does not match");
+            // var foundUser = await _userRepo.FindByEmailAsync(createDto.Email);
+            // var passwordMatched = PasswordUtils.VerifyPassword(
+            //     createDto.Password,
+            //     foundUser.Password,
+            //     foundUser.Salt
+            // );
+            // if (passwordMatched)
+            // {
+            //     var tokenUtil = new TokenUtils(_config);
+            //     return tokenUtil.GenerateToken(foundUser);
+            // }
+            // // return "Password does not match";
         }
 
         public async Task<bool> DeleteOneAsync(Guid userId)

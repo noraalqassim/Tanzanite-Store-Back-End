@@ -22,7 +22,9 @@ namespace src.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+            //  _userService = new UserService{};
         }
+        
 
         [HttpPost("Register")]
         public async Task<ActionResult<UserCreateDto>> CreateOne([FromBody] UserCreateDto createDto)
@@ -50,6 +52,7 @@ namespace src.Controllers
         public async Task<ActionResult<string>> LogInOne([FromBody] UserLoginDto createDto)
         {
             var token = await _userService.LogInAsync(createDto);
+            System.Console.WriteLine($"token:{token}");
             return Ok(token);
         }
 
@@ -70,8 +73,10 @@ namespace src.Controllers
         [Authorize]
         public async Task<ActionResult<UserProfileDto>> GetProfileIdAsync()
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var user = await _userService.GetProfileIdAsync(userId);
+            var authenticatedClaims = HttpContext.User;
+            var userId = authenticatedClaims.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var userGuid = new Guid(userId);
+            var user = await _userService.GetByIdAsync(userGuid);
 
             if (user == null)
             {

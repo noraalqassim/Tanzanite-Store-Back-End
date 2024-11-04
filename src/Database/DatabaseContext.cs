@@ -27,20 +27,21 @@ namespace src.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresEnum<Role>();
+
             modelBuilder
                 .Entity<Payment>()
                 .HasOne(p => p.Order)
                 .WithOne(o => o.Payment)
                 .HasForeignKey<Payment>(p => p.OrderId);
-            modelBuilder.HasPostgresEnum<Role>();
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.ConfigureWarnings(warnings =>
-            {
-                warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning);
-            });
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.ConfigureWarnings(warnings =>
+        //     {
+        //         warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning);
+        //     });
+        // }
         
     }
 }

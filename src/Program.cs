@@ -23,14 +23,38 @@ using src.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(
-    builder.Configuration.GetConnectionString("Local")
-);
+// var dataSourceBuilder = new NpgsqlDataSourceBuilder(
+//     builder.Configuration.GetConnectionString("Local")
+// );
+// dataSourceBuilder.MapEnum<Role>();
+
+// builder.Services.AddDbContext<DatabaseContext>(options =>
+// {
+//     options.UseNpgsql(dataSourceBuilder.Build());
+// });
+
+// builder.Services.AddDbContext<DatabaseContext>(options =>
+// {
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("Local"));
+// });
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// add database service
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("Local"));
 dataSourceBuilder.MapEnum<Role>();
 
+var dataSource = dataSourceBuilder.Build();
+builder.Services.AddSingleton(dataSource);
+// builder.Services.AddDbContext<DatabaseContext>(options =>
+// {
+//     options.UseNpgsql(dataSourceBuilder.Build());
+// }
+// );
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    options.UseNpgsql(dataSourceBuilder.Build());
+    options.UseNpgsql(dataSource);
 });
 
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);

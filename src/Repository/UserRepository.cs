@@ -19,6 +19,10 @@ namespace src.Repository
             _user = databaseContext.Set<Users>();
         }
 
+        public async Task<bool> EmailExistsAsync(string email)
+        {
+            return await _user.AnyAsync(u => u.Email == email);
+        }
         public async Task<Users> CreateOnAsync(Users newUser)
         {
             await _user.AddAsync(newUser);
