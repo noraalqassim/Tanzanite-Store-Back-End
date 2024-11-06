@@ -34,6 +34,17 @@ namespace src.DTO
             public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
             public GemstoneReadDto Gemstone { get; set; }
+            public decimal FinalProductPrice
+            {
+                get
+                {
+                    if (Gemstone != null)
+                    {
+                        return JewelryPrice + Gemstone.GemstonePrice;
+                    }
+                    return JewelryPrice; // If no gemstone is associated
+                }
+            }
         }
 
         public class JewelryUpdateDto

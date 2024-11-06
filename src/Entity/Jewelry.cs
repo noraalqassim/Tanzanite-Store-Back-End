@@ -8,7 +8,7 @@ namespace src.Entity
 {
     public class Jewelry
     {
-      
+
         public Guid JewelryId { get; set; }
         public string JewelryName { get; set; } //ring
         public string JewelryType { get; set; } //gold
@@ -16,7 +16,7 @@ namespace src.Entity
         public List<string> JewelryImage { get; set; } = new List<string>();
         // public string JewelryImage { get; set; }
         public string Description { get; set; }
-        public decimal FinalProductPrice 
+        public decimal FinalProductPrice
         {
             get
             {
@@ -28,8 +28,8 @@ namespace src.Entity
             }
         }
         public Guid GemstoneId { get; set; }
-       public Gemstones Gemstone { get; set; } = null!;
+        public Gemstones Gemstone { get; set; } = null!;
 
-        
+
     }
 }
