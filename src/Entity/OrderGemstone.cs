@@ -10,18 +10,21 @@ namespace src.Entity
     public class OrderGemstone
     {
         [Key]
-        public Guid OrderProductId { get; set; } 
+        public Guid OrderProductId { get; set; }
         public Guid OrderId { get; set; }
-        public decimal FinalPrice { get; set; } 
         public int Quantity { get; set; }
         public Guid JewelryId { get; set; }
         public Jewelry Jewelry { get; set; }
 
-        public void CalculateFinalPrice()
+        public decimal FinalPrice
         {
-            if (Jewelry != null)
+            get
             {
-                FinalPrice = Jewelry.FinalProductPrice * Quantity;
+                if (Jewelry != null)
+                {
+                    return Jewelry.FinalProductPrice * Quantity;
+                }
+                return 0; // or any default value you want to return if Jewelry is null
             }
         }
     }

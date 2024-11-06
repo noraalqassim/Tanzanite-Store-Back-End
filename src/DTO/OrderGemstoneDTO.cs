@@ -19,13 +19,23 @@ namespace src.DTO
         public class OrderGemstoneReadDto
         {
             public Guid OrderProductId { get; set; }
-            public decimal FinalPrice { get; set; }
+            public int Quantity { get; set; }
+            public decimal FinalPrice
+            {
+                get
+                {
+                    if (Jewelry != null)
+                    {
+                        return Jewelry.FinalProductPrice * Quantity;
+                    }
+                    return 0; // or any default value you want to return if Jewelry is null
+                }
+            }
             public JewelryReadDto Jewelry { get; set; }
         }
 
         public class OrderGemstoneUpdateDto
         {
-            public decimal FinalPrice { get; set; }
             public int Quantity { get; set; }
         }
     }

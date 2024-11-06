@@ -28,14 +28,6 @@ namespace src.Repository
                       .ThenInclude(op => op.Gemstone)
                 .ToListAsync();
             // Calculate FinalPrice for each order product
-            foreach (var order in orders)
-            {
-                foreach (var product in order.OrderProducts)
-                {
-                    product.CalculateFinalPrice();
-                    Console.WriteLine($"OrderProductId: {product.OrderProductId}, FinalPrice: {product.FinalPrice}");
-                }
-            }
             return orders;
         }
 
@@ -52,7 +44,6 @@ namespace src.Repository
 
                 await _databaseContext.Entry(detail.Jewelry).Reference(j => j.Gemstone).LoadAsync();
 
-                detail.CalculateFinalPrice();
             }
 
             return newOrder;
