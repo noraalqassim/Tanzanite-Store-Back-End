@@ -39,7 +39,7 @@ namespace src.Services.Gemstone
             var foundGemstone = await _gemstonesRepo.GetByIdAsync(GemstoneId);
             if (foundGemstone == null)
             {
-                throw CustomException.NotFound($"category with {GemstoneId} cant find");
+                throw CustomException.NotFound($"Gemstone with {GemstoneId} cant find");
             }
             return _mapper.Map<src.Entity.Gemstones, GemstoneReadDto>(foundGemstone);
         }

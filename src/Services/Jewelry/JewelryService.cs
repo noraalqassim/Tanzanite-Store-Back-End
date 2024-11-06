@@ -40,7 +40,7 @@ namespace src.Services.Jewelry
 
             if (foundJewelry == null)
             {
-                throw CustomException.NotFound($"category with {JewelryId} cant find");
+                throw CustomException.NotFound($"Jewelry with {JewelryId} cant find");
             }
 
             return _mapper.Map<src.Entity.Jewelry, JewelryReadDto>(foundJewelry);

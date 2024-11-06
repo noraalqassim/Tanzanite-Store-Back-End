@@ -16,15 +16,12 @@ namespace src.Entity
         public int Quantity { get; set; }
         public Guid JewelryId { get; set; }
         public Jewelry Jewelry { get; set; }
-        public Guid GemstoneId { get; set; }
-        public Gemstones Gemstone { get; set; }
-
 
         public void CalculateFinalPrice()
         {
-            if (Jewelry != null && Gemstone != null)
+            if (Jewelry != null)
             {
-                FinalPrice = (Jewelry.JewelryPrice + Gemstone.GemstonePrice) * Quantity;
+                FinalPrice = Jewelry.FinalProductPrice * Quantity;
             }
         }
     }

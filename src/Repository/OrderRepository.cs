@@ -25,8 +25,7 @@ namespace src.Repository
             var orders = await _order
                 .Include(o => o.OrderProducts)
                     .ThenInclude(op => op.Jewelry)
-                .Include(o => o.OrderProducts)
-                    .ThenInclude(op => op.Gemstone)
+                      .ThenInclude(op => op.Gemstone)
                 .ToListAsync();
             // Calculate FinalPrice for each order product
             foreach (var order in orders)
@@ -50,7 +49,8 @@ namespace src.Repository
             foreach (var detail in newOrder.OrderProducts)
             {
                 await _databaseContext.Entry(detail).Reference(od => od.Jewelry).LoadAsync();
-                await _databaseContext.Entry(detail).Reference(od => od.Gemstone).LoadAsync();
+
+                await _databaseContext.Entry(detail.Jewelry).Reference(j => j.Gemstone).LoadAsync();
 
                 detail.CalculateFinalPrice();
             }

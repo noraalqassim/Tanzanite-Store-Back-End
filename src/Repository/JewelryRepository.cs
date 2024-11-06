@@ -29,12 +29,15 @@ namespace src.Repository
 
         public async Task<List<Jewelry>> GetAllAsync()
         {
-            return await _jewelry.ToListAsync();
+            var jewelry =  await _jewelry.Include(j => j.Gemstone).ThenInclude(g => g.Category).ToListAsync();
+
+            return jewelry;
         }
 
         public async Task<Jewelry?> GetByIdAsync(Guid JewelryId)
         {
-            return await _jewelry.FindAsync(JewelryId);
+            return await _jewelry
+                            .Include(j => j.Gemstone).ThenInclude(g => g.Category).FirstOrDefaultAsync(j => j.JewelryId == JewelryId);
         }
 
         public async Task<bool> DeleteOnAsync(Jewelry jewelry)
@@ -64,7 +67,7 @@ namespace src.Repository
 
         public async Task<List<Jewelry>> GetAllwithPagination(PaginationOptions paginationOptions)
         {
-            var jewelries = _jewelry.ToList();          
+            var jewelries = _jewelry.Include(j => j.Gemstone).ThenInclude(g => g.Category).ToList();
             // search
             if (!string.IsNullOrEmpty(paginationOptions.Search))
             {

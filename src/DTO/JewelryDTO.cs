@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using src.Entity;
+using static src.DTO.GemstonesDTO;
 
 namespace src.DTO
 {
@@ -21,6 +22,7 @@ namespace src.DTO
             public decimal JewelryPrice { get; set; }
             public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
+            public Guid GemstoneId { get; set; }
         }
 
         public class JewelryReadDto
@@ -31,6 +33,7 @@ namespace src.DTO
             public decimal JewelryPrice { get; set; }
             public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
+            public GemstoneReadDto Gemstone { get; set; }
         }
 
         public class JewelryUpdateDto
@@ -40,6 +43,7 @@ namespace src.DTO
             public decimal JewelryPrice { get; set; }
             public List<string> JewelryImage { get; set; }
             public string Description { get; set; }
+            public Guid GemstoneId { get; set; }
         }
     }
 }

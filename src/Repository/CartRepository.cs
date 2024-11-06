@@ -39,8 +39,6 @@ namespace src.Repository
                 .Include(o => o.Orders)
                 .ThenInclude(op => op.OrderProducts)
                 .ThenInclude(op => op.Jewelry)
-                .Include(o => o.Orders)
-                .ThenInclude(op => op.OrderProducts)
                 .ThenInclude(op => op.Gemstone)
                 .ToListAsync();
         }
@@ -57,8 +55,6 @@ namespace src.Repository
                 .Include(o => o.Orders)
                 .ThenInclude(op => op.OrderProducts)
                 .ThenInclude(op => op.Jewelry)
-                .Include(o => o.Orders)
-                .ThenInclude(op => op.OrderProducts)
                 .ThenInclude(op => op.Gemstone)
                 .ToListAsync();
         }

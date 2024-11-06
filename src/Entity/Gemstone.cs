@@ -13,7 +13,7 @@ namespace src.Entity
         public Guid GemstoneId { get; set; }
         public string GemstoneType { get; set; }
         public string GemstoneColor { get; set; }
-        public string CarvingName { get; set; }
+        public string GemstoneName { get; set; }
         public decimal Weight { get; set; }
         // public string GemstoneImage { get; set; }
         public List<string> GemstoneImages { get; set; } = new List<string>();

@@ -13,7 +13,6 @@ namespace src.DTO
         public class OrderGemstoneCreateDto
         {
             public Guid JewelryId { get; set; }
-            public Guid GemstoneId { get; set; }
             public int Quantity { get; set; }
         }
 
@@ -22,7 +21,6 @@ namespace src.DTO
             public Guid OrderProductId { get; set; }
             public decimal FinalPrice { get; set; }
             public JewelryReadDto Jewelry { get; set; }
-            public GemstoneReadDto Gemstone { get; set; }
         }
 
         public class OrderGemstoneUpdateDto

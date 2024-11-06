@@ -25,7 +25,7 @@ namespace src.DTO
             public string GemstoneType { get; set; }
             public string GemstoneColor { get; set; }
             public List<string> GemstoneImages { get; set; }
-            public string CarvingName { get; set; }
+            public string GemstoneName { get; set; }
             public decimal Weight { get; set; }
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
@@ -40,7 +40,7 @@ namespace src.DTO
             public Guid GemstoneId { get; set; }
             public string GemstoneType { get; set; }
             public string GemstoneColor { get; set; }
-            public string CarvingName { get; set; }
+            public string GemstoneName { get; set; }
             public decimal Weight { get; set; }
             public List<string> GemstoneImages { get; set; }
             public string GemstoneClarity { get; set; }
@@ -54,7 +54,7 @@ namespace src.DTO
             public string GemstoneType { get; set; }
             public string GemstoneColor { get; set; }
             public List<string> GemstoneImages { get; set; }
-            public string CarvingName { get; set; }
+            public string GemstoneName { get; set; }
             public decimal Weight { get; set; }
             public string GemstoneClarity { get; set; }
             public decimal GemstonePrice { get; set; }
