@@ -67,7 +67,7 @@ namespace src.Controllers
 
         [HttpGet("{userid}")]
         [Authorize]
-        public async Task<ActionResult<OrderReadDto>> GetOrder(Guid userId)
+        public async Task<ActionResult<OrderReadDto>> GetOrder([FromRoute]Guid userId)
         {
             var order = await _orderService.GetByUserIdAsync(userId);
             if (order == null)

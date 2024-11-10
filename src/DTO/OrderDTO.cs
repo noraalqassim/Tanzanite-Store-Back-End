@@ -20,7 +20,7 @@ namespace src.DTO
         {
             public Guid OrderId { get; set; }
             public Guid UserId { get; set; }
-            public DateTime CreatedAt { get; set; }
+            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
             public Guid AddressId { get; set; }
             public List<OrderGemstoneReadDto> OrderProducts { get; set; }
 
