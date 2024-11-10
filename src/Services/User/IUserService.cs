@@ -10,6 +10,7 @@ namespace src.Services.User
     {
         Task<UserReadDto> CreateOneAsync(UserCreateDto createDto);
         Task<UserReadDto?> CreateAdminAsync(UserCreateDto createDto);
+        Task<bool> DeleteOneASync(Guid id);
         Task<List<UserReadDto>> GetAllAsync();
         Task<UserReadDto> GetByIdAsync(Guid userId);
         Task<bool> DeleteOneAsync(Guid userId);

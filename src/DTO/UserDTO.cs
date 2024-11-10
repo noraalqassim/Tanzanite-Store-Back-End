@@ -95,5 +95,6 @@ namespace src.DTO
             )]
             public string Password { get; set; }
         }
+
     }
 }

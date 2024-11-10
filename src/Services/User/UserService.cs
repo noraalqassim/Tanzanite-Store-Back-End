@@ -80,6 +80,16 @@ namespace src.Services.User
             }
         }
 
+        public async Task<bool> DeleteOneASync(Guid id)
+        {
+            var foundUser = await _userRepo.GetByIdAsync(id);
+            if (foundUser is not null)
+            {
+                return await _userRepo.DeleteOnAsync(foundUser);
+            }
+            return false;
+        }
+
         public async Task<string> LogInAsync(UserLoginDto createDto)
         {
             var foundByEmail = await _userRepo.FindByEmailAsync(createDto.Email);

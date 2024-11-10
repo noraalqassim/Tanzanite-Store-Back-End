@@ -6,7 +6,7 @@ namespace src.Utils
         public int Offset { get; set; } = 0;
         public string? Search { get; set; } = null;
         public decimal? MinPrice { get; set; } = 0;
-        public decimal? MaxPrice { get; set; } = 10000;
+        public decimal? MaxPrice { get; set; } = null;
 
     }
 }

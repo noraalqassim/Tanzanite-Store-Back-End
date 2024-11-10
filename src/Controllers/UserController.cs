@@ -24,7 +24,7 @@ namespace src.Controllers
             _userService = userService;
             //  _userService = new UserService{};
         }
-        
+
 
         [HttpPost("Register")]
         public async Task<ActionResult<UserCreateDto>> CreateOne([FromBody] UserCreateDto createDto)
@@ -57,7 +57,7 @@ namespace src.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<UserReadDto>>> GetAllAsync()
         {
             var users = await _userService.GetAllAsync();
@@ -67,6 +67,14 @@ namespace src.Controllers
                 return NotFound("No users found.");
             }
             return Ok(users);
+        }
+
+        [HttpDelete("{UserId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<bool>> DeleteOneAsync([FromRoute] Guid UserId)
+        {
+            var isDeleted = await _userService.DeleteOneASync(UserId);
+            return Ok(isDeleted);
         }
 
         [HttpGet("Profile")]
@@ -88,7 +96,7 @@ namespace src.Controllers
 
         [Authorize]
         [HttpPatch("UpdateProfile/{userId}")]
-        public async Task<ActionResult<UserProfileDto>> UpdateProfileAsync([FromRoute] Guid userId,UserUpdateDto updateDto)
+        public async Task<ActionResult<UserProfileDto>> UpdateProfileAsync([FromRoute] Guid userId, UserUpdateDto updateDto)
         {
             var updatedUserDto = await _userService.UpdateOneAsync(userId, updateDto);
             return Ok(updatedUserDto);

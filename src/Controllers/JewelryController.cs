@@ -58,7 +58,7 @@ namespace src.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPut("{JewelryId}")]
+        [HttpPatch("{JewelryId}")]
         public async Task<ActionResult<JewelryReadDto>> UpdateOne(
             Guid JewelryId,
             JewelryUpdateDto updateDto
