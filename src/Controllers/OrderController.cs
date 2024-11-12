@@ -54,6 +54,7 @@ namespace src.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<OrderReadDto>>> GetAllOrders()
         {
             var orders = await _orderService.GetAllAsync();
@@ -67,7 +68,7 @@ namespace src.Controllers
 
         [HttpGet("{userid}")]
         [Authorize]
-        public async Task<ActionResult<OrderReadDto>> GetOrder([FromRoute]Guid userId)
+        public async Task<ActionResult<OrderReadDto>> GetOrder([FromRoute] Guid userId)
         {
             var order = await _orderService.GetByUserIdAsync(userId);
             if (order == null)
@@ -76,27 +77,18 @@ namespace src.Controllers
             }
             return Ok(order);
         }
-        // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 Under construction 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-        // [HttpPut("{OrderId}")]
-        // public async Task<IActionResult> UpdateOrder(Guid OrderId, OrderUpdateDto orderUpdateDto)
-        // {
-        //     var updated = await _orderService.UpdateOnAsync(OrderId, orderUpdateDto);
-        //     if (!updated)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return NoContent();
-        // }
 
-        // [HttpDelete("{OrderId}")]
-        // public async Task<IActionResult> DeleteOrder(Guid OrderId)
-        // {
-        //     var deleted = await _orderService.DeleteOneAsync(OrderId);
-        //     if (!deleted)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return NoContent();
-        // }
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{OrderId}")]
+        public async Task<IActionResult> UpdateOrder(Guid OrderId, OrderUpdateDto orderUpdateDto)
+        {
+            var updated = await _orderService.UpdateOnAsync(OrderId, orderUpdateDto);
+            if (!updated)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
     }
 }

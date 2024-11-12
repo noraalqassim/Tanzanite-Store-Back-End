@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace src.Entity
 {
@@ -37,5 +38,14 @@ namespace src.Entity
                 return totalOrderPrice;
             }
         }
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum OrderStatus
+    {
+        Pending,
+        Shipped,
+        Delivered
     }
 }

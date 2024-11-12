@@ -30,12 +30,12 @@ namespace src.Repository
 
         public async Task<List<Review>> GetAllAsync()
         {
-            return await _review.ToListAsync(); 
+            return await _review.Include(u => u.User).ToListAsync(); 
         }
 
         public async Task<Review?> GetByIdAsync(Guid id)
         {
-            return await _review.FindAsync(id); 
+            return await _review.Include(u => u.User).FirstOrDefaultAsync(r => r.ReviewId == id); 
         }
 
         public async Task<bool> DeleteOneAsync(Review review)

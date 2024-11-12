@@ -6,6 +6,7 @@ using AutoMapper;
 using src.DTO;
 using src.Entity; // Import the src.Entity namespace
 using src.Repository;
+using src.Utils;
 using static src.DTO.OrderDTO;
 
 namespace src.Services.Order
@@ -21,8 +22,6 @@ namespace src.Services.Order
             _mapper = mapper;
         }
 
-        // FinalPrice =GemstonePrice+JewelryPrice;
-
 
         public async Task<OrderReadDto> CreateOnAsync(Guid UserId, OrderCreateDto createDto, Guid addressId)
         {
@@ -36,8 +35,6 @@ namespace src.Services.Order
 
             return _mapper.Map<Entity.Order, OrderReadDto>(order);
         }
-
-
 
         public async Task<List<OrderReadDto>> GetAllAsync()
         {
@@ -53,27 +50,28 @@ namespace src.Services.Order
             return _mapper.Map<List<Entity.Order>, List<OrderReadDto>>(ordersByUserId);
         }
 
-        // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 Under construction 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
+        public async Task<bool> DeleteOneAsync(Guid orderId)
+        {
+            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
+
+            bool isDeleted = await _orderRepo.DeleteOnAsync(foundOrder);
+            return isDeleted;
+        }
+
+        public async Task<bool> UpdateOnAsync(Guid orderId, OrderUpdateDto updateDto)
+        {
+            var foundOrder = await _orderRepo.GetByIdAsync(orderId);
 
 
-        // public async Task<bool> UpdateOnAsync(Guid orderId, OrderUpdateDto updateDto)
-        // {
-        //     var foundOrder = await _orderRepo.GetByIdAsync(orderId);
+            if (foundOrder == null)
+            {
+                throw CustomException.NotFound($"Order with ID {orderId} not found for update");
+            }
 
-        //     if (foundOrder == null)
-        //     {
-        //         return false;
-        //     }
-        //     _mapper.Map(updateDto, foundOrder);
-        //     return await _orderRepo.UpdateOnAsync(foundOrder);
-        // }
+            _mapper.Map(updateDto, foundOrder);
 
-        // public async Task<bool> DeleteOneAsync(Guid orderId)
-        // {
-        //     var foundOrder = await _orderRepo.GetByIdAsync(orderId);
-
-        //     bool isDeleted = await _orderRepo.DeleteOnAsync(foundOrder);
-        //     return isDeleted;
-        // }
+            bool isUpdated = await _orderRepo.UpdateOnAsync(foundOrder);
+            return isUpdated;
+        }
     }
 }

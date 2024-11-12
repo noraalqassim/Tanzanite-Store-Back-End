@@ -29,7 +29,7 @@ namespace src.Repository
 
         public async Task<List<Jewelry>> GetAllAsync()
         {
-            var jewelry =  await _jewelry.Include(j => j.Gemstone).ThenInclude(g => g.Category).ToListAsync();
+            var jewelry = await _jewelry.Include(j => j.Gemstone).ThenInclude(g => g.Category).ToListAsync();
 
             return jewelry;
         }
@@ -73,6 +73,16 @@ namespace src.Repository
             {
                 jewelries = jewelries
                     .Where(p => p.JewelryName.Contains(paginationOptions.Search, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            //Type
+            if (!string.IsNullOrEmpty(paginationOptions.Type))
+            {
+                jewelries = jewelries
+                    .Where(p => !string.IsNullOrEmpty(p.JewelryType) &&
+                                p.JewelryType.Length > 0 &&
+                                char.ToUpper(p.JewelryType[0]) == char.ToUpper(paginationOptions.Type[0]))
                     .ToList();
             }
 

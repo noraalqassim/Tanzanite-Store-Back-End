@@ -11,7 +11,7 @@ namespace src.Entity
 
         [Key] 
         public Guid ReviewId { get; set; }
-        public DateTime ReviewDate { get; set; }
+        public DateTime ReviewDate { get; set; } = DateTime.UtcNow;
         public int ReviewRating { get; set; }
         public string ReviewComment { get; set; }
 

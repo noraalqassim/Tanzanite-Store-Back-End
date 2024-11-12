@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using src.Entity;
 using static src.DTO.OrderGemstoneDTO;
 using static src.DTO.PaymentDTO;
 using static src.DTO.ReviewDTO;
@@ -22,6 +23,7 @@ namespace src.DTO
             public Guid UserId { get; set; }
             public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
             public Guid AddressId { get; set; }
+            public OrderStatus Status { get; set; }
             public List<OrderGemstoneReadDto> OrderProducts { get; set; }
 
             public decimal OrderPrice
@@ -45,7 +47,7 @@ namespace src.DTO
 
         public class OrderUpdateDto
         {
-            public Guid AddressId { get; set; }
+            public OrderStatus Status { get; set; }
         }
     }
 }

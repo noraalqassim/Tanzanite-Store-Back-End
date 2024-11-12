@@ -27,7 +27,6 @@ namespace src.Repository
                     .ThenInclude(op => op.Jewelry)
                       .ThenInclude(op => op.Gemstone)
                 .ToListAsync();
-            // Calculate FinalPrice for each order product
             return orders;
         }
 
@@ -48,27 +47,25 @@ namespace src.Repository
 
             return newOrder;
         }
-        // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 Under construction 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-        //     public async Task<List<Order>> GetAllAsync()
-        //     {
-        //         return await _databaseContext.Orders
-        // .Include(o => o.OrderProducts) // Include OrderProducts
-        // .ToListAsync();
-        //     }
-        // //update
-        // public async Task<bool> UpdateOnAsync(Order updateOrder)
-        // {
-        //     _order.Update(updateOrder);
-        //     await _databaseContext.SaveChangesAsync();
-        //     return true;
-        // }
+        public async Task<Order?> GetByIdAsync(Guid id)
+        {
+            return await _order.FindAsync(id);
+        }
+        public async Task<bool> DeleteOnAsync(Order deleteOrder)
+        {
+            _order.Remove(deleteOrder);
+            await _databaseContext.SaveChangesAsync();
+            return true;
+        }
 
-        // //Delete
-        // public async Task<bool> DeleteOnAsync(Order deleteOrder)
-        // {
-        //     _order.Remove(deleteOrder);
-        //     await _databaseContext.SaveChangesAsync();
-        //     return true;
-        // }
+        public async Task<bool> UpdateOnAsync(Order updateOrder)
+        {
+            if (updateOrder == null)
+                return false;
+
+            _order.Update(updateOrder);
+            await _databaseContext.SaveChangesAsync();
+            return true;
+        }
     }
 }
