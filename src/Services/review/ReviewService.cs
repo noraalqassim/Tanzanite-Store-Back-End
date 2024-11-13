@@ -38,18 +38,18 @@ namespace src.Services.review
             return _mapper.Map<List<Review>, List<ReviewReadDTO>>(reviewList);
         }
 
-        public async Task<ReviewReadDTO> GetByIdAsync(Guid id)
+        public async Task<ReviewReadDTO> GetByIdAsync(Guid ReviewId)
         {
-            var foundReview = await _reviewRepo.GetByIdAsync(id);
+            var foundReview = await _reviewRepo.GetByIdAsync(ReviewId);
            
             return _mapper.Map<Review, ReviewReadDTO>(foundReview);
 
         }
 
-        public async Task<bool> DeleteOneAsync(Guid id)
+        public async Task<bool> DeleteOneAsync(Guid ReviewId)
         {
 
-            var foundReview = await _reviewRepo.GetByIdAsync(id);
+            var foundReview = await _reviewRepo.GetByIdAsync(ReviewId);
             bool isDeleted = await _reviewRepo.DeleteOneAsync(foundReview);
 
             if (isDeleted)
@@ -59,9 +59,9 @@ namespace src.Services.review
             return false;
         }
 
-        public async Task<bool> UpdateOneAsync(Guid id, ReviewUpdateDTO updateDto)
+        public async Task<bool> UpdateOneAsync(Guid ReviewId, ReviewUpdateDTO updateDto)
         {
-            var foundReview = await _reviewRepo.GetByIdAsync(id);
+            var foundReview = await _reviewRepo.GetByIdAsync(ReviewId);
 
             if (foundReview == null)
             {

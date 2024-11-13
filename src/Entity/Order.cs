@@ -15,9 +15,6 @@ namespace src.Entity
 
         public List<OrderGemstone> OrderProducts { get; set; }
 
-        public Guid? CartId { get; set; }
-        public Cart? Cart { get; set; } = null!;
-
         public Guid? PaymentId { get; set; }
         public Payment Payment { get; set; } = null!;
 

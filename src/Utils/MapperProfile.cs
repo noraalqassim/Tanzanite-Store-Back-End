@@ -6,7 +6,6 @@ using AutoMapper;
 using src.DTO;
 using src.Entity;
 using static src.DTO.AddressDTO;
-using static src.DTO.CartDTO;
 using static src.DTO.CategoryDTO;
 using static src.DTO.GemstonesDTO;
 using static src.DTO.JewelryDTO;
@@ -33,14 +32,6 @@ namespace src.Utils
             CreateMap<Review, ReviewReadDTO>();
             CreateMap<ReviewCreateDTO, Review>();
             CreateMap<ReviewUpdateDTO, Review>()
-                .ForAllMembers(opts =>
-                    opts.Condition((src, dest, srcProperty) => srcProperty != null)
-                );
-
-
-            CreateMap<Cart, CartReadDTO>();
-            CreateMap<CartCreateDTO, Cart>();
-            CreateMap<CartUpdateDTO, Cart>()
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcProperty) => srcProperty != null)
                 );
@@ -94,5 +85,5 @@ namespace src.Utils
             CreateMap<OrderGemstoneUpdateDto, OrderGemstone>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
-    } // end class
-} // end namespace
+    } 
+} 

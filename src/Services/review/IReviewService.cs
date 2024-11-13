@@ -10,9 +10,9 @@ namespace src.Services.review
     {
         Task<ReviewReadDTO> CreateOneAsync(ReviewCreateDTO createDto);
         Task<List<ReviewReadDTO>> GetAllAsync();
-        Task<ReviewReadDTO> GetByIdAsync(Guid id);
-        Task<bool> DeleteOneAsync(Guid id);
-        Task<bool> UpdateOneAsync(Guid id, ReviewUpdateDTO updateDto);
+        Task<ReviewReadDTO> GetByIdAsync(Guid ReviewId);
+        Task<bool> DeleteOneAsync(Guid ReviewId);
+        Task<bool> UpdateOneAsync(Guid ReviewId, ReviewUpdateDTO updateDto);
 
     }
 }

@@ -12,7 +12,7 @@ namespace src.DTO
   
         public class ReviewCreateDTO
         {
-            public int Rating { get; set; }
+            public int ReviewRating { get; set; }
             public string ReviewComment { get; set; }
             public Guid UserId { get; set; } 
             public Guid OrderId { get; set; }
@@ -20,7 +20,7 @@ namespace src.DTO
 
         public class ReviewReadDTO
         {
-            public Guid ReivewId { get; set; }
+            public Guid ReviewId  { get; set; }
             public DateTime ReviewDate { get; set; }
             public int ReviewRating { get; set; }
             public string ReviewComment { get; set; }

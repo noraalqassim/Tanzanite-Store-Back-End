@@ -21,7 +21,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")] 
+        [Authorize] 
         public async Task<ActionResult<ReviewReadDTO>> CreateOne(ReviewCreateDTO createDto)
         {
             var reviewCreated = await _reviewService.CreateOneAsync(createDto);
@@ -29,11 +29,11 @@ namespace src.Controllers
         }
 
         // Update a review
-        [HttpPut("{id}")]
-        [Authorize(Roles = "Customer")] 
-        public async Task<ActionResult<ReviewReadDTO>> UpdateOne(Guid id, ReviewUpdateDTO updateDto)
+        [HttpPut("{ReviewId}")]
+        [Authorize] 
+        public async Task<ActionResult<ReviewReadDTO>> UpdateOne(Guid ReviewId, ReviewUpdateDTO updateDto)
         {
-            var reviewUpdated = await _reviewService.UpdateOneAsync(id, updateDto);
+            var reviewUpdated = await _reviewService.UpdateOneAsync(ReviewId, updateDto);
             if (reviewUpdated == null)
             {
                 return NotFound(); 
@@ -48,10 +48,10 @@ namespace src.Controllers
             return Ok(reviewList); 
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ReviewReadDTO>> GetById(Guid id)
+        [HttpGet("{ReviewId}")]
+        public async Task<ActionResult<ReviewReadDTO>> GetById(Guid ReviewId)
         {
-            var review = await _reviewService.GetByIdAsync(id);
+            var review = await _reviewService.GetByIdAsync(ReviewId);
             if (review == null)
             {
                 return NotFound(); 
@@ -60,7 +60,7 @@ namespace src.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Customer")] 
+        [Authorize] 
         public async Task<ActionResult> DeleteOne(Guid id)
         {
             var reviewDeleted = await _reviewService.DeleteOneAsync(id);

@@ -17,7 +17,6 @@ namespace src.Database
         public DbSet<OrderGemstone> OrderGemstones { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Review> Review { get; set; }
-        public DbSet<Cart> Cart { get; set; }
         public DbSet<Gemstones> Gemstones { get; set; }
         public DbSet<Jewelry> Jewelry { get; set; }
         public DbSet<Payment> Payment { get; set; }
@@ -35,13 +34,6 @@ namespace src.Database
                 .WithOne(o => o.Payment)
                 .HasForeignKey<Payment>(p => p.OrderId);
         }
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // {
-        //     optionsBuilder.ConfigureWarnings(warnings =>
-        //     {
-        //         warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning);
-        //     });
-        // }
         
     }
 }
