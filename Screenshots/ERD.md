@@ -4,10 +4,6 @@
 
 Here we presents the Entity Relationship Diagram (ERD) for the Gemstone Store website, Showing the Tables and their relationships.
 
-## Entity Relationship Diagram (ERD)
-
-![Gemstone](\sda-3-online-Backend_Teamwork\Screenshots\Gemstone Store ERD.png)
-
 ## Tables and Their Attributes
 
 ### 1. User Table
