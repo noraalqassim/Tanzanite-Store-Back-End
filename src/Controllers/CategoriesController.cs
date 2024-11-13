@@ -54,7 +54,7 @@ namespace src.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoryReadDto>> GetById(Guid id)
         {
-            var category = await _categoryService.GetByIdAsync(id);
+            var category = await _categoryService.GetById(id);
             if (category == null)
             {
                 return NotFound(); 
@@ -62,7 +62,7 @@ namespace src.Controllers
             return Ok(category);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{CategoryId}")]
         [Authorize(Roles = "Admin")] //--> For admins
         public async Task<ActionResult> DeleteOne(Guid CategoryId)
         {

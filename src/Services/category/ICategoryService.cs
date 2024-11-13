@@ -11,9 +11,9 @@ namespace src.Services.category
     {
         Task<CategoryReadDto> CreateOneAsync(CategoryCreateDto createDto);
         Task<List<CategoryReadDto>> GetAllAsync();
-        Task<CategoryReadDto> GetByIdAsync(Guid id);
-        Task<bool> DeleteOneAsync(Guid id);
-        Task<bool> UpdateOneAsync(Guid id, CategoryUpdateDto updateDto);
+        Task<CategoryReadDto> GetById(Guid id);
+        Task<bool> DeleteOneAsync(Guid CategoryId);
+        Task<bool> UpdateOneAsync(Guid CategoryId, CategoryUpdateDto updateDto);
         Task<List<CategoryReadDto>> GetAllByFilterationAsync(CategoryFilterationOptions categoryFilter, PaginationOptions paginationOptions);
 
     }

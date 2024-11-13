@@ -90,14 +90,14 @@ namespace src.Repository
             if (paginationOptions.MinPrice.HasValue && paginationOptions.MinPrice > 0)
             {
                 jewelries = jewelries
-                    .Where(p => p.JewelryPrice >= paginationOptions.MinPrice)
+                    .Where(p => p.FinalProductPrice >= paginationOptions.MinPrice)
                     .ToList();
             }
             // max price
             if (paginationOptions.MinPrice.HasValue && paginationOptions.MaxPrice < decimal.MaxValue)
             {
                 jewelries = jewelries
-                    .Where(p => p.JewelryPrice <= paginationOptions.MaxPrice)
+                    .Where(p => p.FinalProductPrice <= paginationOptions.MaxPrice)
                     .ToList();
             }
 

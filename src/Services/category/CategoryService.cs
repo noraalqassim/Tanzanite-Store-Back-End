@@ -49,28 +49,32 @@ namespace src.Services.category
             return _mapper.Map<List<Category>, List<CategoryReadDto>>(categoryList);
         }
 
-        public async Task<CategoryReadDto> GetByIdAsync(Guid id)
+        public async Task<CategoryReadDto> GetById(Guid CategoryId)
         {
-            var foundCategory = await _categoryRepo.GetByIdAsync(id);
+            var foundCategory = await _categoryRepo.GetByIdAsync(CategoryId);
 
             return _mapper.Map<Category, CategoryReadDto>(foundCategory);
         }
 
-        public async Task<bool> DeleteOneAsync(Guid id)
+        public async Task<bool> DeleteOneAsync(Guid CategoryId)
         {
-            var foundCategory = await _categoryRepo.GetByIdAsync(id);
+            var foundCategory = await _categoryRepo.GetByIdAsync(CategoryId);
+
+            if (foundCategory == null)
+            {
+                throw CustomException.NotFound(
+                    $"Category with ID {CategoryId} not found for deletion"
+                );
+            }
+
             bool isDeleted = await _categoryRepo.DeleteOneAsync(foundCategory);
 
-            if (isDeleted)
-            {
-                return true;
-            }
-            return false;
+            return isDeleted;
         }
 
-        public async Task<bool> UpdateOneAsync(Guid id, CategoryUpdateDto updateDto)
+        public async Task<bool> UpdateOneAsync(Guid CategoryId, CategoryUpdateDto updateDto)
         {
-            var foundCategory = await _categoryRepo.GetByIdAsync(id);
+            var foundCategory = await _categoryRepo.GetByIdAsync(CategoryId);
 
             if (foundCategory == null)
             {

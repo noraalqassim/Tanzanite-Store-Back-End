@@ -22,18 +22,18 @@ namespace src.Repository
 
         public async Task<Category> CreateOneAsync(Category newCategory)
         {
-            await _category.AddAsync(newCategory); 
+            await _category.AddAsync(newCategory);
             await _databaseContext.SaveChangesAsync();
-            return newCategory; 
+            return newCategory;
         }
         public async Task<List<Category>> GetAllAsync()
         {
-            return await _category.ToListAsync(); 
+            return await _category.ToListAsync();
         }
 
-        public async Task<Category?> GetByIdAsync(Guid id)
+        public async Task<Category?> GetByIdAsync(Guid CategoryId)
         {
-            return await _category.FindAsync(id); 
+            return await _category.FindAsync(CategoryId);
         }
 
         public async Task<Category?> GetByNameAsync(string name)
@@ -45,19 +45,23 @@ namespace src.Repository
 
         public async Task<bool> DeleteOneAsync(Category category)
         {
-            _category.Remove(category); 
-            await _databaseContext.SaveChangesAsync(); 
-            return true;
-        }
+            if (category == null)
+            {
+                return false;
+            }
 
-
-        public async Task<bool> UpdateOneAsync(Category updateCategory)
-        {
-            _category.Update(updateCategory); 
+            _category.Remove(category);
             await _databaseContext.SaveChangesAsync();
             return true;
         }
-    
+
+        public async Task<bool> UpdateOneAsync(Category updateCategory)
+        {
+            _category.Update(updateCategory);
+            await _databaseContext.SaveChangesAsync();
+            return true;
+        }
+
 
         public async Task<List<src.Entity.Category>> GetAllByFilteringAsync(CategoryFilterationOptions categoryFilter, PaginationOptions paginationOptions)
         {
@@ -65,12 +69,12 @@ namespace src.Repository
 
             if (!string.IsNullOrEmpty(categoryFilter.Name))
             {
-                var filterName = categoryFilter.Name.ToLower(); 
+                var filterName = categoryFilter.Name.ToLower();
                 query = query.Where(c => c.CategoryName.ToLower() == filterName);
             }
             query = query.Skip(paginationOptions.Offset).Take(paginationOptions.Limit);
 
             return await query.ToListAsync();
         }
-    } 
-} 
+    }
+}
