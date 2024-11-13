@@ -103,10 +103,12 @@ The API will be available at: `http://localhost:5125`
 
 ### User
 
-- **POST** `/api/v1/User/SignUp` - Register a new user.
+- **POST** `/api/v1/User/Register` - Register a new user with Costomer role.
+- **POST** `/api/v1/User/Admin/SingUp` - Register a new user with Admin role.
 - **POST** `/api/v1/User/LogIn` - Login and get JWT token.
 - **GET** `/api/v1/User/Profile` - View Profile Details.
 - **PUT** `/api/v1/User/UpdateProfile` - Update Profile Information.
+- **PATCH** `/api/v1/User/UpdateProfile/{userID}` - Update Specific Profile Information.
 - **PUT** `/api/v1/User/UpdatePassword` - Update the Password.
 - **GET** `/api/v1/User` - View All Users.
 
@@ -130,18 +132,18 @@ The API will be available at: `http://localhost:5125`
 ### Gemstone
 
 - **POST** `/api/v1/Gemstone` - Create a new Gemstone.
-- **GET** `/api/v1/Gemstone` - View all Gemstones.
+- **GET** `/api/v1/Gemstone/all` - View all Gemstones.
+- **GET** `/api/v1/Gemstone` - View all Gemstones with Pagination, search by name, filter price .
 - **GET** `/api/v1/Gemstone/{GemstoneId}` - View Gemstone by Id.
 - **PUT** `/api/v1/Gemstone/{GemstoneId}` - Update Gemstone by Id.
 - **DELETE** `/api/v1/Gemstone/{GemstoneId}` - Delete Gemstone by Id.
-- **GET** `/api/v1/Gemstone/Search` - Searsh with pagination for Gemstone.
 
 ### Jewelry
 
 - **POST** `/api/v1/Jewelry` - Create a new Jewelry.
-- **GET** `/api/v1/Jewelry` - View all Jewelry.
+- **GET** `/api/v1/Jewelry` - View all Jewelry  with Pagination, search by name and type, filter price.
 - **GET** `/api/v1/Jewelry/{JewelryId}` - View Jewelry by Id.
-- **PUT** `/api/v1/Jewelry/{JewelryId}` - Update Jewelry by Id.
+- **PATCH** `/api/v1/Jewelry/{JewelryId}` - Update Jewelry by Id.
 - **DELETE** `/api/v1/Jewelry/{JewelryId}` - Delete Jewelry by Id.
 - **GET** `/api/v1/Jewelry/Search` - Searsh with pagination for Jewelry.
 - **GET** `/api/v1/Jewelry/Filter` - Filter for Jewelry by MinPrice/MaxPrice.
@@ -150,13 +152,8 @@ The API will be available at: `http://localhost:5125`
 
 - **POST** `/api/v1/Order` - Create a new Order.
 - **GET** `/api/v1/Order` - View all Orders.
-
-### Carts
-
-- **POST** `/api/v1/Carts` - Create a new Cart.
-- **GET** `/api/v1/Carts` - View Carts.
-- **GET** `/api/v1/Carts/{id}` - View Cart by Id.
-- **PUT** `/api/v1/Carts/{id}` - Update Cart Details.
+- **GET** `/api/v1/Order/{userId}` - View all Orders for user.
+- **PUT** `/api/v1/Order/{orderId}` - Ubdate Order by Id form Admin.
 
 ### Payment
 
@@ -175,13 +172,6 @@ The API will be available at: `http://localhost:5125`
 ## Deployment
 
 The application is deployed and can be accessed at: https://gemstonestore.onrender.com/
-
-## Team Members
-
-- **Lead**: Retaj (@R-1493)
-- **Team Member**: Norah Alqassim (@noraalqassim)
-- **Team Member**: Ethar Alrehaili (@etharalrehaili)
-- **Team Member**: Waad (@Waad-Raggam)
 
 ## License
 
