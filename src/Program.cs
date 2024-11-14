@@ -107,7 +107,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000") //later when i deployed FE -> added hear ("http://localhost:3000" , deployed)
+                          policy.WithOrigins("http://localhost:3000","https://tanzanite-store.onrender.com/") 
                           .AllowAnyHeader()
                             .AllowAnyMethod()
                             .SetIsOriginAllowed((host) => true)

@@ -171,7 +171,7 @@ The API will be available at: `http://localhost:5125`
 
 ## Deployment
 
-The application is deployed and can be accessed at: https://gemstonestore.onrender.com/
+The application is deployed and can be accessed at: https://tanzanite-store-back-end.onrender.com
 
 ## License
 
